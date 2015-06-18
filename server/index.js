@@ -23,6 +23,16 @@ connection.query('SELECT * FROM users', function(err, rows, fields) {
   console.log(rows[0]);
 });
 
+app.get('/', function(req, res) {
+  var body = []
+  connection.query('SELECT * FROM users', function(err, rows, fields) {
+    rows.forEach(function(el, i, arr) {
+      body.push(el);
+    });
+    res.json(body);
+  });
+});
+
 
 var server = app.listen(3000)
 
