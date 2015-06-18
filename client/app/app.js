@@ -4,6 +4,5 @@ angular.module('classroom', [
   'classroom.grades',
   'classroom.lesson',
   'classroom.services',
-  'classroom.syllabus',
-  'ui.router'
+  'classroom.syllabus'
 ]);
