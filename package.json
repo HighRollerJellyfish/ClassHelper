@@ -1,0 +1,22 @@
+{
+  "name": "Classroom",
+  "version": "0.0.1",
+  "description": "Team Product Owner: Richard Stanley Scrum Lord: Eric Ihli Product Team: Jake Lee, Devon Harvey",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HighRollerJellyfish/HighRollerJellyfish.git"
+  },
+  "author": "HighRollerJellyFish",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HighRollerJellyfish/HighRollerJellyfish/issues"
+  },
+  "homepage": "https://github.com/HighRollerJellyfish/HighRollerJellyfish",
+  "dependencies": {
+    "express": "^4.12.4"
+  }
+}
