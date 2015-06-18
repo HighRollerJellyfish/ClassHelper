@@ -1,5 +1,11 @@
 # Contributing
 
+## Dev Environment Setup (Mac)
+1. Install mysql [http://dev.mysql.com/downloads/mysql/](http://dev.mysql.com/downloads/mysql/)
+1. Fork and clone the repo
+1. npm install
+1. Create the dev database 'mysql -u <username> -p tmp/schema.sql'
+
 ## General Workflow
 
 1. Fork the repo
