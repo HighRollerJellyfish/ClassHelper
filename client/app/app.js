@@ -11,14 +11,14 @@ angular.module('classroom', [
   $stateProvider
     .state('syllabus', {
       url: '/syllabus',
-      templateUrl: '/syllabus/syllabus.html'
+      templateUrl: './syllabus/syllabus.html'
     })
     .state('grades', {
       url: '/grades',
-      templateUrl: '/grades/grades.html'
+      templateUrl: './grades/grades.html'
     })
     .state('attendance', {
       url: '/attendance',
-      templateUrl: '/attendance/attendance.html'
+      templateUrl: './attendance/attendance.html'
     })
 });
