@@ -1,24 +1,63 @@
 angular.module('classroom', [
   'classroom.attendance',
-  'classroom.auth',
+  'classroom.loginModal',
   'classroom.grades',
   'classroom.services',
   'classroom.syllabus',
-  'ui.router'
+  'ui.router',
+  'ui.bootstrap'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/syllabus');
   $stateProvider
     .state('syllabus', {
       url: '/syllabus',
-      templateUrl: './syllabus/syllabus.html'
+      templateUrl: 'app/syllabus/syllabus.html',
+      controller: 'SyllabusController',
+      data: {
+        requireLogin: false // set this to true once auth is set up
+      }
     })
     .state('grades', {
       url: '/grades',
-      templateUrl: './grades/grades.html'
+      templateUrl: 'app/grades/grades.html',
+      controller: 'GradesController',
+      data: {
+        requireLogin: false // set this to true once auth is set up
+      }
     })
     .state('attendance', {
       url: '/attendance',
-      templateUrl: './attendance/attendance.html'
+      templateUrl: 'app/attendance/attendance.html',
+      controller: 'AttendanceController',
+      data: {
+        requireLogin: false // set this to true once auth is set up
+      }
     })
+    .state('login', {
+      url: '/login',
+      templateUrl: 'app/auth/login.html',
+      controller: 'LoginModalController',
+      data: {
+        requireLogin: false
+      }
+    })
+})
+
+.run(function ($rootScope, $state, LoginModal) {
+
+  $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+    var requireLogin = toState.data.requireLogin;
+    if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
+      event.preventDefault();
+      LoginModal()
+      .then(function () {
+        return $state.go(toState.name, toParams);
+      })
+      .catch(function () {
+        return $state.go('login');
+      }); 
+    }
+  });
+
 });
