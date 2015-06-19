@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/HighRollerJellyfish/HighRollerJellyfish",
   "dependencies": {
+    "body-parser": "^1.13.1",
     "express": "^4.12.4",
     "mysql": "^2.7.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.6.0"
   }
 }
