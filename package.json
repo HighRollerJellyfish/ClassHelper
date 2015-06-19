@@ -19,7 +19,9 @@
   "homepage": "https://github.com/HighRollerJellyfish/HighRollerJellyfish",
   "dependencies": {
     "body-parser": "^1.13.1",
+    "bookshelf": "^0.8.1",
     "express": "^4.12.4",
+    "knex": "^0.8.6",
     "mysql": "^2.7.0"
   },
   "devDependencies": {

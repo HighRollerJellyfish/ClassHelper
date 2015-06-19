@@ -32,6 +32,15 @@
    new commit.
 1. Once the pull request has been reviewed, it will be merged by another member of the team. Do not merge your own commits.
 
+## Submitting Issues
+
+Issues should be submitted with a detailed description with:
+
+  - Whether the issue is a feature request, bug, refactor, documentation
+  - The "story point" value. The estimated difficulty using the 1, 2, 3, 5, 8, 13, 21... scale
+  - The specific requirements that must be met before the issue can be considered "done"
+  - If there are any dependencies on other issues that must be met before this issue can be resolved, list those dependencies.
+
 ## Detailed Workflow
 
 ### Fork the repo
