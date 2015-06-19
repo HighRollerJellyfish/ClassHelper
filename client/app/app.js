@@ -1,6 +1,6 @@
 angular.module('classroom', [
   'classroom.attendance',
-  'classroom.auth',
+  'classroom.loginModal',
   'classroom.grades',
   'classroom.services',
   'classroom.syllabus',
@@ -8,7 +8,7 @@ angular.module('classroom', [
   'ui.bootstrap'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/syllabus');
+  // $urlRouterProvider.otherwise('/syllabus');
   $stateProvider
     .state('syllabus', {
       url: '/syllabus',
@@ -41,16 +41,6 @@ angular.module('classroom', [
 })
 
 .run(function ($rootScope, $state, LoginModal) {
-  console.log('running');
-
-
-LoginModal()
-      .then(function () {
-        return $state.go(toState.name, toParams);
-      })
-      .catch(function () {
-        return $state.go('login');
-      }); 
 
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     var requireLogin = toState.data.requireLogin;

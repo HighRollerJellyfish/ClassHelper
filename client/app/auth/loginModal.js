@@ -3,12 +3,13 @@
 
 angular.module('classroom.loginModal', [])
 .controller('LoginModalController', ['$scope', 'Auth', function ($scope, Auth) {
-  this.cancel = $scope.$dismiss;
+  $scope.cancel = function(){console.log('cancel')};
 
-  this.submit = function (username, password) {
+  $scope.submit = function (username, password) {
+    console.log('submit');
     Auth.login(username, password)
       .then(function (user) {
         $scope.$close(user);
       });
   };
-})];
+}]);
