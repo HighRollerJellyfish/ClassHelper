@@ -8,32 +8,32 @@ angular.module('classroom', [
   'ui.bootstrap'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
-  // $urlRouterProvider.otherwise('/syllabus');
+  $urlRouterProvider.otherwise('/syllabus');
   $stateProvider
     .state('syllabus', {
       url: '/syllabus',
-      templateUrl: './syllabus/syllabus.html',
+      templateUrl: 'app/syllabus/syllabus.html',
       data: {
-        requireLogin: true
+        requireLogin: false // set this to true once auth is set up
       }
     })
     .state('grades', {
       url: '/grades',
-      templateUrl: './grades/grades.html',
+      templateUrl: 'app/grades/grades.html',
       data: {
-        requireLogin: true
+        requireLogin: false // set this to true once auth is set up
       }
     })
     .state('attendance', {
       url: '/attendance',
-      templateUrl: './attendance/attendance.html',
+      templateUrl: 'app/attendance/attendance.html',
       data: {
-        requireLogin: true
+        requireLogin: false // set this to true once auth is set up
       }
     })
     .state('login', {
       url: '/login',
-      templateUrl: './auth/login.html',
+      templateUrl: 'app/auth/login.html',
       data: {
         requireLogin: false
       }
