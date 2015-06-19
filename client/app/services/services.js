@@ -7,9 +7,9 @@ angular.module('classroom.services', [])
 
   return function() {
     var instance = $modal.open({
-      templateUrl: 'auth/loginModal.html',
+      templateUrl: './index.html',
       controller: 'LoginModalController',
-      controllerAs: 'LoginModalCtrl'
+      controllerAs: 'LoginModalController'
     })
 
     return instance.result.then(assignCurrentUser);
@@ -18,7 +18,17 @@ angular.module('classroom.services', [])
 
 .factory('Auth', function () {
   function login (username, password) {
-    console.log('Login called in Auth factory');
+    return $http({
+      method: 'POST',
+      url: '/users/login',
+      data: {
+        username: username,
+        password: password
+      }
+    })
+    .then(function (res) {
+      return res.data.token;
+    });
   }
 
   return {

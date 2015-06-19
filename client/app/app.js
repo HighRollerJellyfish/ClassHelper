@@ -8,7 +8,7 @@ angular.module('classroom', [
   'ui.bootstrap'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
-  // $urlRouterProvider.otherwise('/syllabus');
+  $urlRouterProvider.otherwise('/syllabus');
   $stateProvider
     .state('syllabus', {
       url: '/syllabus',
@@ -41,15 +41,23 @@ angular.module('classroom', [
 })
 
 .run(function ($rootScope, $state, LoginModal) {
+  console.log('running');
+
+
+LoginModal()
+      .then(function () {
+        return $state.go(toState.name, toParams);
+      })
+      .catch(function () {
+        return $state.go('login');
+      }); 
 
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     var requireLogin = toState.data.requireLogin;
-
     if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
       event.preventDefault();
       LoginModal()
       .then(function () {
-        console.log('login success inside app.js on stateChangeStart');
         return $state.go(toState.name, toParams);
       })
       .catch(function () {
