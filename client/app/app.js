@@ -13,6 +13,7 @@ angular.module('classroom', [
     .state('syllabus', {
       url: '/syllabus',
       templateUrl: 'app/syllabus/syllabus.html',
+      controller: 'SyllabusController',
       data: {
         requireLogin: false // set this to true once auth is set up
       }
@@ -20,6 +21,7 @@ angular.module('classroom', [
     .state('grades', {
       url: '/grades',
       templateUrl: 'app/grades/grades.html',
+      controller: 'GradesController',
       data: {
         requireLogin: false // set this to true once auth is set up
       }
@@ -27,6 +29,7 @@ angular.module('classroom', [
     .state('attendance', {
       url: '/attendance',
       templateUrl: 'app/attendance/attendance.html',
+      controller: 'AttendanceController',
       data: {
         requireLogin: false // set this to true once auth is set up
       }
@@ -34,6 +37,7 @@ angular.module('classroom', [
     .state('login', {
       url: '/login',
       templateUrl: 'app/auth/login.html',
+      controller: 'LoginModalController',
       data: {
         requireLogin: false
       }
