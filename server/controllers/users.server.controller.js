@@ -1,8 +1,10 @@
+var User = require('../models/user.server.model');
 exports.list = function(req, res, next) {
-  res.json({
-    id: 1,
-    name: 'Batman',
-    email: 'batman@gotham.gov',
-    password: 'd4rkn1gh7'
+  var data = [];
+  new User().fetchAll().then(function(collection) {
+    collection.forEach(function(el) {
+      data.push(el);
+    });
+    res.send(JSON.stringify(data));
   });
 };

@@ -9,12 +9,4 @@ var knex = require('knex')({
   }
 });
 
-var bookshelf = require('bookshelf')(knex);
-
-var User = bookshelf.Model.extend({
-  tableName: 'users'
-});
-
-var Lesson = bookshelf.Model.extend({
-  tableName: 'lessons'
-});
+var bookshelf = module.exports = require('bookshelf')(knex);
