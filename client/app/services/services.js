@@ -38,9 +38,14 @@ angular.module('classroom.services', [])
     .then(function (res) {
       return res.data.token;
     });
-  }
+  };
+
+  function logout (username) {
+
+  };
 
   return {
-    login: login
+    login: login,
+    logout: logout
   };
 });
