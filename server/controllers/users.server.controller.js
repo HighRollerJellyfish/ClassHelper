@@ -5,6 +5,6 @@ exports.list = function(req, res, next) {
     collection.forEach(function(el) {
       data.push(el);
     });
-    res.send(JSON.stringify(data));
+    res.json(data);
   });
 };
