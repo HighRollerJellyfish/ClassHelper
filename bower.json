@@ -18,5 +18,8 @@
     "angular": "~1.4.1",
     "angular-ui-router": "~0.2.15",
     "angular-bootstrap": "~0.13.0"
+  },
+  "devDependencies": {
+    "jasmine": "~2.3.4"
   }
 }

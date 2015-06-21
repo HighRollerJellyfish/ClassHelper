@@ -16,6 +16,15 @@ angular.module('classroom.services', [])
   };
 })
 
+.service('GetSyllabus', function($http) {
+  this.lessons = function() {
+    return $http({
+      url: 'http://localhost:3000/lessons',
+      method: 'GET'
+    });
+  }
+})
+
 .factory('Auth', function () {
   function login (username, password) {
     return $http({
