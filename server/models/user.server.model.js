@@ -1,4 +1,6 @@
 var bookshelf = require('../config/db');
-var User = module.exports = bookshelf.Model.extend({
+var User = bookshelf.Model.extend({
   tableName: 'users'
 });
+
+module.exports = User;
