@@ -11,4 +11,4 @@ export MYSQL_USER=MysqlUsername
 export MYSQL_HOST=localhost
 export MYSQL_PASS=MysqlPassword
 
-node server/index.js
+nodemon server/server.js
