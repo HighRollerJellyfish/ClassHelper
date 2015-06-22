@@ -1,2 +1,42 @@
-<h3>Syllabus</h3>
-{{lessons}}
+
+<div id="wrapper" class="">
+
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+          <li class="sidebar-brand">
+              <a href="#">Classroom App</a>
+          </li>
+      
+        <li ng-repeat="lesson in lessons"><a href="#">Lesson {{lesson.id}}</a></li>
+      </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div id="page-content-wrapper">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-lg-12" ng-repeat="lesson in lessons">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a href="#" ng-click="isCollapsed = !isCollapsed">
+                        Lesson {{lesson.id}}
+                      </a>
+                    </h4>
+                    <h5>
+                      <p>
+                        Description: {{lesson.description}}
+                      </p>
+                    </h5>
+                  <div ng-show="isCollapsed">
+                    <div class="panel-body">
+                      {{lesson.content}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
