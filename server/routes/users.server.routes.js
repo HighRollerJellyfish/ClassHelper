@@ -12,4 +12,6 @@ module.exports = function(app, passport) {
     }),
     users.list
   );
+  app.post('/users/signup', users.create);
+  app.post('/users/login', users.authenticate);
 };
