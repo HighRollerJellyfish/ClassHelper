@@ -29,13 +29,12 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` VARCHAR(20) NOT NULL COMMENT '',
   `email` VARCHAR(100) NOT NULL COMMENT '',
   `password` VARCHAR(100) NOT NULL COMMENT '',
-  `role` VARCHAR(20) NOT NULL COMMENT '',
+  `role` VARCHAR(20) NOT NULL DEFAULT 'student' COMMENT '',
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
   UNIQUE INDEX `username_UNIQUE` (`username` ASC)  COMMENT '',
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC)  COMMENT '',
-  UNIQUE INDEX `password_UNIQUE` (`password` ASC)  COMMENT '')
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC)  COMMENT '')
 ENGINE = InnoDB;
 
 
@@ -45,15 +44,15 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `lessons` ;
 
 CREATE TABLE IF NOT EXISTS `lessons` (
-  `idlessons` INT NOT NULL COMMENT '',
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `title` VARCHAR(45) NOT NULL COMMENT '',
   `description` VARCHAR(140) NOT NULL COMMENT '',
-  `content` VARCHAR(500) NOT NULL COMMENT '',
+  `content` TEXT NOT NULL COMMENT '',
   `start_date` DATETIME NOT NULL COMMENT '',
   `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
   `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '',
-  PRIMARY KEY (`idlessons`)  COMMENT '',
-  UNIQUE INDEX `idlessons_UNIQUE` (`idlessons` ASC)  COMMENT '')
+  PRIMARY KEY (`id`)  COMMENT '',
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC)  COMMENT '')
 ENGINE = InnoDB;
 
 
@@ -79,8 +78,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `classroom`;
-INSERT INTO `lessons` (`idlessons`, `title`, `description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES (1, 'Algorithms', 'Analysis of time and space complexity of algorithms', 'Lots and lots of big O notations', '2015-07-01', NULL, NULL);
-INSERT INTO `lessons` (`idlessons`, `title`, `description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES (2, 'Data Structures', 'Creation of various data structures.', 'Binary trees, hash tables, stacks, and queues oh my', '2015-07-08', NULL, NULL);
+INSERT INTO `lessons` (`id`, `title`, `description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES (1, 'Algorithms', 'Analysis of time and space complexity of algorithms', 'Lots and lots of big O notations', '2015-07-01', NULL, NULL);
+INSERT INTO `lessons` (`id`, `title`, `description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES (2, 'Data Structures', 'Creation of various data structures.', 'Binary trees, hash tables, stacks, and queues oh my', '2015-07-08', NULL, NULL);
 
 COMMIT;
 

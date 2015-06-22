@@ -12,6 +12,7 @@ exports.list = function(req, res, next) {
 
 exports.create = function(req, res, next) {
   Lesson.add(req.body, function(model) {
+    console.log(model);
     res.send(model);
   });
 };

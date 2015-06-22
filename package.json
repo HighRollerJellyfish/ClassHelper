@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "./start.sh",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests/**/*test.js"
   },
   "repository": {
     "type": "git",
@@ -22,9 +22,12 @@
     "bookshelf": "^0.8.1",
     "express": "^4.12.4",
     "knex": "^0.8.6",
-    "mysql": "^2.7.0"
+    "mysql": "^2.7.0",
+    "request": "^2.58.0"
   },
   "devDependencies": {
+    "chai": "^3.0.0",
+    "mocha": "^2.2.5",
     "morgan": "^1.6.0"
   }
 }
