@@ -43,22 +43,22 @@ angular.module('classroom', [
         requireLogin: false
       }
     })
-    // .state('landing.login', {
-    //   url: '/login',
-    //   templateUrl: 'app/auth/login.html',
-    //   controller: 'LoginModalController',
-    //   data: {
-    //     requireLogin: false
-    //   }
-    // })
-    // .state('landing.signup', {
-    //   url: '/signup',
-    //   templateUrl: 'app/auth/signup.html',
-    //   controller: 'SignUpController',
-    //   data: {
-    //     requireLogin: false
-    //   }
-    // })
+    .state('landing.login', {
+      url: '/login',
+      templateUrl: 'app/auth/login.html',
+      controller: 'LoginModalController',
+      data: {
+        requireLogin: false
+      }
+    })
+    .state('landing.signup', {
+      url: '/signup',
+      templateUrl: 'app/auth/signup.html',
+      controller: 'SignUpController',
+      data: {
+        requireLogin: false
+      }
+    })
 })
 
 .run(function ($rootScope, $state, LoginModal) {
