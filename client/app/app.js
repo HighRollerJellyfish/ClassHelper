@@ -1,6 +1,6 @@
 angular.module('classroom', [
   'classroom.attendance',
-  'classroom.loginModal',
+  'classroom.login',
   'classroom.signup',
   'classroom.grades',
   'classroom.services',
@@ -47,7 +47,7 @@ angular.module('classroom', [
     .state('landing.login', {
       url: '/login',
       templateUrl: 'app/auth/login.html',
-      controller: 'LoginModalController',
+      controller: 'LoginController',
       data: {
         requireLogin: false
       }
