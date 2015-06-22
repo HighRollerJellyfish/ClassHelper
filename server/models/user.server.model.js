@@ -6,12 +6,10 @@ var User = bookshelf.Model.extend({
 User.add = function(userData, callback) {
 
   user = new User(userData)
-    .save()
-    .then(
-    function(model) {
-      callback(model);
-    }
-  );
+  .save()
+  .then(function(model) {
+    callback(model);
+  });
 };
 
 module.exports = User;
