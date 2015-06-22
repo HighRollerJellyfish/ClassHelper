@@ -25,7 +25,7 @@ angular.module('classroom.services', [])
   }
 })
 
-.factory('Auth', function () {
+.factory('Auth', function ($http) {
   function login (username, password) {
     return $http({
       method: 'POST',
