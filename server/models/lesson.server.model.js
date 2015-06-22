@@ -6,12 +6,13 @@ var Lesson = bookshelf.Model.extend({
 
 Lesson.add = function(lessonData, callback) {
   lesson = new Lesson(lessonData)
-    .save()
-    .then(
-    function(model) {
-      callback(model);
-    }
-  );
+  .save()
+  .then(function(model) {
+    callback(model);
+  })
+  .catch(function(err) {
+    callback(err);
+  });
 };
 
 module.exports = Lesson;
