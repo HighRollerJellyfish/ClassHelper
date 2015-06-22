@@ -9,3 +9,9 @@ exports.list = function(req, res, next) {
     res.json(data);
   });
 };
+
+exports.create = function(req, res, next) {
+  Lesson.add(req.body, function(model) {
+    res.send(model);
+  });
+};
