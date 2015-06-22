@@ -1,6 +1,6 @@
 angular.module('classroom.services', [])
 .service('LoginModal', function ($modal, $rootScope) {
-  function assignCurrentUser (user) {
+  function assignCurrentUser (user) { 
     $rootScope.currentUser = user;
     return user;
   }
@@ -25,7 +25,7 @@ angular.module('classroom.services', [])
   }
 })
 
-.factory('Auth', function () {
+.factory('Auth', function ($http) {
   function login (username, password) {
     return $http({
       method: 'POST',
@@ -38,9 +38,29 @@ angular.module('classroom.services', [])
     .then(function (res) {
       return res.data.token;
     });
-  }
+  };
+
+  function signup (username, password) {
+    return $http({
+      method: 'POST',
+      url: '/users/signup',
+      data: {
+        username: username,
+        password: password
+      }
+    })
+    .then(function (res) {
+      return res.data.token;
+    });
+  };
+
+  function logout (username) {
+
+  };
 
   return {
-    login: login
+    login: login,
+    logout: logout,
+    signup: signup
   };
 });
