@@ -4,11 +4,12 @@ angular.module('classroom', [
   'classroom.grades',
   'classroom.services',
   'classroom.syllabus',
+  'classroom.landingPage',
   'ui.router',
   'ui.bootstrap'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/syllabus');
+  // $urlRouterProvider.otherwise('/syllabus');
   $stateProvider
     .state('syllabus', {
       url: '/syllabus',
@@ -34,14 +35,30 @@ angular.module('classroom', [
         requireLogin: false // set this to true once auth is set up
       }
     })
-    .state('login', {
-      url: '/login',
-      templateUrl: 'app/auth/login.html',
-      controller: 'LoginModalController',
+    .state('landing', {
+      url: '/landing',
+      templateUrl: 'app/landing_page/landing_page.html',
+      controller: 'LandingPageController',
       data: {
         requireLogin: false
       }
     })
+    // .state('landing.login', {
+    //   url: '/login',
+    //   templateUrl: 'app/auth/login.html',
+    //   controller: 'LoginModalController',
+    //   data: {
+    //     requireLogin: false
+    //   }
+    // })
+    // .state('landing.signup', {
+    //   url: '/signup',
+    //   templateUrl: 'app/auth/signup.html',
+    //   controller: 'SignUpController',
+    //   data: {
+    //     requireLogin: false
+    //   }
+    // })
 })
 
 .run(function ($rootScope, $state, LoginModal) {

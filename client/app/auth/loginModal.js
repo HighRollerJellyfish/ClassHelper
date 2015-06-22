@@ -6,7 +6,7 @@ angular.module('classroom.loginModal', [])
   $scope.cancel = function(){console.log('cancel')};
 
   $scope.submit = function (username, password) {
-    console.log('submit');
+    console.log(username, password);
     Auth.login(username, password)
       .then(function (user) {
         $scope.$close(user);
