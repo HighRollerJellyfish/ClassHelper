@@ -10,13 +10,7 @@ exports.list = function(req, res, next) {
 };
 
 exports.create = function(req, res, next) {
-  var newUser = {
-    name: "Bart Simpson1",
-    email: "eatmyshorts1@springfield.gov",
-    username: "Bart11",
-    password: "biteme1",
-    role: "student"
-  };
-
-  User.add(newUser);
+  User.add(req.body, function(model) {
+    res.send(model);
+  });
 };
