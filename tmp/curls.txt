@@ -1,0 +1,5 @@
+// Signup
+curl -X POST -H 'Content-Type:application/json' -d '{"username":"ericihli", "name":"eric", "password":"abc", "email":"abc@gmail.com", "role":"student"}' http://localhost:3000/users/signup
+
+// Login
+curl -X POST -H 'Content-Type:application/json' -d '{"username":"ericihli", "password":"ericihli"}' http://localhost:3000/users/login

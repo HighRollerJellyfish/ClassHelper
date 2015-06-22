@@ -1,4 +1,5 @@
 var bookshelf = require('../config/db');
+var bcrypt = require('bcrypt');
 var User = bookshelf.Model.extend({
   tableName: 'users'
 });
@@ -24,11 +25,16 @@ User.add = function(userData, callback) {
     // If the username is not already in the database...
     if (!user) {
       // Create a new user with all of the info from userData
-      user = new User(userData)
-      .save()
-      .then(function(user) {
-        console.log("User doesn't exist. Trying to add to database: ", user);
-        callback(user);
+      bcrypt.genSalt(5, function(err, salt) {
+        bcrypt.hash(userData.password, salt, function(err, hash) {
+          userData.password = hash;
+          user = new User(userData)
+          .save()
+          .then(function(user) {
+            console.log("User doesn't exist. Trying to add to database: ", user);
+            callback(user);
+          });
+        });
       });
     } else {
       console.log("User already exists: ", user);
@@ -59,13 +65,15 @@ User.authenticate = function(userData, callback) {
       console.log("User not found: ", userData.username);
       callback("User not found.");
     } else {
-      if (userData.password === user.get('password')) {
+      bcrypt.compare(userData.password, user.get('password'), function(err, res) {
         console.log("Passwords match, logging in.");
-        callback(null, user);
-      } else {
-        console.log("Passwords don't match. Adios.");
-        callback("Incorrect password", null);
-      }
+        if (res) {
+          callback(null, user);
+        } else {
+          console.log("Passwords don't match. Adios.");
+          callback("Incorrect password", null);
+        }
+      });
     }
   })
   .catch(function(err) {
