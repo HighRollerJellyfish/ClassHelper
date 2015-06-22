@@ -1,4 +1,7 @@
 var User = require('../models/user.server.model');
+var jwt = require('jwt-simple');
+var jwtSecret = 'abc'; // CHANGE THIS BEFORE PRODUCTION! It should be an ENV var.
+
 exports.list = function(req, res, next) {
   var data = [];
   new User().fetchAll().then(function(collection) {
@@ -31,7 +34,9 @@ exports.authenticate = function(req, res, next) {
       res.send(err);
     } else {
       console.log("User is authenticated.", result);
-      res.send(result);
+      var token = jwt.encode(result, jwtSecret);
+      console.log("Created token: ", token);
+      res.json({token: token});
     }
   });
 };
