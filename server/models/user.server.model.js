@@ -50,6 +50,8 @@ User.add = function(userData, callback) {
 */
 User.authenticate = function(userData, callback) {
   console.log("Authenticating user: ", userData);
+  // Create a new bookshelf User model to call 
+  // .fetch() and see if we have that user in the database.
   new User({username: userData.username})
   .fetch()
   .then(function(user) {

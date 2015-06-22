@@ -1,5 +1,7 @@
 var users = require('../controllers/users.server.controller.js');
 
+// Set our user routes on the app object.
+// We pass in passport so that we have access to authentication.
 module.exports = function(app, passport) {
   app.get('/users', users.list);
   app.post('/users', function(req, res, next) {
