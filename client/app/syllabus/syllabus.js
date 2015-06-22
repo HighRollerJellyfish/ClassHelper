@@ -1,7 +1,9 @@
 angular.module('classroom.syllabus', ['classroom.services'])
-.controller('SyllabusController', ['$scope', 'GetSyllabus', function ($scope, GetSyllabus) {
-  console.log(GetSyllabus);
+
+.controller('SyllabusController', function ($scope, GetSyllabus) {
+  $scope.isCollapsed = false;
   GetSyllabus.lessons().then(function(data) {
-    $scope.lessons = data;
+    $scope.lessons = angular.fromJson(data.data);
   });
-}]);
+});
+
