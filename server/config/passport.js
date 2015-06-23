@@ -33,39 +33,39 @@ module.exports = function(passport){
   });
 
   // Helper function to validate password.
-  var isValidPassword = function(user, password) {
-    return password === user.get('password');
-  };
+  // var isValidPassword = function(user, password) {
+  //   return password === user.get('password');
+  // };
 
   // We have passport.authenticate 
   // Middleware in our users.server.routes which uses
   // this strategy.
-  passport.use('login',
-    new LocalStrategy(
-      {
-        passReqToCallback: true
-      },
-      function(req, username, password, done) {
-        console.log("Authenticating user: ", username);
-        new User({username: username})
-        .fetch()
-        .then(function(user) {
-          if (!user) {
-            console.log("User not found ", user);
-            return done(null, false);
-          }
-          if(!isValidPassword(user, password)) {
-            console.log("Invalid password", user);
-            return done(null, false);
-          }
-          console.log("Logging in as ", user);
-          return done(null, user);
-        })
-        .catch(function(err) {
-          console.log("Error logging in as ");
-          return done(err);
-        });
-      }
-    )
-  );  
+  // passport.use('login',
+  //   new LocalStrategy(
+  //     {
+  //       passReqToCallback: true
+  //     },
+  //     function(req, username, password, done) {
+  //       console.log("Authenticating user: ", username);
+  //       new User({username: username})
+  //       .fetch()
+  //       .then(function(user) {
+  //         if (!user) {
+  //           console.log("User not found ", user);
+  //           return done(null, false);
+  //         }
+  //         if(!isValidPassword(user, password)) {
+  //           console.log("Invalid password", user);
+  //           return done(null, false);
+  //         }
+  //         console.log("Logging in as ", user);
+  //         return done(null, user);
+  //       })
+  //       .catch(function(err) {
+  //         console.log("Error logging in as ");
+  //         return done(err);
+  //       });
+  //     }
+  //   )
+  // );  
 };

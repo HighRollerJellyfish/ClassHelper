@@ -26,17 +26,16 @@ angular.module('classroom.services', [])
 })
 
 .factory('Auth', function ($http) {
-  function login (username, password) {
-    return $http({
+  function login (username, password, cb) {
+    $http({
       method: 'POST',
       url: '/users/login',
       data: {
         username: username,
         password: password
       }
-    })
-    .then(function (res) {
-      return res.data.token;
+    }).then(function(res) {
+      cb(res);
     });
   };
 
