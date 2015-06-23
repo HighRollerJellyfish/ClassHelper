@@ -1,5 +1,11 @@
 # Classroom
 
+## Dev Notes!
+- The schema.sql test users will no longer authenticate now that
+  we are using bcrypt to compare passwords.
+  If you need a test user for dev purposes, create one using:
+  curl -X POST -H 'Content-Type:application/json' -d '{"username":"batman", "name":"batman", "password":"robin", "email":"batman@gmail.com", "role":"student"}' http://localhost:3000/users/signup
+
 ## To start the server for development purposes
 
 ### Web Server
