@@ -21,6 +21,10 @@ angular.module('classroom.login', [])
         // Flash why the login didn't work. No user found? Bad password?
       console.log(res.data.token);
       window.localStorage['jwtToken'] = res.data.token;
+      window.localStorage['user'] = JSON.stringify({
+        username: res.data.username,
+        role: res.data.role
+      });
     });
   };
 }]);

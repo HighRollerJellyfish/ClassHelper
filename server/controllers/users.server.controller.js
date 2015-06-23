@@ -25,18 +25,28 @@ exports.create = function(req, res, next) {
   });
 };
 
+// Respond with a json object that contains the token
+// and whatever user data we need to send to the client.
+// Any time the client makes a request to change something
+// on the server, we'll verify the token. 
+// For everything else client-side, we'll use this user
+// object by storing it in localStorage.
 exports.authenticate = function(req, res, next) {
   var userData = req.body;
   console.log(userData);
-  User.authenticate(userData, function(err, result) {
+  User.authenticate(userData, function(err, user) {
     if (err) {
       console.log(err);
       res.send(err);
     } else {
-      console.log("User is authenticated.", result);
-      var token = jwt.encode(result, jwtSecret);
+      console.log("User is authenticated.", user);
+      var token = jwt.encode(user, jwtSecret);
       console.log("Created token: ", token);
-      res.json({token: token});
+      res.json({
+        token: token,
+        username: user.get('username'),
+        role: user.get('role')
+      });
     }
   });
 };
