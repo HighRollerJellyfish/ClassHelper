@@ -31,8 +31,8 @@ User.add = function(userData, callback) {
           user = new User(userData)
           .save()
           .then(function(user) {
-            console.log("User doesn't exist. Trying to add to database: ", user);
-            callback(user);
+            console.log("User doesn't exist. Adding to database: ", user);
+            callback(null, user);
           });
         });
       });

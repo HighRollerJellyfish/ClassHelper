@@ -51,17 +51,14 @@ angular.module('classroom.services', [])
     });
   };
 
-  function signup (username, password) {
+  function signup (userData, cb) {
     return $http({
       method: 'POST',
       url: '/users/signup',
-      data: {
-        username: username,
-        password: password
-      }
+      data: userData
     })
-    .then(function (res) {
-      return res.data.token;
+    .then(function (user) {
+      cb(user);
     });
   };
 

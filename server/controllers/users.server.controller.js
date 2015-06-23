@@ -14,13 +14,13 @@ exports.list = function(req, res, next) {
 
 exports.create = function(req, res, next) {
   var userData = req.body;
-  User.add(userData, function(err, result) {
+  User.add(userData, function(err, user) {
     if (err) {
       console.log(err);
-      res.send(err);
+      return err;
     } else {
-      console.log(result);
-      next(result);
+      console.log(user);
+      return user;
     }
   });
 };
