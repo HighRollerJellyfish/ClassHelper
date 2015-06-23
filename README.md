@@ -12,15 +12,18 @@
 - git clone from your fork
 - npm install
 - bower install
-- chmod +x start.sh to make the start script executable
 - (Follow database setup instructions below)
+- make sure mysql is installed (brew install mysql or however you want to install it)
+- make sure the mysql server is started (mysql.server start)
+- edit the start.sh.example file to use the mysql username/password from your local machine and rename it to start.sh
+- chmod +x start.sh to make the start script executable
 - npm start
 
 ### Database
 - The schema is in /server/config/schema.sql
 - Set your machine's mysql username and password in the /start.sh script.
 - Install mysql and start the mysql service with 'mysql.server start'
-- Once you get mysql installed on your machine, you can create/seed the database with 'mysql -u <username> -p tmp/schema.sql'
+- Once you get mysql installed on your machine, you can create/seed the database with 'mysql -u <username> -p server/config/schema.sql'
 
 
 ## Team
