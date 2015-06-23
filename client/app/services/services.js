@@ -16,41 +16,53 @@ angular.module('classroom.services', [])
   };
 })
 
-.service('GetSyllabus', function($http) {
+.service('GetSyllabus', function($http, $rootScope) {
   this.lessons = function() {
+    console.log("Rootscope currentuser token", JSON.stringify($rootScope.currentUser.token));
     return $http({
       url: 'http://localhost:3000/lessons',
-      method: 'GET'
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + $rootScope.currentUser.token
+      }
     });
   }
 })
 
 .factory('Auth', function ($http) {
-  function login (username, password) {
-    return $http({
+
+// We need some way to store user data after login. The token returned
+// by the server won't have any user information. It can only be decrypted
+// by the server.
+// http://stackoverflow.com/questions/14206492/how-do-i-store-a-current-user-context-in-angular
+  var currentUser = {};
+
+  function login (username, password, cb) {
+    $http({
       method: 'POST',
       url: '/users/login',
       data: {
         username: username,
         password: password
       }
-    })
-    .then(function (res) {
-      return res.data.token;
+    }).then(function(res) {
+      // The res sent to callback is what is returned by our /users/login api
+      // It is an object which contains a token, username,
+      // and role (for now. we'll update this later).
+      // Right now, the callback is storing the user info in localStorage
+      // but perhaps that logic would be better placed here.
+      cb(res);
     });
   };
 
-  function signup (username, password) {
+  function signup (userData, cb) {
     return $http({
       method: 'POST',
       url: '/users/signup',
-      data: {
-        username: username,
-        password: password
-      }
+      data: userData
     })
-    .then(function (res) {
-      return res.data.token;
+    .then(function (user) {
+      cb(user);
     });
   };
 

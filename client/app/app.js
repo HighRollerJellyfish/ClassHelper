@@ -17,7 +17,7 @@ angular.module('classroom', [
       templateUrl: 'app/syllabus/syllabus.html',
       controller: 'SyllabusController',
       data: {
-        requireLogin: false // set this to true once auth is set up
+        requireLogin: true // set this to true once auth is set up
       }
     })
     .state('grades', {
@@ -68,13 +68,14 @@ angular.module('classroom', [
     var requireLogin = toState.data.requireLogin;
     if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
       event.preventDefault();
-      LoginModal()
-      .then(function () {
-        return $state.go(toState.name, toParams);
-      })
-      .catch(function () {
-        return $state.go('login');
-      }); 
+      console.log("User must be logged in to view");
+      // LoginModal()
+      // .then(function () {
+      //   return $state.go(toState.name, toParams);
+      // })
+      // .catch(function () {
+      //   return $state.go('login');
+      // }); 
     }
   });
 
