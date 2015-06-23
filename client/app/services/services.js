@@ -1,29 +1,12 @@
 angular.module('classroom.services', [])
-.service('LoginModal', function ($modal, $rootScope) {
-  function assignCurrentUser (user) { 
-    $rootScope.currentUser = user;
-    return user;
-  }
-
-  return function() {
-    var instance = $modal.open({
-      templateUrl: './index.html',
-      controller: 'LoginModalController',
-      controllerAs: 'LoginModalController'
-    })
-
-    return instance.result.then(assignCurrentUser);
-  };
-})
 
 .service('GetSyllabus', function($http, $rootScope) {
   this.lessons = function() {
-    console.log("Rootscope currentuser token", JSON.stringify($rootScope.currentUser.token));
     return $http({
       url: 'http://localhost:3000/lessons',
       method: 'GET',
       headers: {
-        'Authorization': 'Bearer ' + $rootScope.currentUser.token
+        'Authorization': 'Bearer ' + window.localStorage.jwtToken
       }
     });
   }
@@ -63,11 +46,14 @@ angular.module('classroom.services', [])
     })
     .then(function (user) {
       cb(user);
+    })
+    .catch(function (err) {
+      console.log('ERROR: User already exists.');
     });
   };
 
   function logout (username) {
-
+    
   };
 
   return {
