@@ -16,11 +16,15 @@ angular.module('classroom.services', [])
   };
 })
 
-.service('GetSyllabus', function($http) {
+.service('GetSyllabus', function($http, $rootScope) {
   this.lessons = function() {
+    console.log("Rootscope currentuser token", JSON.stringify($rootScope.currentUser.token));
     return $http({
       url: 'http://localhost:3000/lessons',
-      method: 'GET'
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + $rootScope.currentUser.token
+      }
     });
   }
 })

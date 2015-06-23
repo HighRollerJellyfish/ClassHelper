@@ -2,7 +2,7 @@
 // http://brewhouse.io/blog/2014/12/09/authentication-made-simple-in-single-page-angularjs-applications.html
 
 angular.module('classroom.login', [])
-.controller('LoginController', ['$scope', 'Auth', function ($scope, Auth) {
+.controller('LoginController', ['$scope', '$rootScope', 'Auth', function ($scope, $rootScope, Auth) {
   $scope.cancel = function(){console.log('cancel')};
 
   $scope.submit = function (username, password) {
@@ -23,8 +23,14 @@ angular.module('classroom.login', [])
       window.localStorage['jwtToken'] = res.data.token;
       window.localStorage['user'] = JSON.stringify({
         username: res.data.username,
-        role: res.data.role
+        role: res.data.role,
+        token: res.data.token
       });
+      $rootScope.currentUser = {
+        username: res.data.username,
+        role: res.data.role,
+        token: res.data.token
+      }
     });
   };
 }]);

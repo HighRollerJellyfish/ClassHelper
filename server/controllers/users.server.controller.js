@@ -42,6 +42,7 @@ exports.authenticate = function(req, res, next) {
       console.log("User is authenticated.", user);
       var token = jwt.encode(user, jwtSecret);
       console.log("Created token: ", token);
+      console.log("Token typeof", typeof token);
       res.json({
         token: token,
         username: user.get('username'),
