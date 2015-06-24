@@ -85,6 +85,31 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+
+-- -----------------------------------------------------
+-- Table `attendance`
+-- -----------------------------------------------------
+-- This is temporary and needs to represent real attendance
+DROP TABLE IF EXISTS `attendance` ;
+
+CREATE TABLE IF NOT EXISTS `attendance` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `title` VARCHAR(45) NOT NULL COMMENT '',
+  `student` VARCHAR(45) NOT NULL COMMENT '',
+  `description` VARCHAR(140) NOT NULL COMMENT '',
+  `content` TEXT NOT NULL COMMENT '',
+  `start_date` DATETIME NOT NULL COMMENT '',
+  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
+  `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '',
+  PRIMARY KEY (`id`)  COMMENT '',
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC)  COMMENT '')
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 -- -----------------------------------------------------
 -- Data for table `users`
 -- -----------------------------------------------------
@@ -148,6 +173,26 @@ INSERT INTO `grades` (`title`, `student`,`description`, `content`, `start_date`,
 INSERT INTO `grades` (`title`, `student`,`description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES ('gradeData Structures', 'p', 'Creation of various gradedata structures.', 'Binary trees, hash tables, stacks, and queues oh my', '2015-07-08', NULL, NULL);
 INSERT INTO `grades` (`title`, `student`,`description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES ('N gradeData Structures', 'n', 'Creation of various gradedata structures.', 'Binary trees, hash tables, stacks, and queues oh my', '2015-07-08', NULL, NULL);
 INSERT INTO `grades` (`title`, `student`,`description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES ('gradeData Structures', 'p', 'Creation of various gradedata structures.', 'Binary trees, hash tables, stacks, and queues oh my', '2015-07-08', NULL, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `attendance`
+-- -----------------------------------------------------
+-- This is temporary and needs to be replaced with real attendance
+START TRANSACTION;
+USE `classroom`;
+INSERT INTO `attendance` (`title`, `student`,`description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES ('P Attendance', 'p','Analysis of time and space complexity of algorithms', 'Lots and lots of big O notations', '2015-07-01', NULL, NULL);
+INSERT INTO `attendance` (`title`, `student`,`description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES ('N Attendance', 'n', 'Creation of various gradedata structures.', 'Binary trees, hash tables, stacks, and queues oh my', '2015-07-08', NULL, NULL);
+INSERT INTO `attendance` (`title`, `student`,`description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES ('N Attendance', 'n', 'Creation of various gradedata structures.', 'Binary trees, hash tables, stacks, and queues oh my', '2015-07-08', NULL, NULL);
+INSERT INTO `attendance` (`title`, `student`,`description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES ('P Attendance', 'p', 'Creation of various P Attendance.', 'Binary trees, hash tables, stacks, and queues oh my', '2015-07-08', NULL, NULL);
+INSERT INTO `attendance` (`title`, `student`,`description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES ('P Attendance', 'p', 'Creation of various P Attendance.', 'Binary trees, hash tables, stacks, and queues oh my', '2015-07-08', NULL, NULL);
+INSERT INTO `attendance` (`title`, `student`,`description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES ('P Attendance', 'p', 'Creation of various P Attendance.', 'Binary trees, hash tables, stacks, and queues oh my', '2015-07-08', NULL, NULL);
+INSERT INTO `attendance` (`title`, `student`,`description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES ('N Attendance', 'n', 'Creation of various P Attendance.', 'Binary trees, hash tables, stacks, and queues oh my', '2015-07-08', NULL, NULL);
+INSERT INTO `attendance` (`title`, `student`,`description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES ('P Attendance', 'p', 'Creation of various P Attendance.', 'Binary trees, hash tables, stacks, and queues oh my', '2015-07-08', NULL, NULL);
+INSERT INTO `attendance` (`title`, `student`,`description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES ('N Attendance', 'n', 'Creation of various P Attendance.', 'Binary trees, hash tables, stacks, and queues oh my', '2015-07-08', NULL, NULL);
+INSERT INTO `attendance` (`title`, `student`,`description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES ('P Attendance', 'p', 'Creation of various P Attendance.', 'Binary trees, hash tables, stacks, and queues oh my', '2015-07-08', NULL, NULL);
 
 COMMIT;
 
