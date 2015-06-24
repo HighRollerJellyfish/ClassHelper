@@ -19,18 +19,7 @@ angular.module('classroom.login', [])
         // User is logged in, set localStorage, redirect, etc...
       // else
         // Flash why the login didn't work. No user found? Bad password?
-      console.log(res.data.token);
-      window.localStorage['jwtToken'] = res.data.token;
-      window.localStorage['user'] = JSON.stringify({
-        username: res.data.username,
-        role: res.data.role,
-        token: res.data.token
-      });
-      $rootScope.currentUser = {
-        username: res.data.username,
-        role: res.data.role,
-        token: res.data.token
-      }
+      
       $state.go('syllabus');
     });
   };
