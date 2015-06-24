@@ -38,7 +38,7 @@ angular.module('classroom.services', [])
 .service('GetAttendance', function($http, $rootScope) {
   this.allAttendance = function () {
     return $http({
-      url: 'http://localhost:3000/attendance',
+      url: '/attendance',
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + window.localStorage.jwtToken
@@ -49,7 +49,7 @@ angular.module('classroom.services', [])
   this.attendanceForUser = function (username) {
     return $http({
       //this gets grades for all users right now. it should be '/grades/' + username;
-      url: 'http://localhost:3000/attendance?student=' + username,
+      url: '/attendance?student=' + username,
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + window.localStorage.jwtToken
