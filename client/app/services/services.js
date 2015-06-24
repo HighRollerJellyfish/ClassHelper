@@ -12,6 +12,28 @@ angular.module('classroom.services', [])
   }
 })
 
+.service('GetGrades', function($http, $rootScope) {
+  this.allGrades = function () {
+    return $http({
+      url: 'http://localhost:3000/grades',
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+      }
+    });
+  };
+
+  this.gradesForUser = function (username) {
+    return $http({
+      url: 'http://localhost:3000/grades/' + username,
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+      }
+    });
+  };
+})
+
 .factory('Auth', function ($http, $rootScope) {
 
 // We need some way to store user data after login. The token returned
