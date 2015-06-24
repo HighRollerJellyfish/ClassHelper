@@ -25,7 +25,8 @@ angular.module('classroom.services', [])
 
   this.gradesForUser = function (username) {
     return $http({
-      url: 'http://localhost:3000/grades/' + username,
+      //this gets grades for all users right now. it should be '/grades/' + username;
+      url: 'http://localhost:3000/grades',
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + window.localStorage.jwtToken
