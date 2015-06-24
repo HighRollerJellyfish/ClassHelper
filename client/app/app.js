@@ -10,7 +10,7 @@ angular.module('classroom', [
   'ui.bootstrap'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
-  // $urlRouterProvider.otherwise('/syllabus');
+  $urlRouterProvider.otherwise('/syllabus');
   $stateProvider
     .state('syllabus', {
       url: '/syllabus',
@@ -65,7 +65,6 @@ angular.module('classroom', [
 .run(function ($rootScope, $state) {
 
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-    console.log('user', $rootScope.currentUser);
     var requireLogin = toState.data.requireLogin;
     if (requireLogin && !$rootScope.currentUser) {
       event.preventDefault();
