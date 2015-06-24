@@ -12,7 +12,7 @@ angular.module('classroom.services', [])
   }
 })
 
-.factory('Auth', function ($http) {
+.factory('Auth', function ($http, $rootScope) {
 
 // We need some way to store user data after login. The token returned
 // by the server won't have any user information. It can only be decrypted
@@ -29,6 +29,13 @@ angular.module('classroom.services', [])
         password: password
       }
     }).then(function(res) {
+      console.log(res.data.token);
+      window.localStorage['jwtToken'] = res.data.token;
+      $rootScope.currentUser = {
+        username: res.data.username,
+        role: res.data.role,
+        token: res.data.token
+      }
       // The res sent to callback is what is returned by our /users/login api
       // It is an object which contains a token, username,
       // and role (for now. we'll update this later).
@@ -44,8 +51,10 @@ angular.module('classroom.services', [])
       url: '/users/signup',
       data: userData
     })
-    .then(function (user) {
-      cb(user);
+    .then(function (res) {
+      //TODO: instead of calling login() to send a second request to the server, have the server
+      //      create a new token when we call signup and respond with the token.
+      login(userData.username, userData.password, cb);
     })
     .catch(function (err) {
       console.log('ERROR: User already exists.');
@@ -53,7 +62,7 @@ angular.module('classroom.services', [])
   };
 
   function logout (username) {
-    
+
   };
 
   return {
