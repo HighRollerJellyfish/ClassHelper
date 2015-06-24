@@ -9,6 +9,8 @@ angular.module('classroom.syllabus', ['classroom.services'])
 
   $scope.logout = function () {
     delete $rootScope.currentUser;
+    delete localStorage.user;
+    delete localStorage.jwtToken;
     $state.go('landing.login');
   };
 });
