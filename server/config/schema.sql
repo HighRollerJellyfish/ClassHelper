@@ -123,14 +123,14 @@ COMMIT;
 -- This is temporary and needs to be replaced with real grades
 START TRANSACTION;
 USE `classroom`;
-INSERT INTO `grades` (`lesson_title`, `student`, `score`, `created_at`, `updated_at`) VALUES ('Algorithms', 'devon', '100', NULL, NULL);
-INSERT INTO `grades` (`lesson_title`, `student`, `score`, `created_at`, `updated_at`) VALUES ('Data Structures', 'devon', '88', NULL, NULL);
-INSERT INTO `grades` (`lesson_title`, `student`, `score`, `created_at`, `updated_at`) VALUES ('Algorithms2', 'devon', '77', NULL, NULL);
-INSERT INTO `grades` (`lesson_title`, `student`, `score`, `created_at`, `updated_at`) VALUES ('Data Structures2', 'devon', '66', NULL, NULL);
-INSERT INTO `grades` (`lesson_title`, `student`, `score`, `created_at`, `updated_at`) VALUES ('Algorithms', 'jake', '100', NULL, NULL);
-INSERT INTO `grades` (`lesson_title`, `student`, `score`, `created_at`, `updated_at`) VALUES ('Data Structures', 'jake', '98', NULL, NULL);
-INSERT INTO `grades` (`lesson_title`, `student`, `score`, `created_at`, `updated_at`) VALUES ('Algorithms2', 'jake', '87', NULL, NULL);
-INSERT INTO `grades` (`lesson_title`, `student`, `score`, `created_at`, `updated_at`) VALUES ('Data Structures', 'jake', '76', NULL, NULL);
+INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Algorithms', 'devon', '100');
+INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Data Structures', 'devon', '88');
+INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Algorithms2', 'devon', '77');
+INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Data Structures2', 'devon', '66');
+INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Algorithms', 'jake', '100');
+INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Data Structures', 'jake', '98');
+INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Algorithms2', 'jake', '87');
+INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Data Structures', 'jake', '76');
 
 COMMIT;
 
@@ -141,14 +141,14 @@ COMMIT;
 -- This is temporary and needs to be replaced with real attendance
 START TRANSACTION;
 USE `classroom`;
-INSERT INTO `attendance` (`date`, `student`, `presence`, `created_at`, `updated_at`) VALUES ('2015-07-01', 'devon', '1', NULL, NULL);
-INSERT INTO `attendance` (`date`, `student`, `presence`, `created_at`, `updated_at`) VALUES ('2015-07-02', 'devon', '0', NULL, NULL);
-INSERT INTO `attendance` (`date`, `student`, `presence`, `created_at`, `updated_at`) VALUES ('2015-07-03', 'devon', '1', NULL, NULL);
-INSERT INTO `attendance` (`date`, `student`, `presence`, `created_at`, `updated_at`) VALUES ('2015-07-04', 'devon', '1', NULL, NULL);
-INSERT INTO `attendance` (`date`, `student`, `presence`, `created_at`, `updated_at`) VALUES ('2015-07-01', 'jake', '1', NULL, NULL);
-INSERT INTO `attendance` (`date`, `student`, `presence`, `created_at`, `updated_at`) VALUES ('2015-07-02', 'jake', '1', NULL, NULL);
-INSERT INTO `attendance` (`date`, `student`, `presence`, `created_at`, `updated_at`) VALUES ('2015-07-03', 'jake', '0', NULL, NULL);
-INSERT INTO `attendance` (`date`, `student`, `presence`, `created_at`, `updated_at`) VALUES ('2015-07-04', 'jake', '1', NULL, NULL);
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-01', 'devon', '1');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-02', 'devon', '0');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-03', 'devon', '1');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'devon', '1');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-01', 'jake', '1');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-02', 'jake', '1');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-03', 'jake', '0');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'jake', '1');
 
 COMMIT;
 
