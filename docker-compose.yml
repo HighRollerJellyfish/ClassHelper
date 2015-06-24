@@ -1,5 +1,5 @@
 web:
-  image: node/nodemon
+  image: node/class:2
   expose:
     - "3000"
   ports:
@@ -10,13 +10,12 @@ web:
   volumes:
     - .:/usr/src/app/
   environment:
-    - MYSQL_ROOT_PASSWORD=mysql
+    - MYSQL_ROOT_PASSWORD=password
   command: npm run dock
 mysql:
-  image: mysql/class:1
+  image: mysql/class:2
   environment:
-    - MYSQL_ROOT_PASSWORD=mysql
-    - MYSQL_DATABASE=classroom
+    - MYSQL_ROOT_PASSWORD=password
   volumes:
     - server/config/:/schema/
-  command: bash -c "mysqld && sleep 5 && mysql < /schema/schema.sql"
+  command: sh -c "mysqld && mysql -uroot -ppassword < schema.sql"

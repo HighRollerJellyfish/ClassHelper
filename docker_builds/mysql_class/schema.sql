@@ -105,6 +105,3 @@ INSERT INTO `lessons` (`title`, `description`, `content`, `start_date`, `created
 INSERT INTO `lessons` (`title`, `description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES ('Data Structures', 'Creation of various data structures.', 'Binary trees, hash tables, stacks, and queues oh my', '2015-07-08', NULL, NULL);
 
 COMMIT;
-
-GRANT ALL ON *.* TO 'root'@'%';
-
