@@ -1,12 +1,16 @@
 # Classroom
 
+## Deployment
+- https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-12-04
+
 ## Docker
 
 - docker run -d -v $(pwd)/server/config:/schema -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password --name class-db mysql
 - docker exec class-db mysql -uroot -ppassword < schema/schema.sql
 - cd docker_builds/node_class
-- docker build -t node/class .
-- docker run -d -p 3000:3000 -v /Users/eihli/hackreactor/greenfield:/app --link class-db:class-db node/class nodemon /app/server/server.js
+- docker build -t node/class .  
+- docker run -d -p 3000:3000 -v /Users/eihli/hackreactor/greenfield:/app --link class-db:class-db node/class --name class-web nodemon /app/server/server.js
+- docker exec class-web /bin/bash -c "npm install && bower install"
 
 ## Dev Notes!
 - The schema.sql test users will no longer authenticate now that
