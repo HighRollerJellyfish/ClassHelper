@@ -19,8 +19,11 @@ angular.module('classroom.login', [])
         // User is logged in, set localStorage, redirect, etc...
       // else
         // Flash why the login didn't work. No user found? Bad password?
-      
-      $state.go('syllabus');
+      if (res.data.token) {
+        $state.go('syllabus');
+      } else {
+        console.log('Error logging in.');
+      }
     });
   };
 }]);
