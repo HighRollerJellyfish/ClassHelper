@@ -3,7 +3,7 @@ angular.module('classroom.services', [])
 .service('GetSyllabus', function($http, $rootScope) {
   this.lessons = function() {
     return $http({
-      url: 'http://localhost:3000/lessons',
+      url: '/lessons',
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + window.localStorage.jwtToken
@@ -15,7 +15,7 @@ angular.module('classroom.services', [])
 .service('GetGrades', function($http, $rootScope) {
   this.allGrades = function () {
     return $http({
-      url: 'http://localhost:3000/grades',
+      url: '/grades',
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + window.localStorage.jwtToken
@@ -26,7 +26,7 @@ angular.module('classroom.services', [])
   this.gradesForUser = function (username) {
     return $http({
       //this gets grades for all users right now. it should be '/grades/' + username;
-      url: 'http://localhost:3000/grades?student=' + username,
+      url: '/grades?student=' + username,
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + window.localStorage.jwtToken
