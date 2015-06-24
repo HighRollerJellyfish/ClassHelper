@@ -35,6 +35,29 @@ angular.module('classroom.services', [])
   };
 })
 
+.service('GetAttendance', function($http, $rootScope) {
+  this.allAttendance = function () {
+    return $http({
+      url: 'http://localhost:3000/attendance',
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+      }
+    });
+  };
+
+  this.attendanceForUser = function (username) {
+    return $http({
+      //this gets grades for all users right now. it should be '/grades/' + username;
+      url: 'http://localhost:3000/attendance?student=' + username,
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+      }
+    });
+  };
+})
+
 .factory('Auth', function ($http, $rootScope) {
 
 // We need some way to store user data after login. The token returned
