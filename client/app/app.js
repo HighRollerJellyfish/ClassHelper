@@ -68,6 +68,7 @@ angular.module('classroom', [
     console.log('user', $rootScope.currentUser);
     var requireLogin = toState.data.requireLogin;
     if (requireLogin && !$rootScope.currentUser) {
+      event.preventDefault();
       console.log("User must be logged in to view");
       $state.go('landing.login');
     }
