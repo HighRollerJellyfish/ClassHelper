@@ -8,3 +8,5 @@ docker ps
 echo "If you don't see any docker containers above... run ./docker_start.sh"
 echo "I tell you what... I'll go ahead and run it for you just in case..."
 ./docker_start.sh
+docker ps
+echo "There..."

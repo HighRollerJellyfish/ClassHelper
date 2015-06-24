@@ -2,5 +2,5 @@ FROM node
 COPY . /greenfield
 WORKDIR /greenfield
 ENV CLASSROOM_MYSQL_SERVER classroom-db
-RUN npm install nodemon bower -g && npm install && bower install --allow-root
+RUN /bin/bash -c "npm install nodemon bower -g && npm install && bower install --allow-root"
 CMD ["nodemon", "server/server.js"]
