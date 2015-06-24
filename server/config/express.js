@@ -19,6 +19,7 @@ module.exports = function() {
   // Require our routes
   require('../routes/index.server.routes.js')(app);
   require('../routes/lessons.server.routes.js')(app);
+  require('../routes/grades.server.routes.js')(app);
   require('../routes/users.server.routes.js')(app, passport);
 
   return app;
