@@ -4,13 +4,14 @@
 - https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-12-04
 
 ## Docker
-
-- docker run -d -v $(pwd)/server/config:/schema -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password --name class-db mysql
-- docker exec class-db mysql -uroot -ppassword < schema/schema.sql
-- cd docker_builds/node_class
-- docker build -t node/class .  
-- docker run -d -p 3000:3000 -v /Users/eihli/hackreactor/greenfield:/app --link class-db:class-db node/class --name class-web nodemon /app/server/server.js
-- docker exec class-web /bin/bash -c "npm install && bower install"
+- You'll have to install boot2docker and docker: https://docs.docker.com/installation/mac/
+- Make sure you set up boot2docker correctly (boot2docker init, boot2docker start, boot2docker shellinit, etc...)
+- Scripts have been created to handle docker instance setup
+- Make the following files executable with chmod +x
+  - docker_build.sh
+  - docker_start.sh
+- If ./docker_build.sh doesn't start the containers, follow it up with a ./docker_start.sh
+- Once the containers are up and running, you should be able to access them at 192.168.59.103:3000 on your local machine.
 
 ## Dev Notes!
 - The schema.sql test users will no longer authenticate now that
