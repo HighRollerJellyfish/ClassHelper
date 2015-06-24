@@ -3,13 +3,36 @@ angular.module('classroom.services', [])
 .service('GetSyllabus', function($http, $rootScope) {
   this.lessons = function() {
     return $http({
-      url: 'http://localhost:3000/lessons',
+      url: '/lessons',
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + window.localStorage.jwtToken
       }
     });
   }
+})
+
+.service('GetGrades', function($http, $rootScope) {
+  this.allGrades = function () {
+    return $http({
+      url: '/grades',
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+      }
+    });
+  };
+
+  this.gradesForUser = function (username) {
+    return $http({
+      //this gets grades for all users right now. it should be '/grades/' + username;
+      url: '/grades?student=' + username,
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+      }
+    });
+  };
 })
 
 .factory('Auth', function ($http, $rootScope) {
