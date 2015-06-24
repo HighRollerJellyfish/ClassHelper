@@ -1,12 +1,14 @@
 var Grade = require('../models/grade.server.model');
 
-exports.list = function(req, res, next) {
+exports.listAll = function(req, res, next) {
   new Grade().fetchAll().then(function(collection) {
-    var data = [];
-    collection.forEach(function(el) {
-      data.push(el);
-    });
-    res.json(data);
+    res.json(collection);
+  });
+};
+
+exports.listForUser = function(student, req, res, next) {
+  new Grade().where({student: student}).fetchAll().then(function(collection) {
+    res.json(collection);
   });
 };
 
