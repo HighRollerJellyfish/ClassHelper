@@ -9,6 +9,14 @@ angular.module('classroom', [
   'ui.router',
   'ui.bootstrap'
 ])
+.controller('LogoutController', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
+  $scope.logout = function () {
+    delete $rootScope.currentUser;
+    delete localStorage.jwtToken;
+    $state.go('landing.login');
+  };
+}])
+
 .config(function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/syllabus');
   $stateProvider

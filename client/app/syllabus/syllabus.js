@@ -5,10 +5,4 @@ angular.module('classroom.syllabus', ['classroom.services'])
   GetSyllabus.lessons().then(function(data) {
     $scope.lessons = angular.fromJson(data.data);
   });
-
-  $scope.logout = function () {
-    delete $rootScope.currentUser;
-    delete localStorage.jwtToken;
-    $state.go('landing.login');
-  };
 });
