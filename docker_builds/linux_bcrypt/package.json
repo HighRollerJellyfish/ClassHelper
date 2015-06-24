@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "./start.sh",
-    "test": "mocha tests/**/*test.js",
-    "dock": "./dock.sh"
+    "test": "mocha tests/**/*test.js"
   },
   "repository": {
     "type": "git",

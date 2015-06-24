@@ -1,0 +1,22 @@
+web:
+  image: node/nodemon
+  expose:
+    - "3000"
+  ports:
+    - "3000:3000"
+  links:
+    - mysql
+  working_dir: /usr/src/app/
+  volumes:
+    - .:/usr/src/app/
+  environment:
+    - MYSQL_ROOT_PASSWORD=mysql
+  command: npm run dock
+mysql:
+  image: mysql/class:1
+  environment:
+    - MYSQL_ROOT_PASSWORD=mysql
+    - MYSQL_DATABASE=classroom
+  volumes:
+    - server/config/:/schema/
+  command: bash -c "mysqld && sleep 5 && mysql < /schema/schema.sql"
