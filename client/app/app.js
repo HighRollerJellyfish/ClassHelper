@@ -10,7 +10,7 @@ angular.module('classroom', [
   'ui.bootstrap'
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
-  // $urlRouterProvider.otherwise('/syllabus');
+  $urlRouterProvider.otherwise('/syllabus');
   $stateProvider
     .state('syllabus', {
       url: '/syllabus',
@@ -25,7 +25,7 @@ angular.module('classroom', [
       templateUrl: 'app/grades/grades.html',
       controller: 'GradesController',
       data: {
-        requireLogin: false // set this to true once auth is set up
+        requireLogin: true // set this to true once auth is set up
       }
     })
     .state('attendance', {
@@ -33,7 +33,7 @@ angular.module('classroom', [
       templateUrl: 'app/attendance/attendance.html',
       controller: 'AttendanceController',
       data: {
-        requireLogin: false // set this to true once auth is set up
+        requireLogin: true // set this to true once auth is set up
       }
     })
     .state('landing', {
@@ -62,20 +62,14 @@ angular.module('classroom', [
     })
 })
 
-.run(function ($rootScope, $state, LoginModal) {
+.run(function ($rootScope, $state) {
 
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     var requireLogin = toState.data.requireLogin;
-    if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
+    if (requireLogin && !$rootScope.currentUser) {
       event.preventDefault();
       console.log("User must be logged in to view");
-      // LoginModal()
-      // .then(function () {
-      //   return $state.go(toState.name, toParams);
-      // })
-      // .catch(function () {
-      //   return $state.go('login');
-      // }); 
+      $state.go('landing.login');
     }
   });
 

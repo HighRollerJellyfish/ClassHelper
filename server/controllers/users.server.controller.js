@@ -17,10 +17,10 @@ exports.create = function(req, res, next) {
   User.add(userData, function(err, user) {
     if (err) {
       console.log(err);
-      return err;
+      res.status(409).send(err);
     } else {
       console.log(user);
-      return user;
+      res.json(user);
     }
   });
 };
