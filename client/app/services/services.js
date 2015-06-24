@@ -31,11 +31,6 @@ angular.module('classroom.services', [])
     }).then(function(res) {
       console.log(res.data.token);
       window.localStorage['jwtToken'] = res.data.token;
-      window.localStorage['user'] = JSON.stringify({
-        username: res.data.username,
-        role: res.data.role,
-        token: res.data.token
-      });
       $rootScope.currentUser = {
         username: res.data.username,
         role: res.data.role,
