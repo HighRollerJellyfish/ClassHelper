@@ -10,6 +10,10 @@
   <body>
     <h1>{{currentUser.username}}</h1>
     <button ng-controller='LogoutController' ng-click='logout()'>Log Out</button>
+    <button ui-sref="syllabus">Syllabus</button>
+    <button ui-sref="grades">Grades</button>
+    <button ui-sref="attendance">Attendance</button>
+    <button ui-sref="landing">Landing</button>
     <div ui-view></div>
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular-bootstrap/ui-bootstrap.js"></script>
