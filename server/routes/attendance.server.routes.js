@@ -26,5 +26,15 @@ module.exports = function(app) {
     },
     attendance.listForUser
   );
-  app.post('/attendance', attendance.create);
+  app.post('/attendance', function(req, res, next) {
+    var token = req.headers.authorization.split(' ')[1];
+    var decoded = jwt.decode(token, 'abc');
+    //check if user is a teacher
+    if(decoded.role === 'teacher'){
+      attendance.create(req, res);
+    } else {
+      res.send("You do not have permission to edit attendance.");
+    }
+  },
+  attendance.create);
 };
