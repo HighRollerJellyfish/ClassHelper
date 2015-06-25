@@ -80,7 +80,6 @@ angular.module('classroom.services', [])
       $rootScope.currentUser = {
         username: res.data.username,
         role: res.data.role,
-        token: res.data.token
       }
       // The res sent to callback is what is returned by our /users/login api
       // It is an object which contains a token, username,
@@ -107,13 +106,28 @@ angular.module('classroom.services', [])
     });
   };
 
-  function logout (username) {
-
-  };
+  function refreshUser (cb) {
+    console.log('refreshuser in auth', window.localStorage.jwtToken);
+    return $http({
+      method: 'GET',
+      url: '/users/refresh',
+      headers: {
+        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+      }
+    })
+    .then(function (res) {
+      //set rootscope userdata
+      $rootScope.currentUser = {username: res.data.username, role: res.data.role};
+      cb();
+    })
+    .catch(function (err) {
+      console.log('ERROR: Unable to refresh user credentials.');
+    });
+  }
 
   return {
     login: login,
-    logout: logout,
-    signup: signup
+    signup: signup,
+    refreshUser: refreshUser
   };
 });

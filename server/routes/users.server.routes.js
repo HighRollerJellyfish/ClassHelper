@@ -4,6 +4,7 @@ var users = require('../controllers/users.server.controller.js');
 // We pass in passport so that we have access to authentication.
 module.exports = function(app, passport) {
   app.get('/users', users.list);
+  app.get('/users/refresh', users.refresh);
 
   // The below commented out was for testing/spike purposes.
   // It is no longer being used. The part it requires

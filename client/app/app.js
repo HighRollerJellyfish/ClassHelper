@@ -70,14 +70,23 @@ angular.module('classroom', [
     })
 })
 
-.run(function ($rootScope, $state) {
+.run(function ($rootScope, $state, Auth) {
 
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     var requireLogin = toState.data.requireLogin;
     if (requireLogin && !$rootScope.currentUser) {
-      event.preventDefault();
-      console.log("User must be logged in to view");
-      $state.go('landing.login');
+      // if the user refreshes, $rootScope is cleared, but localStorage is not, so check if
+      // they still have a token in localStorage
+      if (localStorage.jwtToken) {
+        // retrieve user info associated with this token and reset $rootScope.currentUser
+        Auth.refreshUser(function () {
+          $state.go(toState);
+        });
+      } else {
+        event.preventDefault();
+        console.log("User must be logged in to view");
+        $state.go('landing.login');
+      }
     }
   });
 

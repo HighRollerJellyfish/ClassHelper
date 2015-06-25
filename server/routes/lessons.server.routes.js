@@ -14,7 +14,6 @@ module.exports = function(app) {
         // We are hardcoding our secret token in for now but in
         // production it should be an env variable.
         var decoded = jwt.decode(token, 'abc');
-        console.log(decoded);
         lessons.list(req, res, next);
       } else {
         res.send("No token...\n");
