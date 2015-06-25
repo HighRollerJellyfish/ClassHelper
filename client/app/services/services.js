@@ -144,7 +144,6 @@ angular.module('classroom.services', [])
     .then(function (res) {
       //set rootscope userdata
       $rootScope.currentUser = {username: res.data.username, name: res.data.name, role: res.data.role};
-      console.log($rootScope.currentUser);
       cb();
     })
     .catch(function (err) {
