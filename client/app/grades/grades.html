@@ -1,2 +1,11 @@
 <h3>Grades</h3>
 <div>{{grades}}</div>
+<div ng-show="isTeacher()">
+  Add Grades:
+    <form>
+    <input type="text" ng-model="fields.student" placeholder="Student" />
+    <input type="text" ng-model="fields.lesson_title" placeholder="Lesson Title" />
+    <input type="text" ng-model="fields.score" placeholder="Grade" />
+    <button ng-click="addGrade(fields)">Add Grade</button>
+  </form>
+</div>

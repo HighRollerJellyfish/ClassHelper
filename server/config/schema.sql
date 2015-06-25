@@ -120,7 +120,6 @@ COMMIT;
 -- -----------------------------------------------------
 -- Data for table `grades`
 -- -----------------------------------------------------
--- This is temporary and needs to be replaced with real grades
 START TRANSACTION;
 USE `classroom`;
 INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Algorithms', 'devon', '100');
@@ -138,7 +137,6 @@ COMMIT;
 -- -----------------------------------------------------
 -- Data for table `attendance`
 -- -----------------------------------------------------
--- This is temporary and needs to be replaced with real attendance
 START TRANSACTION;
 USE `classroom`;
 INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-01', 'devon', '1');
@@ -153,3 +151,13 @@ INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', '
 COMMIT;
 
 
+-- -----------------------------------------------------
+-- Data for table `users`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `classroom`;
+INSERT INTO `users` (`name`, `username`, `email`, `password`, `role`) VALUES ('Devon Harvey', 'devon', 'devon@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
+INSERT INTO `users` (`name`, `username`, `email`, `password`, `role`) VALUES ('Richard Stanley', 'richard', 'richard@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
+INSERT INTO `users` (`name`, `username`, `email`, `password`, `role`) VALUES ('Jake Lee', 'jake', 'jake@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'teacher');
+
+COMMIT;
