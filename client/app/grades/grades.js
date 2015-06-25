@@ -6,6 +6,10 @@ angular.module('classroom.grades', [])
     return $rootScope.currentUser.role === 'teacher';
   }
 
+  $scope.addGrade = function (gradeData) {
+    console.log(gradeData);
+  }
+
   if ($rootScope.currentUser.role === 'teacher') {
     GetGrades.allGrades().then(function(data) {
       $scope.grades = angular.fromJson(data.data);
