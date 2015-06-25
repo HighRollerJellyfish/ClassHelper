@@ -25,6 +25,13 @@ exports.create = function(req, res, next) {
   });
 };
 
+exports.refresh = function (req, res, next) {
+  var token = req.headers.authorization.split(' ')[1];
+  var decoded = jwt.decode(token, 'abc');
+  var userInfo = {username: decoded.name, role: decoded.role};
+  res.json(userInfo);
+}
+
 // Respond with a json object that contains the token
 // and whatever user data we need to send to the client.
 // Any time the client makes a request to change something
@@ -39,10 +46,7 @@ exports.authenticate = function(req, res, next) {
       console.log(err);
       res.send(err);
     } else {
-      console.log("User is authenticated.", user);
       var token = jwt.encode(user, jwtSecret);
-      console.log("Created token: ", token);
-      console.log("Token typeof", typeof token);
       res.json({
         token: token,
         username: user.get('username'),
