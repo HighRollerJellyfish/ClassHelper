@@ -26,5 +26,15 @@ module.exports = function(app) {
     },
     grades.listForUser
   );
-  app.post('/grades', grades.create);
+  app.post('/grades', function(req, res, next) {
+    var token = req.headers.authorization.split(' ')[1];
+    var decoded = jwt.decode(token, 'abc');
+    //check if user is a teacher
+    if(decoded.role === 'teacher'){
+      grades.create(req, res);
+    } else {
+      res.send("You do not have permission to edit grades.");
+    }
+  },
+  grades.create);
 };

@@ -35,6 +35,19 @@ angular.module('classroom.services', [])
   };
 })
 
+.service('AddGrades', function($http, $rootScope) {
+  this.add = function (gradeData) {
+    return $http({
+      method: 'POST',
+      url: '/grades',
+      data: gradeData,
+      headers: {
+        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+      }
+    });
+  }
+})
+
 .service('GetAttendance', function($http, $rootScope) {
   this.allAttendance = function () {
     return $http({

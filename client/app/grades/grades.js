@@ -1,5 +1,5 @@
 angular.module('classroom.grades', [])
-.controller('GradesController', function ($rootScope, $scope, $state, GetGrades) {
+.controller('GradesController', function ($rootScope, $scope, $state, GetGrades, AddGrades) {
   $scope.isCollapsed = false;
 
   $scope.isTeacher = function () {
@@ -8,6 +8,7 @@ angular.module('classroom.grades', [])
 
   $scope.addGrade = function (gradeData) {
     console.log(gradeData);
+    AddGrades.add(gradeData);
   }
 
   if ($rootScope.currentUser.role === 'teacher') {
