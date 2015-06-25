@@ -71,6 +71,19 @@ angular.module('classroom.services', [])
   };
 })
 
+.service('AddAttendance', function($http, $rootScope) {
+  this.add = function (attendanceData) {
+    return $http({
+      method: 'POST',
+      url: '/attendance',
+      data: attendanceData,
+      headers: {
+        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+      }
+    });
+  }
+})
+
 .factory('Auth', function ($http, $rootScope) {
 
 // We need some way to store user data after login. The token returned
