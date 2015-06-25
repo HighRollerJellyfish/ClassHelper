@@ -1,6 +1,11 @@
 angular.module('classroom.grades', [])
 .controller('GradesController', function ($rootScope, $scope, $state, GetGrades) {
   $scope.isCollapsed = false;
+
+  $scope.isTeacher = function () {
+    return $rootScope.currentUser.role === 'teacher';
+  }
+
   if ($rootScope.currentUser.role === 'teacher') {
     GetGrades.allGrades().then(function(data) {
       $scope.grades = angular.fromJson(data.data);
