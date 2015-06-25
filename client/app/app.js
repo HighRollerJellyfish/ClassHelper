@@ -13,7 +13,8 @@ angular.module('classroom', [
   'classroom.syllabus',
   'classroom.landingPage',
   'ui.router',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'textAngular'
 ])
 .controller('LogoutController', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
   $scope.logout = function () {

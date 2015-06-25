@@ -12,7 +12,21 @@
       </ul>
   </div>
 
+  
+  <!-- Text Editor -->
+  <div ng-controller="textController" class="container app">
+    <h3>Editor</h3>
+    <button ng-click="disabled = !disabled" unselectable>Disable text-angular Toggle</button>
+    <div text-angular="text-angular" name="htmlcontent" ng-model="htmlcontent" ta-disabled='disabled'></div>
+    <h3>Raw HTML in a text area</h3>
+    <textarea ng-model="htmlcontent" style="width: 100%"></textarea>
+    <button type="button" ng-click="htmlcontent = orightml">Reset</button>
+  </div>
+
+
+
   <!-- Main Content -->
+
   <div id="page-content-wrapper">
       <div class="container-fluid">
           <div class="row">
