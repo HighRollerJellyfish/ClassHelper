@@ -1,6 +1,16 @@
 angular.module('classroom.attendance', [])
-.controller('AttendanceController', function ($rootScope, $scope, $state, GetAttendance) {
+.controller('AttendanceController', function ($rootScope, $scope, $state, GetAttendance, AddAttendance) {
   $scope.isCollapsed = false;
+
+  $scope.isTeacher = function () {
+    return $rootScope.currentUser.role === 'teacher';
+  }
+
+  $scope.addAttendance = function (attendanceData) {
+    console.log(attendanceData);
+    AddAttendance.add(attendanceData);
+  }
+
   if ($rootScope.currentUser.role === 'teacher') {
     GetAttendance.allAttendance().then(function(data) {
       $scope.attendance = angular.fromJson(data.data);
