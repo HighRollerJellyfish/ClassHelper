@@ -1,5 +1,5 @@
 angular.module('classroom.attendance', [])
-.controller('AttendanceController', function ($rootScope, $scope, $state, GetAttendance, AddAttendance) {
+.controller('AttendanceController', ['$rootScope', '$scope', '$state', 'GetAttendance', 'AddAttendance', function ($rootScope, $scope, $state, GetAttendance, AddAttendance) {
   $scope.isCollapsed = false;
 
   $scope.isTeacher = function () {
@@ -20,4 +20,4 @@ angular.module('classroom.attendance', [])
       $scope.attendance = angular.fromJson(data.data);
     });
   }
-});
+}]);

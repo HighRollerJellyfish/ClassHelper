@@ -17,7 +17,7 @@ angular.module('classroom', [
   };
 }])
 
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/syllabus');
   $stateProvider
     .state('syllabus', {
@@ -68,9 +68,9 @@ angular.module('classroom', [
         requireLogin: false
       }
     })
-})
+}])
 
-.run(function ($rootScope, $state, Auth) {
+.run(['$rootScope', '$state', 'Auth', function ($rootScope, $state, Auth) {
 
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     var requireLogin = toState.data.requireLogin;
@@ -90,4 +90,4 @@ angular.module('classroom', [
     }
   });
 
-});
+}]);
