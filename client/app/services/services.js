@@ -1,7 +1,16 @@
+/**
+@module classroom.services
+*/
+
 angular.module('classroom.services', [])
 
 .service('GetSyllabus', ['$http', '$rootScope', function ($http, $rootScope) {
-  this.lessons = function () {
+  /**
+  This service function gets the lessons from the server.
+  @method lessons
+  @return function Returns a $http() Get promise.
+  */
+  this.lessons = function() {
     return $http({
       url: '/lessons',
       method: 'GET',
@@ -13,6 +22,11 @@ angular.module('classroom.services', [])
 }])
 
 .service('GetGrades', ['$http', '$rootScope', function ($http, $rootScope) {
+  /**
+  This service function gets all the grades data from the server.
+  @method allGrades
+  @return function Returns a $http() Get promise.
+  */
   this.allGrades = function () {
     return $http({
       url: '/grades',
@@ -22,7 +36,12 @@ angular.module('classroom.services', [])
       }
     });
   };
-
+  /**
+  This service function gets a user's grades from the server.
+  @method gradesForUser
+  @param username
+  @return function Returns a $http() Get promise.
+  */
   this.gradesForUser = function (username) {
     return $http({
       url: '/grades?student=' + username,
@@ -35,6 +54,12 @@ angular.module('classroom.services', [])
 }])
 
 .service('AddGrades', ['$http', '$rootScope', function ($http, $rootScope) {
+  /**
+  This service function posts grade data to the server.
+  @method add
+  @param gradeData
+  @return function Returns a $http() Post promise.
+  */
   this.add = function (gradeData) {
     return $http({
       method: 'POST',
@@ -48,6 +73,11 @@ angular.module('classroom.services', [])
 }])
 
 .service('GetAttendance', ['$http', '$rootScope', function ($http, $rootScope) {
+  /**
+  This service function gets all attendance records from the server.
+  @method allAttendance
+  @return function Returns a $http() Get promise. 
+  */
   this.allAttendance = function () {
     return $http({
       url: '/attendance',
@@ -57,7 +87,12 @@ angular.module('classroom.services', [])
       }
     });
   };
-
+  /**
+  This service function gets an individual user's attendance from the server.
+  @method attendanceForUser
+  @param username 
+  @return function Returns a $http() Get promise.
+  */
   this.attendanceForUser = function (username) {
     return $http({
       //this gets grades for all users right now. it should be '/grades/' + username;
@@ -71,6 +106,12 @@ angular.module('classroom.services', [])
 }])
 
 .service('AddAttendance', ['$http', '$rootScope', function ($http, $rootScope) {
+  /**
+  This method is a service function that posts attendance data to the server.
+  @method add
+  @param attendanceData
+  @return function Returns $http() Post promise.
+  */
   this.add = function (attendanceData) {
     return $http({
       method: 'POST',
@@ -85,6 +126,13 @@ angular.module('classroom.services', [])
 
 .service('Auth', ['$http', '$rootScope', function ($http, $rootScope) {
 
+  /**
+  This service function posts a username and password, setting the $rootScope.currentUser and then executes the callback.
+  @method login
+  @param username
+  @param password
+  @param callback
+  */
   this.login = function (username, password, cb) {
     $http({
       method: 'POST',
@@ -108,7 +156,13 @@ angular.module('classroom.services', [])
       cb(res);
     });
   };
-
+  
+  /**
+  This service function posts a new user's data, calls login() with userData and then executes the callback.
+  @method signup
+  @param userData
+  @param callback
+  */
   this.signup = function (userData, cb) {
     return $http({
       method: 'POST',
@@ -125,6 +179,11 @@ angular.module('classroom.services', [])
     });
   };
 
+  /**
+  This service function resets the $rootScope.currentUser from the auth token when there is a refresh and then executes the callback.
+  @method refreshUser
+  @param callback This callback is expected to be sending the user to the page the user was trying to get to.
+  */
   this.refreshUser = function (cb) {
     console.log('refreshuser in auth', window.localStorage.jwtToken);
     return $http({
