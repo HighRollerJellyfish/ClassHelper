@@ -1,3 +1,9 @@
+/**
+This module controls the states that are rendered on the main page.
+@module classroom
+@requires
+*/
+
 angular.module('classroom', [
   'classroom.attendance',
   'classroom.login',

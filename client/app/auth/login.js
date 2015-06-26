@@ -1,8 +1,23 @@
+/**
+@module classroom.login
+*/
+
 angular.module('classroom.login', [])
 .controller('LoginController', ['$scope', '$rootScope', '$state', 'Auth', function ($scope, $rootScope, $state, Auth) {
-  $scope.cancel = function(){console.log('cancel')};
+  /**
+  This method allows a user to cancel submitting a login and console logs 'cancel'.
+  @method cancel
+  */
 
+  $scope.cancel = function(){console.log('cancel')};
+  /**
+  This method uses the services function of Auth.log to allow a user to login to the classroom sylabus.
+  @method submit
+  @param username
+  @param password
+  */
   $scope.submit = function (username, password) {
+
     // Use the Auth factory to login a user.
     // Auth.login makes an HTTP request to our api. Right now
     // It's getting back either a string as an error message or an

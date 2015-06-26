@@ -1,4 +1,5 @@
 var should = require('chai').should();
+var expect = require('chai').expect;
 
 describe('Lessons Controller', function() {
   var Lesson = require('../../../server/controllers/lessons.server.controller');
