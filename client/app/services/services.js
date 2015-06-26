@@ -1,7 +1,7 @@
 angular.module('classroom.services', [])
 
-.service('GetSyllabus', function($http, $rootScope) {
-  this.lessons = function() {
+.service('GetSyllabus', ['$http', '$rootScope', function ($http, $rootScope) {
+  this.lessons = function () {
     return $http({
       url: '/lessons',
       method: 'GET',
@@ -10,9 +10,9 @@ angular.module('classroom.services', [])
       }
     });
   }
-})
+}])
 
-.service('GetGrades', function($http, $rootScope) {
+.service('GetGrades', ['$http', '$rootScope', function ($http, $rootScope) {
   this.allGrades = function () {
     return $http({
       url: '/grades',
@@ -25,7 +25,6 @@ angular.module('classroom.services', [])
 
   this.gradesForUser = function (username) {
     return $http({
-      //this gets grades for all users right now. it should be '/grades/' + username;
       url: '/grades?student=' + username,
       method: 'GET',
       headers: {
@@ -33,9 +32,9 @@ angular.module('classroom.services', [])
       }
     });
   };
-})
+}])
 
-.service('AddGrades', function($http, $rootScope) {
+.service('AddGrades', ['$http', '$rootScope', function ($http, $rootScope) {
   this.add = function (gradeData) {
     return $http({
       method: 'POST',
@@ -46,9 +45,9 @@ angular.module('classroom.services', [])
       }
     });
   }
-})
+}])
 
-.service('GetAttendance', function($http, $rootScope) {
+.service('GetAttendance', ['$http', '$rootScope', function ($http, $rootScope) {
   this.allAttendance = function () {
     return $http({
       url: '/attendance',
@@ -69,9 +68,9 @@ angular.module('classroom.services', [])
       }
     });
   };
-})
+}])
 
-.service('AddAttendance', function($http, $rootScope) {
+.service('AddAttendance', ['$http', '$rootScope', function ($http, $rootScope) {
   this.add = function (attendanceData) {
     return $http({
       method: 'POST',
@@ -82,9 +81,9 @@ angular.module('classroom.services', [])
       }
     });
   }
-})
+}])
 
-.factory('Auth', function ($http, $rootScope) {
+.factory('Auth', ['$http', '$rootScope', function ($http, $rootScope) {
 
 // We need some way to store user data after login. The token returned
 // by the server won't have any user information. It can only be decrypted
@@ -156,4 +155,4 @@ angular.module('classroom.services', [])
     signup: signup,
     refreshUser: refreshUser
   };
-});
+}]);

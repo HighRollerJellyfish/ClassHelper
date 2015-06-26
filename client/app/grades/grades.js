@@ -1,7 +1,5 @@
 angular.module('classroom.grades', [])
-.controller('GradesController', function ($rootScope, $scope, $state, GetGrades, AddGrades) {
-  $scope.isCollapsed = false;
-
+.controller('GradesController', ['$rootScope', '$scope', 'GetGrades', 'AddGrades', function ($rootScope, $scope, GetGrades, AddGrades) {
   $scope.isTeacher = function () {
     return $rootScope.currentUser.role === 'teacher';
   }
@@ -20,4 +18,4 @@ angular.module('classroom.grades', [])
       $scope.grades = angular.fromJson(data.data);
     });
   }
-});
+}]);
