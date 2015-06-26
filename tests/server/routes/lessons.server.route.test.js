@@ -1,5 +1,6 @@
 var should = require('chai').should();
 var request = require('request');
+var expect = require('chai').expect;
 
 describe('Lessons routes', function() {
   var url = 'http://localhost:3000/lessons';
