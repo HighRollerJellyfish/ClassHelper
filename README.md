@@ -1,5 +1,18 @@
 # Classroom
 
+## Deployment
+- https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-12-04
+
+## Docker
+- You'll have to install boot2docker and docker: https://docs.docker.com/installation/mac/
+- Make sure you set up boot2docker correctly (boot2docker init, boot2docker start, boot2docker shellinit, etc...)
+- Scripts have been created to handle docker instance setup
+- Make the following files executable with chmod +x
+  - docker_build.sh
+  - docker_start.sh
+- If ./docker_build.sh doesn't start the containers, follow it up with a ./docker_start.sh
+- Once the containers are up and running, you should be able to access them at 192.168.59.103:3000 on your local machine.
+
 ## Dev Notes!
 - The schema.sql test users will no longer authenticate now that
   we are using bcrypt to compare passwords.

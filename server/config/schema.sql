@@ -116,7 +116,6 @@ INSERT INTO `lessons` (`title`, `description`, `content`, `start_date`, `created
 
 COMMIT;
 
-
 -- -----------------------------------------------------
 -- Data for table `grades`
 -- -----------------------------------------------------
@@ -149,7 +148,6 @@ INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-03', '
 INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'jake', '1');
 
 COMMIT;
-
 
 -- -----------------------------------------------------
 -- Data for table `users`
