@@ -163,6 +163,7 @@ angular.module('classroom.services', [])
   @param userData
   @param callback
   */
+  var AuthService = this;
   this.signup = function (userData, cb) {
     return $http({
       method: 'POST',
@@ -172,7 +173,7 @@ angular.module('classroom.services', [])
     .then(function (res) {
       //TODO: instead of calling login() to send a second request to the server, have the server
       //      create a new token when we call signup and respond with the token.
-      login(userData.username, userData.password, cb);
+      AuthService.login(userData.username, userData.password, cb);
     })
     .catch(function (err) {
       console.log('ERROR: User already exists.');
