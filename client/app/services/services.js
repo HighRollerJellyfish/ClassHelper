@@ -83,15 +83,9 @@ angular.module('classroom.services', [])
   }
 }])
 
-.factory('Auth', ['$http', '$rootScope', function ($http, $rootScope) {
+.service('Auth', ['$http', '$rootScope', function ($http, $rootScope) {
 
-// We need some way to store user data after login. The token returned
-// by the server won't have any user information. It can only be decrypted
-// by the server.
-// http://stackoverflow.com/questions/14206492/how-do-i-store-a-current-user-context-in-angular
-  var currentUser = {};
-
-  function login (username, password, cb) {
+  this.login = function (username, password, cb) {
     $http({
       method: 'POST',
       url: '/users/login',
@@ -115,7 +109,7 @@ angular.module('classroom.services', [])
     });
   };
 
-  function signup (userData, cb) {
+  this.signup = function (userData, cb) {
     return $http({
       method: 'POST',
       url: '/users/signup',
@@ -131,7 +125,7 @@ angular.module('classroom.services', [])
     });
   };
 
-  function refreshUser (cb) {
+  this.refreshUser = function (cb) {
     console.log('refreshuser in auth', window.localStorage.jwtToken);
     return $http({
       method: 'GET',
@@ -148,11 +142,5 @@ angular.module('classroom.services', [])
     .catch(function (err) {
       console.log('ERROR: Unable to refresh user credentials.');
     });
-  }
-
-  return {
-    login: login,
-    signup: signup,
-    refreshUser: refreshUser
   };
 }]);
