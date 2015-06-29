@@ -4,19 +4,16 @@ var jwt = require('jwt-simple');
 module.exports = function(app) {
   app.get('/attendance', function(req, res, next) {
       console.log("Authenticating...");
-      var student = req.param('student');
-      // We are sending our JWT token in the header of every request.
-      // The header looks like this: {Authorization: 'Bearer TOKEN_STRING'}
-      // So to access it, we split it on spaces and take the 1st index.
-      var token = req.headers.authorization.split(' ')[1];
+      var studentName = req.param('student');
+      var token = req.headers.authorization;
       if (token) {
         console.log("Token: ", token);
         // We are hardcoding our secret token in for now but in
         // production it should be an env variable.
         var decoded = jwt.decode(token, 'abc');
         console.log(decoded);
-        if (student) {
-          attendance.listForUser(student, req, res, next);
+        if (studentName) {
+          attendance.listForUser(studentName, req, res, next);
         } else {
           attendance.listAll(req, res, next);
         }
@@ -27,7 +24,7 @@ module.exports = function(app) {
     attendance.listForUser
   );
   app.post('/attendance', function(req, res, next) {
-    var token = req.headers.authorization.split(' ')[1];
+    var token = req.headers.authorization;
     var decoded = jwt.decode(token, 'abc');
     //check if user is a teacher
     if(decoded.role === 'teacher'){

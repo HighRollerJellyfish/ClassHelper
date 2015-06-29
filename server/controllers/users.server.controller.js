@@ -26,7 +26,7 @@ exports.create = function(req, res, next) {
 };
 
 exports.refresh = function (req, res, next) {
-  var token = req.headers.authorization.split(' ')[1];
+  var token = req.headers.authorization;
   var decoded = jwt.decode(token, 'abc');
   var userInfo = {username: decoded.username, name: decoded.name, role: decoded.role};
   res.json(userInfo);
@@ -37,7 +37,7 @@ exports.refresh = function (req, res, next) {
 // Any time the client makes a request to change something
 // on the server, we'll verify the token. 
 // For everything else client-side, we'll use this user
-// object by storing it in localStorage.
+// object by storing it in $rootScope.
 exports.authenticate = function(req, res, next) {
   var userData = req.body;
   console.log(userData);
@@ -50,6 +50,7 @@ exports.authenticate = function(req, res, next) {
       res.json({
         token: token,
         username: user.get('username'),
+        name: user.get('name'),
         role: user.get('role')
       });
     }
