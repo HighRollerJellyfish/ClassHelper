@@ -13,7 +13,7 @@ angular.module('classroom.grades', [])
     return $rootScope.currentUser.role === 'teacher';
   }
   /**
-  This method adds gradeData to the server.
+  This method checks that the user is a teacher and adds gradeData to the server.
   @method addGrade
   @param gradeData
   */
@@ -21,12 +21,12 @@ angular.module('classroom.grades', [])
     console.log(gradeData);
     AddGrades.add(gradeData);
   }
-
-  if ($rootScope.currentUser.role === 'teacher') {
+  // Show all grades if the user is a teacher
+  if ($scope.isTeacher()) {
     GetGrades.allGrades().then(function(data) {
       $scope.grades = angular.fromJson(data.data);
     });
-  } else {
+  } else { // The user is a student, so only show that student's grades
     GetGrades.gradesForUser($rootScope.currentUser.username).then(function(data) {
       $scope.grades = angular.fromJson(data.data);
     });

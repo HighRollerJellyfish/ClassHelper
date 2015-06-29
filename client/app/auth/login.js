@@ -5,12 +5,6 @@
 angular.module('classroom.login', [])
 .controller('LoginController', ['$scope', '$rootScope', '$state', 'Auth', function ($scope, $rootScope, $state, Auth) {
   /**
-  This method allows a user to cancel submitting a login and console logs 'cancel'.
-  @method cancel
-  */
-
-  $scope.cancel = function(){console.log('cancel')};
-  /**
   This method uses the services function of Auth.log to allow a user to login to the classroom sylabus.
   @method submit
   @param username
