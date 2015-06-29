@@ -13,7 +13,7 @@ angular.module('classroom.syllabus', ['textAngular'])
   @method isTeacher
   */
   $scope.isTeacher = function () {
-   return $rootScope.currentUser.role === 'teacher'; 
+   return $rootScope.currentUser && $rootScope.currentUser.role === 'teacher'; 
   }
 
   /**
