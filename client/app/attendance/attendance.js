@@ -5,7 +5,6 @@ This module
 
 angular.module('classroom.attendance', [])
 .controller('AttendanceController', ['$rootScope', '$scope', '$state', 'Attendance', function ($rootScope, $scope, $state, Attendance) {
-  $scope.isCollapsed = false;
 
   /**
   @method isTeacher
@@ -18,7 +17,6 @@ angular.module('classroom.attendance', [])
   @param attendanceData  data to be added to database.
   */
   $scope.addAttendance = function (attendanceData) {
-    console.log(attendanceData);
     Attendance.add(attendanceData);
   };
   

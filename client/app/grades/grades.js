@@ -18,7 +18,6 @@ angular.module('classroom.grades', [])
   @param gradeData
   */
   $scope.addGrade = function (gradeData) {
-    console.log(gradeData);
     Grades.add(gradeData);
   }
 

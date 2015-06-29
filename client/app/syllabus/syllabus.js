@@ -10,7 +10,6 @@ angular.module('classroom.syllabus', ['textAngular'])
 
   $scope.removeQuotes = function (content) {
     content = content.replace(/^"(.*)"$/, '$1');
-    console.log(content);
     return content;
 
   }
@@ -26,7 +25,6 @@ angular.module('classroom.syllabus', ['textAngular'])
   $scope.htmlcontent = $scope.orightml;
 
   $scope.addLesson = function(lessonData) {
-    console.log(lessonData);
     Lessons.add(lessonData);
   }
 

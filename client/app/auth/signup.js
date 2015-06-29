@@ -11,7 +11,6 @@ angular.module('classroom.signup', [])
   */
   $scope.submit = function (userData) {
     Auth.signup(userData, function(user) {
-      console.log("User signed in: ", user);
       $state.go('syllabus');
     });
   };
