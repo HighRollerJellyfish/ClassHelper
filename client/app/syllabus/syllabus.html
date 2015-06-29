@@ -34,7 +34,7 @@
           <div id="lesson{{lesson.id}}" class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a href="#" ng-click="isCollapsed = !isCollapsed">
+                <a href="#" ng-click="isCollapsed = !isCollapsed;">
                   {{lesson.title}}
                 </a>
               </h4>
@@ -45,7 +45,7 @@
               </h5>
             <div ng-show="isCollapsed">
               <div class="panel-body">
-                <p innerHTML="{{lesson.content}}">{{lesson.content}}</p>
+                <p ng-bind-html="lesson.content"></p>
               </div>
             </div>
           </div>
