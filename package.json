@@ -27,7 +27,8 @@
     "jwt-simple": "^0.3.0",
     "knex": "^0.8.6",
     "mysql": "^2.7.0",
-    "request": "^2.58.0"
+    "request": "^2.58.0",
+    "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
     "chai": "^3.0.0",

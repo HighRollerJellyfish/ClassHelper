@@ -2,6 +2,7 @@ var express = require('express'),
   morgan = require('morgan'),
   bodyParser = require('body-parser'),
   path = require('path');
+  favicon = require('serve-favicon');
 
 module.exports = function() {
   var app = express();
@@ -9,6 +10,8 @@ module.exports = function() {
   app.use(bodyParser.json());
 
   app.use(express.static(path.join(__dirname, '../../', 'client')));
+
+  app.use(favicon(path.join(__dirname, '../../', 'client/assets', 'favicon.ico')));
 
   // Require our routes
   require('../routes/lessons.server.routes.js')(app);
