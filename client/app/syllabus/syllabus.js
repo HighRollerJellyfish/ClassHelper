@@ -35,9 +35,7 @@ angular.module('classroom.syllabus', ['textAngular'])
   Lessons.getAll().then(function(data) {
     $scope.lessons = angular.fromJson(data.data);
   });
-}]);
-
-
+}])
 
 .controller('textController', function($rootScope, $scope, $state, Lessons) { 
   $scope.html = '<h3> Add and Edit Lessons here !</h3>';
