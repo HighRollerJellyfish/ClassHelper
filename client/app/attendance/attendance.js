@@ -25,6 +25,9 @@ angular.module('classroom.attendance', [])
   //checks if the user has the role teacher and returns all the attendance
   //records.  If the user's role is not teacher, then it returns just the
   //attendance of the user.
+
+  //To display attendance data for teachers and individual users, D3 and Dimple.js
+  //was used.  Refer to dimplejs.org for documentation on how to use dimple.
   if ($rootScope.currentUser.role === 'teacher') {
     Attendance.getAll().then(function(data) {
       var svg = dimple.newSvg(".attendance", 1000, 800);
