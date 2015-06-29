@@ -5,7 +5,6 @@ This module
 
 angular.module('classroom.attendance', [])
 .controller('AttendanceController', ['$rootScope', '$scope', '$state', 'Attendance', function ($rootScope, $scope, $state, Attendance) {
-  $scope.isCollapsed = false;
 
   /**
   @method isTeacher
