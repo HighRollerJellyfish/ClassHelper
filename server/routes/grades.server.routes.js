@@ -4,7 +4,7 @@ var jwt = require('jwt-simple');
 module.exports = function(app) {
   app.get('/grades', function(req, res, next) {
       console.log("Authenticating...");
-      var student = req.param('student');
+      var studentName = req.param('student');
       var token = req.headers.authorization;
       if (token) {
         console.log("Token: ", token);
@@ -12,8 +12,8 @@ module.exports = function(app) {
         // production it should be an env variable.
         var decoded = jwt.decode(token, 'abc');
         console.log(decoded);
-        if (student) {
-          grades.listForUser(student, req, res, next);
+        if (studentName) {
+          grades.listForUser(studentName, req, res, next);
         } else {
           grades.listAll(req, res, next);
         }
