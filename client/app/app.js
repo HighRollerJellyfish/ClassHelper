@@ -14,7 +14,6 @@ angular.module('classroom', [
   'classroom.GradeService',
   'classroom.AttendanceService',
   'classroom.syllabus',
-  'classroom.landingPage',
   'ui.router',
   'ui.bootstrap',
   'textAngular'
@@ -23,7 +22,7 @@ angular.module('classroom', [
   $scope.logout = function () {
     delete $rootScope.currentUser;
     delete localStorage.jwtToken;
-    $state.go('landing.login');
+    $state.go('login');
   };
 }])
 
@@ -54,23 +53,21 @@ angular.module('classroom', [
         requireLogin: true
       }
     })
-    .state('landing', {
-      url: '/landing',
-      templateUrl: 'app/landing_page/landing_page.html',
-      controller: 'LandingPageController',
+    .state('login', {
+      url: '/login',
+      templateUrl: 'app/auth/login.html',
+      controller: 'LoginController',
       data: {
         requireLogin: false
       }
     })
-    .state('landing.login', {
-      url: '/login',
-      templateUrl: 'app/auth/login.html',
-      controller: 'LoginController'
-    })
-    .state('landing.signup', {
+    .state('signup', {
       url: '/signup',
       templateUrl: 'app/auth/signup.html',
-      controller: 'SignupController'
+      controller: 'SignupController',
+      data: {
+        requireLogin: false
+      }
     })
 }])
 
@@ -91,7 +88,7 @@ angular.module('classroom', [
       } else {
         event.preventDefault();
         console.log("User must be logged in to view this page");
-        $state.go('landing.login');
+        $state.go('login');
       }
     }
   });
