@@ -4,11 +4,8 @@ var jwt = require('jwt-simple');
 module.exports = function(app) {
   app.get('/lessons', function(req, res, next) {
       console.log("Authenticating...");
-      // We are sending our JWT token in the header of every request.
-      // The header looks like this: {Authorization: 'Bearer TOKEN_STRING'}
-      // So to access it, we split it on spaces and take the 1st index.
       console.log(req.headers.authorization);
-      var token = req.headers.authorization.split(' ')[1];
+      var token = req.headers.authorization;
       if (token) {
         console.log("Token: ", token);
         // We are hardcoding our secret token in for now but in

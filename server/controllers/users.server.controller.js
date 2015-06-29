@@ -26,7 +26,7 @@ exports.create = function(req, res, next) {
 };
 
 exports.refresh = function (req, res, next) {
-  var token = req.headers.authorization.split(' ')[1];
+  var token = req.headers.authorization;
   var decoded = jwt.decode(token, 'abc');
   var userInfo = {username: decoded.username, name: decoded.name, role: decoded.role};
   res.json(userInfo);

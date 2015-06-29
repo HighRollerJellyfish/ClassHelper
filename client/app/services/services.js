@@ -15,7 +15,7 @@ angular.module('classroom.services', [])
       url: '/lessons',
       method: 'GET',
       headers: {
-        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+        'Authorization': window.localStorage.jwtToken
       }
     });
   }
@@ -32,7 +32,7 @@ angular.module('classroom.services', [])
       url: '/grades',
       method: 'GET',
       headers: {
-        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+        'Authorization': window.localStorage.jwtToken
       }
     });
   };
@@ -47,7 +47,7 @@ angular.module('classroom.services', [])
       url: '/grades?student=' + username,
       method: 'GET',
       headers: {
-        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+        'Authorization': window.localStorage.jwtToken
       }
     });
   };
@@ -66,7 +66,7 @@ angular.module('classroom.services', [])
       url: '/grades',
       data: gradeData,
       headers: {
-        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+        'Authorization': window.localStorage.jwtToken
       }
     });
   }
@@ -83,7 +83,7 @@ angular.module('classroom.services', [])
       url: '/attendance',
       method: 'GET',
       headers: {
-        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+        'Authorization': window.localStorage.jwtToken
       }
     });
   };
@@ -99,7 +99,7 @@ angular.module('classroom.services', [])
       url: '/attendance?student=' + username,
       method: 'GET',
       headers: {
-        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+        'Authorization': window.localStorage.jwtToken
       }
     });
   };
@@ -118,7 +118,7 @@ angular.module('classroom.services', [])
       url: '/attendance',
       data: attendanceData,
       headers: {
-        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+        'Authorization': window.localStorage.jwtToken
       }
     });
   }
@@ -191,7 +191,7 @@ angular.module('classroom.services', [])
       method: 'GET',
       url: '/users/refresh',
       headers: {
-        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+        'Authorization': window.localStorage.jwtToken
       }
     })
     .then(function (res) {
