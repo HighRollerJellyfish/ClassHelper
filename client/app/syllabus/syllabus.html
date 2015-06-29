@@ -15,6 +15,8 @@
   <!-- Text Editor -->
 
     <div ng-show="isTeacher()" ng-controller="textController" class="container app">
+
+    <div class="container-fluid">
       <h3>Editor</h3>
         
           <input style="width:300px"type="text" ng-model="fields.title" placeholder="Lesson Title" />
@@ -27,10 +29,8 @@
 
   <!-- Main Content -->
 
-  <div id="page-content-wrapper">
       <div class="container-fluid">
-          <div class="row">
-              <div class="col-lg-12" ng-repeat="lesson in lessons">
+              <div ng-repeat="lesson in lessons">
                 <div id="lesson{{lesson.id}}" class="panel panel-default">
                   <div class="panel-heading">
                     <h4 class="panel-title">
@@ -51,6 +51,6 @@
                 </div>
               </div>
             </div>
-        </div>
+     
     </div>
-  </div>
+
