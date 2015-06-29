@@ -14,6 +14,11 @@
   - Rename start.sh.example to start.sh and edit it to use the username and password for your mysql database.
   - Run ``chmod +x start.sh`` to make the start.sh file executable.
   - Run ``npm start`` to start the server with nodemon.
+- __Documentation__
+  - Documentation is built with [YUIDoc](http://yui.github.io/yuidoc/)
+  - Install yuidoc with ``npm install -g yuidocjs``
+  - Generate the documentation with ``yuidoc .``
+  - The documentation will reside in the './out' folder and can be served as static html files.
 
 
 ## Directory Layout and Description of Files
