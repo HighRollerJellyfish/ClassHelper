@@ -8,7 +8,7 @@
 # so usernames and passwords aren't commited to the repo.
 
 export MYSQL_USER=MysqlUsername
-export MYSQL_HOST=localhost
+export MYSQL_HOST=localhost:3000
 export MYSQL_PASS=MysqlPassword
 
 nodemon server/server.js
