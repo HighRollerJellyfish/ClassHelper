@@ -3,7 +3,7 @@ var knex = require('knex')({
   connection: {
     host: process.env.CLASSROOM_MYSQL_SERVER || '127.0.0.1',
     user: 'root',
-    password: process.env.CLASSROOM_MYSQL_PASSWORD || 'password',
+    password: process.env.CLASSROOM_MYSQL_PASSWORD || '',
     database: process.env.CLASSROOM_MYSQL_DB || 'classroom',
     charset: 'utf8'
   }
