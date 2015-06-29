@@ -86,6 +86,8 @@ angular.module('classroom', [
           $state.go(toState);
         });
       } else {
+        // there is no token in local storage, so this was not a refresh.
+        // the user is not logged in, so send them to the login page
         event.preventDefault();
         console.log("User must be logged in to view this page");
         $state.go('login');
