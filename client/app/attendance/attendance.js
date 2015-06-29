@@ -18,7 +18,6 @@ angular.module('classroom.attendance', [])
   @param attendanceData  data to be added to database.
   */
   $scope.addAttendance = function (attendanceData) {
-    console.log(attendanceData);
     Attendance.add(attendanceData);
   };
   

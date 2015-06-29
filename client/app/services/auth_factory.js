@@ -18,7 +18,6 @@ angular.module('classroom.AuthFactory', [])
         password: password
       }
     }).then(function(res) {
-      console.log(res.data.token);
       window.localStorage['jwtToken'] = res.data.token;
       $rootScope.currentUser = {
         username: res.data.username,
@@ -61,7 +60,6 @@ angular.module('classroom.AuthFactory', [])
   @param callback This callback is expected to be sending the user to the page the user was trying to get to.
   */
   var refreshUser = function (cb) {
-    console.log('refreshuser in auth', window.localStorage.jwtToken);
     return $http({
       method: 'GET',
       url: '/users/refresh',
