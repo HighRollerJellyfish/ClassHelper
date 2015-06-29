@@ -54,13 +54,16 @@
   - CONTRIBUTING.md
   - docker_build.sh -- Builds docker images from scratch. This should be run the first time you start using docker to deploy/develop the app and again each time you want to push your local changes to the docker containers. Develop locally. Run docker_build.sh when you are ready to test your changes on docker and push to deployment.
   - docker_start.sh -- Restarts the containers. Use this to start the containers again after a reboot or any time they stop/crash. No changes you make to your local filesystem will be reflected by running this command. To reflect changes, run docker_build.sh.
-  - mysql_Dockerfile -- Copies the schema file from server/config/schema.sql and sets the environment variable for MYSQL_ROOT_PASSWORD which is required for the official mysql base docker image. __*Edit this environment variable and don't push it to GitHub!!!*__
+  - mysql_build.sh -- docker_build.sh calls mysql_build.sh to build the MySQL image. You can build the MySQL image in isolation by running ``./mysql_build.sh``.
+  - mysql_Dockerfile -- Copies the schema file from server/config/schema.sql.
   - msyql_start.sh -- This runs the mysql container as a background process with the -d flag. It maps port 3306 on the container to 3306 on the host machine. It gives the container a name of classroom-db. It uses the classroom/mysql:v1 image which was created with the docker_build.sh command.
-  - node_Dockerfile
-  - node_start.sh
+  - node_build.sh -- docker_build.sh calls node_build.sh to build the Node image. You can run ./node_build.sh to build the Node image in isolation by running ``./node_build.sh``.
+  - node_Dockerfile -- Copies the entire app directory to the /greenfield folder in the docker image. It also sets environment variables, the working directory, and installs nodemon, bower, and the required packages.
+  - node_start. - Runs the node container as a background process, forwards necessary ports, and links to the database container. No changes made to the local filesystem will show when you run this command. To reflect changes, re-run docker_build.sh.
   - package.json
+  - PRESS-RELEASE.md
   - README.md
-  - start.sh.example
+  - start.sh -- This is the script run by ``npm start``. It sources from config.js to import environment variables, then it runs ``nodemon server/server.js``.
   - STYLE-GUIDE.md
 
 ## Deployment
