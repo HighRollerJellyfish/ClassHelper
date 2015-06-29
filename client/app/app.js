@@ -61,18 +61,12 @@ angular.module('classroom', [
     .state('landing.login', {
       url: '/login',
       templateUrl: 'app/auth/login.html',
-      controller: 'LoginController',
-      data: {
-        requireLogin: false
-      }
+      controller: 'LoginController'
     })
     .state('landing.signup', {
       url: '/signup',
       templateUrl: 'app/auth/signup.html',
-      controller: 'SignupController',
-      data: {
-        requireLogin: false
-      }
+      controller: 'SignupController'
     })
 }])
 
