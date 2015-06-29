@@ -1,3 +1,2 @@
 FROM mysql
 COPY server/config/schema.sql schema.sql
-ENV MYSQL_ROOT_PASSWORD password

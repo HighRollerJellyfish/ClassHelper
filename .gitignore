@@ -23,6 +23,11 @@ bower_components/
 .floobit
 .floo
 .flooignore
+
+# Config File
 start.sh
+
+# Temp files
 npm-debug.log
 tmp/*.mwb*
+config.sh
