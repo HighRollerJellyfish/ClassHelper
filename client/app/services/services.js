@@ -28,7 +28,7 @@ angular.module('classroom.services', [])
       url: '/lessons',
       data: lessonData,
       headers: {
-        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+        'Authorization': window.localStorage.jwtToken
       }
     });
   }
