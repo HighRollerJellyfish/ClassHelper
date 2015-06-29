@@ -71,11 +71,29 @@
 ### Docker
 
 - If you're using Mac, you'll have to install boot2docker and docker: https://docs.docker.com/installation/mac/
-- Make sure you set up boot2docker correctly (boot2docker init, boot2docker up, boot2docker start, boot2docker shellinit, etc...). *Don't forget to type ``$(boot2docker shellinit)`` every time you open a new terminal window and want to use docker commands.*
+- Download the [Boot2Docker-x.x.x.pkg](https://github.com/boot2docker/osx-installer/releases/tag/v1.7.0) file.
+- Install Boot2Docker by double-clicking the package.
+  - The installer places Boot2Docker and VirtualBox in your "Applications" folder.
+  - The ``docker`` and ``boot2docker`` binaries will be in your ``/usr/local/bin`` directory.
+- __To run docker from the command line__
+  1. Create a new Boot2Docker virtual machine
+    - ``boot2docker init``
+  1. Start the ``boot2docker`` VM.
+    - ``boot2docker start``
+  1. Display the environment variables for the Docker client.
+    - ``boot2docker shellinit``
+  1. Set the environment variables in your shell with the following:
+    - ``$(boot2docker shellinit)``
+  1. Run the hello-world container to verify your setup.
+    - ``docker run hello-world``
+
+- Every time you open a new terminal window, you will need to set the environment variables of the new window by running the ``$(boot2docker shellinit)`` command.
 - Scripts have been created to handle docker instance setup.
   - docker_build.sh (Necessary on the first build and every time you want to push changes you make locally to the docker containers).
   - docker_start.sh (Necessary every time you want to spin up a container of the image you made with docker_build).
+  - node_build.sh (Used by docker_build.sh. Creates a new node docker image).
   - node_start.sh (Only necessary if you want to spin up the node container by itself for testing purposes or if it crashed).
+  - mysql_build.sh (Used by docker_build.sh. Creates a new mysql docker image).
   - mysql_start.sh (Only necessary if you want to spin up the mysql container by itself for testing purposes or if it crashed).
 - Once the containers are up and running, you should be able to access them at 192.168.59.103:3000 on your local machine.
 
