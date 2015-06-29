@@ -24,11 +24,31 @@ angular.module('classroom.grades', [])
   // Show all grades if the user is a teacher
   if ($scope.isTeacher()) {
     GetGrades.allGrades().then(function(data) {
-      $scope.grades = angular.fromJson(data.data);
+      var svg = dimple.newSvg(".grades", 1000, 800);
+      var gradesData = angular.fromJson(data.data);
+      var myChart = new dimple.chart(svg, gradesData);
+
+      var x = myChart.addCategoryAxis("x", "lesson_title");
+      x.addOrderRule("lesson_title");
+      myChart.addCategoryAxis("y", "student");
+      myChart.addMeasureAxis("z", "score");
+      myChart.addColorAxis("score",["#FF0000","#0000FF"]);
+      myChart.addSeries(null, dimple.plot.bubble);
+      myChart.draw();
     });
   } else { // The user is a student, so only show that student's grades
     GetGrades.gradesForUser($rootScope.currentUser.username).then(function(data) {
-      $scope.grades = angular.fromJson(data.data);
+      var svg = dimple.newSvg(".grades", 1000, 800);
+      var gradesData = angular.fromJson(data.data);
+      var myChart = new dimple.chart(svg, gradesData);
+
+      var x = myChart.addCategoryAxis("x", "lesson_title");
+      x.addOrderRule("lesson_title");
+      myChart.addMeasureAxis("y", "score");
+      myChart.addColorAxis("score",["#FF0000","#0000FF"]);
+      myChart.addSeries(null, dimple.plot.bar);
+      myChart.draw();
+
     });
   }
 }]);

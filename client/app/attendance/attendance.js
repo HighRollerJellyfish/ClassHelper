@@ -27,11 +27,29 @@ angular.module('classroom.attendance', [])
   //attendance of the user.
   if ($rootScope.currentUser.role === 'teacher') {
     GetAttendance.allAttendance().then(function(data) {
-      $scope.attendance = angular.fromJson(data.data);
+      var svg = dimple.newSvg(".attendance", 1000, 800);
+      var attendanceData = angular.fromJson(data.data);
+      var myChart = new dimple.chart(svg, attendanceData);
+
+      var x = myChart.addCategoryAxis("x", "date");
+      x.addOrderRule("date");
+      myChart.addCategoryAxis("y", "student");
+      myChart.addColorAxis("presence",["#FF0000","#0000FF"]);
+      myChart.addSeries(null, dimple.plot.bubble);
+      myChart.draw();
     });
   } else {
     GetAttendance.attendanceForUser($rootScope.currentUser.username).then(function(data) {
-      $scope.attendance = angular.fromJson(data.data);
+      var svg = dimple.newSvg(".attendance", 1000, 800);
+      var attendanceData = angular.fromJson(data.data);
+      var myChart = new dimple.chart(svg, attendanceData);
+
+      var x = myChart.addCategoryAxis("x", "date");
+      x.addOrderRule("date");
+      myChart.addCategoryAxis("y", "student");
+      myChart.addColorAxis("presence",["#FF0000","#0000FF"]);
+      myChart.addSeries(null, dimple.plot.bubble);
+      myChart.draw();
     });
   }
 }]);
