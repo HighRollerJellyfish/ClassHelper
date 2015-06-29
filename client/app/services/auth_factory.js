@@ -28,6 +28,7 @@ angular.module('classroom.AuthFactory', [])
       $rootScope.currentUser = {
         username: res.data.username,
         role: res.data.role,
+        name: res.data.name
       }
       // The res sent to callback is what is returned by our /users/login api
       // It is an object which contains a token, username,
