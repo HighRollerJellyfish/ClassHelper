@@ -14,10 +14,10 @@ var User = bookshelf.Model.extend({
 * @param {Function} callback
 */
 User.add = function(userData, callback) {
+  console.log('Attempting to add user...');
   // Create a new user object which we call
   // .fetch() on to search the database to see
   // if that user already exists
-  console.log(userData.username);
   new User({'username': userData.username})
   .fetch()
   // .fetch() returns a promise so we call .then()
@@ -55,7 +55,7 @@ User.add = function(userData, callback) {
 * @param {Function} Callback
 */
 User.authenticate = function(userData, callback) {
-  console.log("Authenticating user: ", userData);
+  console.log("Authenticating user...");
   // Create a new bookshelf User model to call 
   // .fetch() and see if we have that user in the database.
   new User({username: userData.username})
