@@ -14,7 +14,7 @@
   
   <!-- Text Editor -->
 
-    <div ng-controller="textController" class="container app">
+    <div ng-show="isTeacher()" ng-controller="textController" class="container app">
       <h3>Editor</h3>
         
           <input style="width:300px"type="text" ng-model="fields.title" placeholder="Lesson Title" />
