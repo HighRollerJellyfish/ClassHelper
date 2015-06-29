@@ -1,10 +1,15 @@
+/**
+This service module has functions to deal with grade data.
+@class classroom.GradeService
+*/
+
 angular.module('classroom.GradeService', [])
 
 .service('Grades', ['$http', '$rootScope', function ($http, $rootScope) {
   /**
   This service function gets all the grades data from the server.
   @method getAll
-  @return function Returns a $http() Get promise.
+  @return {Function} Returns a $http() Get promise.
   */
   this.getAll = function () {
     return $http({
@@ -18,8 +23,8 @@ angular.module('classroom.GradeService', [])
   /**
   This service function gets a user's grades from the server.
   @method getForUser
-  @param username
-  @return function Returns a $http() Get promise.
+  @param {String} username currentUser
+  @return {Function} Returns a $http() Get promise.
   */
   this.getForUser = function (username) {
     return $http({
@@ -33,8 +38,8 @@ angular.module('classroom.GradeService', [])
   /**
   This service function posts grade data to the server.
   @method add
-  @param gradeData
-  @return function Returns a $http() Post promise.
+  @param {Object} gradeData Grades data from database.
+  @return {Function} Returns a $http() Post promise.
   */
   this.add = function (gradeData) {
     return $http({

@@ -1,21 +1,24 @@
 /**
-This module 
-@module classroom.attendence
+This module contains the controller for the attendance page and deals with the logic on how to display attendance data.
+@class classroom.attendance
 */
 
 angular.module('classroom.attendance', [])
 .controller('AttendanceController', ['$rootScope', '$scope', '$state', 'Attendance', function ($rootScope, $scope, $state, Attendance) {
 
-  /**
-  @method isTeacher
-  */
+/**
+This method tests if a user has the role teacher.
+@method isTeacher
+@return {Boolean}
+*/
   $scope.isTeacher = function () {
     return $rootScope.currentUser.role === 'teacher';
   };
-  /**
-  @method addAttendance
-  @param attendanceData  data to be added to database.
-  */
+/**
+This method adds attendance data to the database.
+@method addAttendance
+@param {Object} attendanceData  data to be added to database.
+*/
   $scope.addAttendance = function (attendanceData) {
     Attendance.add(attendanceData);
   };

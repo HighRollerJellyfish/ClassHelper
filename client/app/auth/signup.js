@@ -1,5 +1,6 @@
 /**
-@module classroom.signup
+This controller module is associated with the signup page.
+@class classroom.signup
 */
 
 angular.module('classroom.signup', [])
@@ -7,7 +8,7 @@ angular.module('classroom.signup', [])
   /**
   This method uses the service function Auth.signup and allows for a user to send data to the server.
   @method submit
-  @param userData
+  @param {Object} userData UserData object with username and password.
   */
   $scope.submit = function (userData) {
     Auth.signup(userData, function(user) {

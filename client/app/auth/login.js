@@ -1,5 +1,6 @@
 /**
-@module classroom.login
+This is the controller module associated with the login page.
+@class classroom.login
 */
 
 angular.module('classroom.login', [])
@@ -7,8 +8,8 @@ angular.module('classroom.login', [])
   /**
   This method uses the services function of Auth.log to allow a user to login to the classroom sylabus.
   @method submit
-  @param username
-  @param password
+  @param {String} username Username to be entered into the database.
+  @param {String} password Password associated with the Username to be added into the database.
   */
   $scope.submit = function (username, password) {
 

@@ -1,10 +1,15 @@
+/**
+This service module contains the functions dealling with attendance data.
+@class classroom.AttendanceService
+*/
+
 angular.module('classroom.AttendanceService', [])
 
 .service('Attendance', ['$http', '$rootScope', function ($http, $rootScope) {
   /**
   This service function gets all attendance records from the server.
   @method getAll
-  @return function Returns a $http() Get promise. 
+  @return {function} Returns a $http() Get promise. 
   */
   this.getAll = function () {
     return $http({
@@ -18,8 +23,8 @@ angular.module('classroom.AttendanceService', [])
   /**
   This service function gets an individual user's attendance from the server.
   @method getForUser
-  @param username 
-  @return function Returns a $http() Get promise.
+  @param {String} username 
+  @return {function} Returns a $http() Get promise.
   */
   this.getForUser = function (username) {
     return $http({
@@ -34,8 +39,8 @@ angular.module('classroom.AttendanceService', [])
   /**
   This method is a service function that posts attendance data to the server.
   @method add
-  @param attendanceData
-  @return function Returns $http() Post promise.
+  @param {Object} attendanceData User entered attendance data.
+  @return {function} Returns $http() Post promise.
   */
   this.add = function (attendanceData) {
     return $http({
