@@ -17,7 +17,6 @@ module.exports = function() {
   app.use(express.static(path.join(__dirname, '../../', 'client')));
 
   // Require our routes
-  require('../routes/index.server.routes.js')(app);
   require('../routes/lessons.server.routes.js')(app);
   require('../routes/grades.server.routes.js')(app);
   require('../routes/attendance.server.routes.js')(app);
