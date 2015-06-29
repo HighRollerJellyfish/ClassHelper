@@ -3,7 +3,7 @@
 */
 
 angular.module('classroom.grades', [])
-.controller('GradesController', ['$rootScope', '$scope', 'GetGrades', 'AddGrades', function ($rootScope, $scope, GetGrades, AddGrades) {
+.controller('GradesController', ['$rootScope', '$scope', 'Grades', function ($rootScope, $scope, Grades) {
   /**
   This method tests if the user has the role 'teacher'.
   @method isTeacher
@@ -19,11 +19,11 @@ angular.module('classroom.grades', [])
   */
   $scope.addGrade = function (gradeData) {
     console.log(gradeData);
-    AddGrades.add(gradeData);
+    Grades.add(gradeData);
   }
   // Show all grades if the user is a teacher
   if ($scope.isTeacher()) {
-    GetGrades.allGrades().then(function(data) {
+    Grades.getAll().then(function(data) {
       var svg = dimple.newSvg(".grades", 1000, 800);
       var gradesData = angular.fromJson(data.data);
       var myChart = new dimple.chart(svg, gradesData);
@@ -37,7 +37,7 @@ angular.module('classroom.grades', [])
       myChart.draw();
     });
   } else { // The user is a student, so only show that student's grades
-    GetGrades.gradesForUser($rootScope.currentUser.username).then(function(data) {
+    Grades.getForUser($rootScope.currentUser.username).then(function(data) {
       var svg = dimple.newSvg(".grades", 1000, 800);
       var gradesData = angular.fromJson(data.data);
       var myChart = new dimple.chart(svg, gradesData);
@@ -48,7 +48,6 @@ angular.module('classroom.grades', [])
       myChart.addColorAxis("score",["#FF0000","#0000FF"]);
       myChart.addSeries(null, dimple.plot.bar);
       myChart.draw();
-
     });
   }
 }]);

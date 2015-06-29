@@ -4,7 +4,7 @@ This module
 */
 
 angular.module('classroom.attendance', [])
-.controller('AttendanceController', ['$rootScope', '$scope', '$state', 'GetAttendance', 'AddAttendance', function ($rootScope, $scope, $state, GetAttendance, AddAttendance) {
+.controller('AttendanceController', ['$rootScope', '$scope', '$state', 'Attendance', function ($rootScope, $scope, $state, Attendance) {
   $scope.isCollapsed = false;
 
   /**
@@ -12,21 +12,21 @@ angular.module('classroom.attendance', [])
   */
   $scope.isTeacher = function () {
     return $rootScope.currentUser.role === 'teacher';
-  }
+  };
   /**
   @method addAttendance
   @param attendanceData  data to be added to database.
   */
   $scope.addAttendance = function (attendanceData) {
     console.log(attendanceData);
-    AddAttendance.add(attendanceData);
-  }
+    Attendance.add(attendanceData);
+  };
   
   //checks if the user has the role teacher and returns all the attendance
   //records.  If the user's role is not teacher, then it returns just the
   //attendance of the user.
   if ($rootScope.currentUser.role === 'teacher') {
-    GetAttendance.allAttendance().then(function(data) {
+    Attendance.getAll().then(function(data) {
       var svg = dimple.newSvg(".attendance", 1000, 800);
       var attendanceData = angular.fromJson(data.data);
       var myChart = new dimple.chart(svg, attendanceData);
@@ -39,7 +39,7 @@ angular.module('classroom.attendance', [])
       myChart.draw();
     });
   } else {
-    GetAttendance.attendanceForUser($rootScope.currentUser.username).then(function(data) {
+    Attendance.getForUser($rootScope.currentUser.username).then(function(data) {
       var svg = dimple.newSvg(".attendance", 1000, 800);
       var attendanceData = angular.fromJson(data.data);
       var myChart = new dimple.chart(svg, attendanceData);
