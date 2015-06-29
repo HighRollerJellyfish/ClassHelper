@@ -1,6 +1,6 @@
-angular.module('classroom.syllabus', ['classroom.services','textAngular'])
+angular.module('classroom.syllabus', ['textAngular'])
 
-.controller('SyllabusController', ['$rootScope', '$scope', '$state', 'GetSyllabus', 'AddLesson', function ($rootScope, $scope, $state, GetSyllabus, AddLesson) {
+.controller('SyllabusController', ['$rootScope', '$scope', '$state', 'Lessons', function ($rootScope, $scope, $state, Lessons) {
 
   $scope.isCollapsed = false;
 
@@ -15,19 +15,19 @@ angular.module('classroom.syllabus', ['classroom.services','textAngular'])
 
   }
 
-  GetSyllabus.lessons().then(function(data) {
+  Lessons.getAll().then(function(data) {
     $scope.lessons = angular.fromJson(data.data);
   });
 }])
 
 
-.controller('textController', function($rootScope, $scope, $state, GetSyllabus, AddLesson) { 
+.controller('textController', function($rootScope, $scope, $state, Lessons) { 
   $scope.html = '<h3> Add and Edit Lessons here !</h3>';
   $scope.htmlcontent = $scope.orightml;
 
   $scope.addLesson = function(lessonData) {
     console.log(lessonData);
-    AddLesson.add(lessonData);
+    Lessons.add(lessonData);
   }
 
 });
