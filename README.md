@@ -1,44 +1,37 @@
 # Classroom
 
 ## Deployment
-- https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-12-04
 
-## Docker
-- You'll have to install boot2docker and docker: https://docs.docker.com/installation/mac/
-- Make sure you set up boot2docker correctly (boot2docker init, boot2docker start, boot2docker shellinit, etc...)
-- Scripts have been created to handle docker instance setup
-- Make the following files executable with chmod +x
-  - docker_build.sh
-  - docker_start.sh
-- If ./docker_build.sh doesn't start the containers, follow it up with a ./docker_start.sh
+### Docker
+- If you're using Mac, you'll have to install boot2docker and docker: https://docs.docker.com/installation/mac/
+- Make sure you set up boot2docker correctly (boot2docker init, boot2docker start, boot2docker shellinit, etc...). *Don't forget to type __$(boot2docker shellinit)__ every time you open a new terminal window and want to use docker commands.*
+- Scripts have been created to handle docker instance setup.
+  - docker_build.sh (Necessary on the first build and every time you want to push changes you make locally to the docker containers).
+  - docker_start.sh (Necessary every time you want to spin up a container of the image you made with docker_build).
+  - node_start.sh (Only necessary if you want to spin up the node container by itself for testing purposes or if it crashed).
+  - mysql_start.sh (Only necessary if you want to spin up the mysql container by itself for testing purposes or if it crashed).
 - Once the containers are up and running, you should be able to access them at 192.168.59.103:3000 on your local machine.
 
-## Dev Notes!
-- The schema.sql test users will no longer authenticate now that
-  we are using bcrypt to compare passwords.
-  If you need a test user for dev purposes, create one using:
-  curl -X POST -H 'Content-Type:application/json' -d '{"username":"batman", "name":"batman", "password":"robin", "email":"batman@gmail.com", "role":"student"}' http://localhost:3000/users/signup
-  or
-  The signup page (it works!)
+### Problems you might run into during deployment
+- [ERROR] InnoDB: Cannot allocate memory for the buffer pool
+  - You might receive this error while trying to start the MySQL server on a VPS with limited resourcs (such as a $5 DigitalOcean droplet.
+  - This is caused by not having enough memory. The solution https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-12-04
 
-## To start the server for development purposes
-
-### Web Server
-- git clone from your fork
-- npm install
-- bower install
-- (Follow database setup instructions below)
-- make sure mysql is installed (brew install mysql or however you want to install it)
-- make sure the mysql server is started (mysql.server start)
-- edit the start.sh.example file to use the mysql username/password from your local machine and rename it to start.sh
-- chmod +x start.sh to make the start script executable
-- npm start
+## Development
+- __Web App__
+  - Fork the repo.
+  - Clone from your fork
+  - npm install
+  - bower install
+- __Database__
+  - The schema is in /server/config/schema.sql
+  - [Install mysql](https://dev.mysql.com/doc/refman/5.6/en/osx-installation-pkg.html) (or brew install mysql) and start the mysql service with 'mysql.server start'
+  - Rename start.sh.example to start.sh and edit it to use the username and password for your mysql database.
+- __Running the app__
+  - npm start
 
 ### Database
-- The schema is in /server/config/schema.sql
-- Set your machine's mysql username and password in the /start.sh script.
-- Install mysql and start the mysql service with 'mysql.server start'
-- Once you get mysql installed on your machine, you can create/seed the database with 'mysql -u <username> -p server/config/schema.sql'
+
 
 
 ## Team
