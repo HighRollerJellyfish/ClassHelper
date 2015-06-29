@@ -37,7 +37,7 @@ exports.refresh = function (req, res, next) {
 // Any time the client makes a request to change something
 // on the server, we'll verify the token. 
 // For everything else client-side, we'll use this user
-// object by storing it in localStorage.
+// object by storing it in $rootScope.
 exports.authenticate = function(req, res, next) {
   var userData = req.body;
   console.log(userData);
@@ -50,6 +50,7 @@ exports.authenticate = function(req, res, next) {
       res.json({
         token: token,
         username: user.get('username'),
+        name: user.get('name'),
         role: user.get('role')
       });
     }
