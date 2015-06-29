@@ -7,7 +7,7 @@
 # working on the repo. This file should be in the .gitignore
 # so usernames and passwords aren't commited to the repo.
 
-export CLASSROOM_MYSQL_USER='root'
+export CLASSROOM_MYSQL_USER='<yourusername>' # EDIT THIS AND RENAME FILE TO CONFIG.SH
 export CLASSROOM_MYSQL_HOST=localhost
-export CLASSROOM_MYSQL_PASS='rootpass'
+export CLASSROOM_MYSQL_PASS='<yourpassword>' # EDIT THIS AND RENAME FILE TO CONFIG.SH
 export CLASSROOM_MYSQL_DB='classroom'
