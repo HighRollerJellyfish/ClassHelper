@@ -25,13 +25,18 @@ angular.module('classroom.syllabus', ['textAngular'])
   $scope.removeQuotes = function (content) {
     content = content.replace(/^"(.*)"$/, '$1');
     return content;
+  }
 
+  $scope.addLesson = function(lessonData) {
+    console.log(lessonData);
+    AddLesson.add(lessonData);
   }
 
   Lessons.getAll().then(function(data) {
     $scope.lessons = angular.fromJson(data.data);
   });
-}])
+}]);
+
 
 
 .controller('textController', function($rootScope, $scope, $state, Lessons) { 
@@ -46,5 +51,4 @@ angular.module('classroom.syllabus', ['textAngular'])
   $scope.addLesson = function(lessonData) {
     Lessons.add(lessonData);
   }
-
 });

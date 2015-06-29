@@ -8,13 +8,18 @@
     <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css'>
     <link rel="stylesheet" type="text/css" href="styles/styles.css"/>
   </head>
-  <body>
-    <h1>{{currentUser.name}}</h1>
-    <button ng-controller='LogoutController' ng-click='logout()'>Log Out</button>
-    <button ui-sref="syllabus">Syllabus</button>
-    <button ui-sref="grades">Grades</button>
-    <button ui-sref="attendance">Attendance</button>
-    <div ui-view></div>
+  <body style="position:relative;padding-top:80px">
+    <div style="position:fixed;top:0;left;0">
+        <button ng-controller='LogoutController' ng-click='logout()'>Log Out</button>
+        <button ui-sref="syllabus">Syllabus</button>
+        <button ui-sref="grades">Grades</button>
+        <button ui-sref="attendance">Attendance</button>
+        <h2>{{currentUser.name}}</h2>
+    </div>
+    
+      <div ui-view></div>
+
+  
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular-bootstrap/ui-bootstrap.js"></script>
     <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
