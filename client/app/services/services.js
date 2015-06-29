@@ -21,6 +21,20 @@ angular.module('classroom.services', [])
   }
 }])
 
+.service('AddLesson', function($http, $rootScope) {
+  this.add = function (lessonData) {
+    return $http({
+      method: 'POST',
+      url: '/lessons',
+      data: lessonData,
+      headers: {
+        'Authorization': 'Bearer ' + window.localStorage.jwtToken
+      }
+    });
+  }
+})
+
+
 .service('GetGrades', ['$http', '$rootScope', function ($http, $rootScope) {
   /**
   This service function gets all the grades data from the server.
