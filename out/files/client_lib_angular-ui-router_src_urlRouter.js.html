@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>client/lib/angular-ui-router/src/urlRouter.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/classroom.html">classroom</a></li>
+                                <li><a href="../classes/classroom.attendance.html">classroom.attendance</a></li>
+                                <li><a href="../classes/classroom.AttendanceService.html">classroom.AttendanceService</a></li>
+                                <li><a href="../classes/classroom.AuthFactory.html">classroom.AuthFactory</a></li>
+                                <li><a href="../classes/classroom.grades.html">classroom.grades</a></li>
+                                <li><a href="../classes/classroom.GradeService.html">classroom.GradeService</a></li>
+                                <li><a href="../classes/classroom.LessonService.html">classroom.LessonService</a></li>
+                                <li><a href="../classes/classroom.login.html">classroom.login</a></li>
+                                <li><a href="../classes/classroom.signup.html">classroom.signup</a></li>
+                                <li><a href="../classes/classroom.syllabus.html">classroom.syllabus</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/ng.html">ng</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: client/lib/angular-ui-router/src/urlRouter.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+ * @ngdoc object
+ * @name ui.router.router.$urlRouterProvider
+ *
+ * @requires ui.router.util.$urlMatcherFactoryProvider
+ * @requires $locationProvider
+ *
+ * @description
+ * &#x60;$urlRouterProvider&#x60; has the responsibility of watching &#x60;$location&#x60;. 
+ * When &#x60;$location&#x60; changes it runs through a list of rules one by one until a 
+ * match is found. &#x60;$urlRouterProvider&#x60; is used behind the scenes anytime you specify 
+ * a url in a state configuration. All urls are compiled into a UrlMatcher object.
+ *
+ * There are several methods on &#x60;$urlRouterProvider&#x60; that make it useful to use directly
+ * in your module config.
+ */
+$UrlRouterProvider.$inject = [&#x27;$locationProvider&#x27;, &#x27;$urlMatcherFactoryProvider&#x27;];
+function $UrlRouterProvider(   $locationProvider,   $urlMatcherFactory) {
+  var rules = [], otherwise = null, interceptDeferred = false, listener;
+
+  // Returns a string that is a prefix of all strings matching the RegExp
+  function regExpPrefix(re) {
+    var prefix = /^\^((?:\\[^a-zA-Z0-9]|[^\\\[\]\^$*+?.()|{}]+)*)/.exec(re.source);
+    return (prefix != null) ? prefix[1].replace(/\\(.)/g, &quot;$1&quot;) : &#x27;&#x27;;
+  }
+
+  // Interpolates matched values into a String.replace()-style pattern
+  function interpolate(pattern, match) {
+    return pattern.replace(/\$(\$|\d{1,2})/, function (m, what) {
+      return match[what === &#x27;$&#x27; ? 0 : Number(what)];
+    });
+  }
+
+  /**
+   * @ngdoc function
+   * @name ui.router.router.$urlRouterProvider#rule
+   * @methodOf ui.router.router.$urlRouterProvider
+   *
+   * @description
+   * Defines rules that are used by &#x60;$urlRouterProvider&#x60; to find matches for
+   * specific URLs.
+   *
+   * @example
+   * &lt;pre&gt;
+   * var app = angular.module(&#x27;app&#x27;, [&#x27;ui.router.router&#x27;]);
+   *
+   * app.config(function ($urlRouterProvider) {
+   *   // Here&#x27;s an example of how you might allow case insensitive urls
+   *   $urlRouterProvider.rule(function ($injector, $location) {
+   *     var path = $location.path(),
+   *         normalized = path.toLowerCase();
+   *
+   *     if (path !== normalized) {
+   *       return normalized;
+   *     }
+   *   });
+   * });
+   * &lt;/pre&gt;
+   *
+   * @param {object} rule Handler function that takes &#x60;$injector&#x60; and &#x60;$location&#x60;
+   * services as arguments. You can use them to return a valid path as a string.
+   *
+   * @return {object} &#x60;$urlRouterProvider&#x60; - &#x60;$urlRouterProvider&#x60; instance
+   */
+  this.rule = function (rule) {
+    if (!isFunction(rule)) throw new Error(&quot;&#x27;rule&#x27; must be a function&quot;);
+    rules.push(rule);
+    return this;
+  };
+
+  /**
+   * @ngdoc object
+   * @name ui.router.router.$urlRouterProvider#otherwise
+   * @methodOf ui.router.router.$urlRouterProvider
+   *
+   * @description
+   * Defines a path that is used when an invalid route is requested.
+   *
+   * @example
+   * &lt;pre&gt;
+   * var app = angular.module(&#x27;app&#x27;, [&#x27;ui.router.router&#x27;]);
+   *
+   * app.config(function ($urlRouterProvider) {
+   *   // if the path doesn&#x27;t match any of the urls you configured
+   *   // otherwise will take care of routing the user to the
+   *   // specified url
+   *   $urlRouterProvider.otherwise(&#x27;/index&#x27;);
+   *
+   *   // Example of using function rule as param
+   *   $urlRouterProvider.otherwise(function ($injector, $location) {
+   *     return &#x27;/a/valid/url&#x27;;
+   *   });
+   * });
+   * &lt;/pre&gt;
+   *
+   * @param {string|object} rule The url path you want to redirect to or a function 
+   * rule that returns the url path. The function version is passed two params: 
+   * &#x60;$injector&#x60; and &#x60;$location&#x60; services, and must return a url string.
+   *
+   * @return {object} &#x60;$urlRouterProvider&#x60; - &#x60;$urlRouterProvider&#x60; instance
+   */
+  this.otherwise = function (rule) {
+    if (isString(rule)) {
+      var redirect = rule;
+      rule = function () { return redirect; };
+    }
+    else if (!isFunction(rule)) throw new Error(&quot;&#x27;rule&#x27; must be a function&quot;);
+    otherwise = rule;
+    return this;
+  };
+
+
+  function handleIfMatch($injector, handler, match) {
+    if (!match) return false;
+    var result = $injector.invoke(handler, handler, { $match: match });
+    return isDefined(result) ? result : true;
+  }
+
+  /**
+   * @ngdoc function
+   * @name ui.router.router.$urlRouterProvider#when
+   * @methodOf ui.router.router.$urlRouterProvider
+   *
+   * @description
+   * Registers a handler for a given url matching. if handle is a string, it is
+   * treated as a redirect, and is interpolated according to the syntax of match
+   * (i.e. like &#x60;String.replace()&#x60; for &#x60;RegExp&#x60;, or like a &#x60;UrlMatcher&#x60; pattern otherwise).
+   *
+   * If the handler is a function, it is injectable. It gets invoked if &#x60;$location&#x60;
+   * matches. You have the option of inject the match object as &#x60;$match&#x60;.
+   *
+   * The handler can return
+   *
+   * - **falsy** to indicate that the rule didn&#x27;t match after all, then &#x60;$urlRouter&#x60;
+   *   will continue trying to find another one that matches.
+   * - **string** which is treated as a redirect and passed to &#x60;$location.url()&#x60;
+   * - **void** or any **truthy** value tells &#x60;$urlRouter&#x60; that the url was handled.
+   *
+   * @example
+   * &lt;pre&gt;
+   * var app = angular.module(&#x27;app&#x27;, [&#x27;ui.router.router&#x27;]);
+   *
+   * app.config(function ($urlRouterProvider) {
+   *   $urlRouterProvider.when($state.url, function ($match, $stateParams) {
+   *     if ($state.$current.navigable !== state ||
+   *         !equalForKeys($match, $stateParams) {
+   *      $state.transitionTo(state, $match, false);
+   *     }
+   *   });
+   * });
+   * &lt;/pre&gt;
+   *
+   * @param {string|object} what The incoming path that you want to redirect.
+   * @param {string|object} handler The path you want to redirect your user to.
+   */
+  this.when = function (what, handler) {
+    var redirect, handlerIsString = isString(handler);
+    if (isString(what)) what = $urlMatcherFactory.compile(what);
+
+    if (!handlerIsString &amp;&amp; !isFunction(handler) &amp;&amp; !isArray(handler))
+      throw new Error(&quot;invalid &#x27;handler&#x27; in when()&quot;);
+
+    var strategies = {
+      matcher: function (what, handler) {
+        if (handlerIsString) {
+          redirect = $urlMatcherFactory.compile(handler);
+          handler = [&#x27;$match&#x27;, function ($match) { return redirect.format($match); }];
+        }
+        return extend(function ($injector, $location) {
+          return handleIfMatch($injector, handler, what.exec($location.path(), $location.search()));
+        }, {
+          prefix: isString(what.prefix) ? what.prefix : &#x27;&#x27;
+        });
+      },
+      regex: function (what, handler) {
+        if (what.global || what.sticky) throw new Error(&quot;when() RegExp must not be global or sticky&quot;);
+
+        if (handlerIsString) {
+          redirect = handler;
+          handler = [&#x27;$match&#x27;, function ($match) { return interpolate(redirect, $match); }];
+        }
+        return extend(function ($injector, $location) {
+          return handleIfMatch($injector, handler, what.exec($location.path()));
+        }, {
+          prefix: regExpPrefix(what)
+        });
+      }
+    };
+
+    var check = { matcher: $urlMatcherFactory.isMatcher(what), regex: what instanceof RegExp };
+
+    for (var n in check) {
+      if (check[n]) return this.rule(strategies[n](what, handler));
+    }
+
+    throw new Error(&quot;invalid &#x27;what&#x27; in when()&quot;);
+  };
+
+  /**
+   * @ngdoc function
+   * @name ui.router.router.$urlRouterProvider#deferIntercept
+   * @methodOf ui.router.router.$urlRouterProvider
+   *
+   * @description
+   * Disables (or enables) deferring location change interception.
+   *
+   * If you wish to customize the behavior of syncing the URL (for example, if you wish to
+   * defer a transition but maintain the current URL), call this method at configuration time.
+   * Then, at run time, call &#x60;$urlRouter.listen()&#x60; after you have configured your own
+   * &#x60;$locationChangeSuccess&#x60; event handler.
+   *
+   * @example
+   * &lt;pre&gt;
+   * var app = angular.module(&#x27;app&#x27;, [&#x27;ui.router.router&#x27;]);
+   *
+   * app.config(function ($urlRouterProvider) {
+   *
+   *   // Prevent $urlRouter from automatically intercepting URL changes;
+   *   // this allows you to configure custom behavior in between
+   *   // location changes and route synchronization:
+   *   $urlRouterProvider.deferIntercept();
+   *
+   * }).run(function ($rootScope, $urlRouter, UserService) {
+   *
+   *   $rootScope.$on(&#x27;$locationChangeSuccess&#x27;, function(e) {
+   *     // UserService is an example service for managing user state
+   *     if (UserService.isLoggedIn()) return;
+   *
+   *     // Prevent $urlRouter&#x27;s default handler from firing
+   *     e.preventDefault();
+   *
+   *     UserService.handleLogin().then(function() {
+   *       // Once the user has logged in, sync the current URL
+   *       // to the router:
+   *       $urlRouter.sync();
+   *     });
+   *   });
+   *
+   *   // Configures $urlRouter&#x27;s listener *after* your custom listener
+   *   $urlRouter.listen();
+   * });
+   * &lt;/pre&gt;
+   *
+   * @param {boolean} defer Indicates whether to defer location change interception. Passing
+            no parameter is equivalent to &#x60;true&#x60;.
+   */
+  this.deferIntercept = function (defer) {
+    if (defer === undefined) defer = true;
+    interceptDeferred = defer;
+  };
+
+  /**
+   * @ngdoc object
+   * @name ui.router.router.$urlRouter
+   *
+   * @requires $location
+   * @requires $rootScope
+   * @requires $injector
+   * @requires $browser
+   *
+   * @description
+   *
+   */
+  this.$get = $get;
+  $get.$inject = [&#x27;$location&#x27;, &#x27;$rootScope&#x27;, &#x27;$injector&#x27;, &#x27;$browser&#x27;];
+  function $get(   $location,   $rootScope,   $injector,   $browser) {
+
+    var baseHref = $browser.baseHref(), location = $location.url(), lastPushedUrl;
+
+    function appendBasePath(url, isHtml5, absolute) {
+      if (baseHref === &#x27;/&#x27;) return url;
+      if (isHtml5) return baseHref.slice(0, -1) + url;
+      if (absolute) return baseHref.slice(1) + url;
+      return url;
+    }
+
+    // TODO: Optimize groups of rules with non-empty prefix into some sort of decision tree
+    function update(evt) {
+      if (evt &amp;&amp; evt.defaultPrevented) return;
+      var ignoreUpdate = lastPushedUrl &amp;&amp; $location.url() === lastPushedUrl;
+      lastPushedUrl = undefined;
+      // TODO: Re-implement this in 1.0 for https://github.com/angular-ui/ui-router/issues/1573
+      //if (ignoreUpdate) return true;
+
+      function check(rule) {
+        var handled = rule($injector, $location);
+
+        if (!handled) return false;
+        if (isString(handled)) $location.replace().url(handled);
+        return true;
+      }
+      var n = rules.length, i;
+
+      for (i = 0; i &lt; n; i++) {
+        if (check(rules[i])) return;
+      }
+      // always check otherwise last to allow dynamic updates to the set of rules
+      if (otherwise) check(otherwise);
+    }
+
+    function listen() {
+      listener = listener || $rootScope.$on(&#x27;$locationChangeSuccess&#x27;, update);
+      return listener;
+    }
+
+    if (!interceptDeferred) listen();
+
+    return {
+      /**
+       * @ngdoc function
+       * @name ui.router.router.$urlRouter#sync
+       * @methodOf ui.router.router.$urlRouter
+       *
+       * @description
+       * Triggers an update; the same update that happens when the address bar url changes, aka &#x60;$locationChangeSuccess&#x60;.
+       * This method is useful when you need to use &#x60;preventDefault()&#x60; on the &#x60;$locationChangeSuccess&#x60; event,
+       * perform some custom logic (route protection, auth, config, redirection, etc) and then finally proceed
+       * with the transition by calling &#x60;$urlRouter.sync()&#x60;.
+       *
+       * @example
+       * &lt;pre&gt;
+       * angular.module(&#x27;app&#x27;, [&#x27;ui.router&#x27;])
+       *   .run(function($rootScope, $urlRouter) {
+       *     $rootScope.$on(&#x27;$locationChangeSuccess&#x27;, function(evt) {
+       *       // Halt state change from even starting
+       *       evt.preventDefault();
+       *       // Perform custom logic
+       *       var meetsRequirement = ...
+       *       // Continue with the update and state transition if logic allows
+       *       if (meetsRequirement) $urlRouter.sync();
+       *     });
+       * });
+       * &lt;/pre&gt;
+       */
+      sync: function() {
+        update();
+      },
+
+      listen: function() {
+        return listen();
+      },
+
+      update: function(read) {
+        if (read) {
+          location = $location.url();
+          return;
+        }
+        if ($location.url() === location) return;
+
+        $location.url(location);
+        $location.replace();
+      },
+
+      push: function(urlMatcher, params, options) {
+         var url = urlMatcher.format(params || {});
+
+        // Handle the special hash param, if needed
+        if (url !== null &amp;&amp; params &amp;&amp; params[&#x27;#&#x27;]) {
+            url += &#x27;#&#x27; + params[&#x27;#&#x27;];
+        }
+
+        $location.url(url);
+        lastPushedUrl = options &amp;&amp; options.$$avoidResync ? $location.url() : undefined;
+        if (options &amp;&amp; options.replace) $location.replace();
+      },
+
+      /**
+       * @ngdoc function
+       * @name ui.router.router.$urlRouter#href
+       * @methodOf ui.router.router.$urlRouter
+       *
+       * @description
+       * A URL generation method that returns the compiled URL for a given
+       * {@link ui.router.util.type:UrlMatcher &#x60;UrlMatcher&#x60;}, populated with the provided parameters.
+       *
+       * @example
+       * &lt;pre&gt;
+       * $bob = $urlRouter.href(new UrlMatcher(&quot;/about/:person&quot;), {
+       *   person: &quot;bob&quot;
+       * });
+       * // $bob == &quot;/about/bob&quot;;
+       * &lt;/pre&gt;
+       *
+       * @param {UrlMatcher} urlMatcher The &#x60;UrlMatcher&#x60; object which is used as the template of the URL to generate.
+       * @param {object=} params An object of parameter values to fill the matcher&#x27;s required parameters.
+       * @param {object=} options Options object. The options are:
+       *
+       * - **&#x60;absolute&#x60;** - {boolean=false},  If true will generate an absolute url, e.g. &quot;http://www.example.com/fullurl&quot;.
+       *
+       * @returns {string} Returns the fully compiled URL, or &#x60;null&#x60; if &#x60;params&#x60; fail validation against &#x60;urlMatcher&#x60;
+       */
+      href: function(urlMatcher, params, options) {
+        if (!urlMatcher.validates(params)) return null;
+
+        var isHtml5 = $locationProvider.html5Mode();
+        if (angular.isObject(isHtml5)) {
+          isHtml5 = isHtml5.enabled;
+        }
+        
+        var url = urlMatcher.format(params);
+        options = options || {};
+
+        if (!isHtml5 &amp;&amp; url !== null) {
+          url = &quot;#&quot; + $locationProvider.hashPrefix() + url;
+        }
+
+        // Handle special hash param, if needed
+        if (url !== null &amp;&amp; params &amp;&amp; params[&#x27;#&#x27;]) {
+          url += &#x27;#&#x27; + params[&#x27;#&#x27;];
+        }
+
+        url = appendBasePath(url, isHtml5, options.absolute);
+
+        if (!options.absolute || !url) {
+          return url;
+        }
+
+        var slash = (!isHtml5 &amp;&amp; url ? &#x27;/&#x27; : &#x27;&#x27;), port = $location.port();
+        port = (port === 80 || port === 443 ? &#x27;&#x27; : &#x27;:&#x27; + port);
+
+        return [$location.protocol(), &#x27;://&#x27;, $location.host(), port, slash, url].join(&#x27;&#x27;);
+      }
+    };
+  }
+}
+
+angular.module(&#x27;ui.router.router&#x27;).provider(&#x27;$urlRouter&#x27;, $UrlRouterProvider);
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

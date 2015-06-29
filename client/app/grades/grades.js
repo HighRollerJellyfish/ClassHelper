@@ -1,5 +1,6 @@
 /**
-@module classroom.grades
+This controller module is associated with the grades view and deals with grades data.
+@class classroom.grades
 */
 
 angular.module('classroom.grades', [])
@@ -7,7 +8,7 @@ angular.module('classroom.grades', [])
   /**
   This method tests if the user has the role 'teacher'.
   @method isTeacher
-  @return boolean
+  @return {Boolean}
   */
   $scope.isTeacher = function () {
     return $rootScope.currentUser.role === 'teacher';
@@ -15,7 +16,7 @@ angular.module('classroom.grades', [])
   /**
   This method checks that the user is a teacher and adds gradeData to the server.
   @method addGrade
-  @param gradeData
+  @param {Object} gradeData Entered grade data.
   */
   $scope.addGrade = function (gradeData) {
     Grades.add(gradeData);

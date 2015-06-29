@@ -1,7 +1,6 @@
 /**
 This module controls the states that are rendered on the main page.
-@module classroom
-@requires
+@class classroom
 */
 
 angular.module('classroom', [
@@ -19,6 +18,12 @@ angular.module('classroom', [
   'textAngular'
 ])
 .controller('LogoutController', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
+  
+  /**
+  This function logs out the currentUser by deleting their info and jwtToken from the browser.
+  @method logout
+  */
+
   $scope.logout = function () {
     delete $rootScope.currentUser;
     delete localStorage.jwtToken;

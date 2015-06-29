@@ -1,3 +1,9 @@
+/**
+This factor module has the functions to deal with user authorization.  This is a factory instead of
+a service to allow for easier client side integration.
+@class classroom.AuthFactory
+*/
+
 angular.module('classroom.AuthFactory', [])
 
 .factory('Auth', ['$http', '$rootScope', function ($http, $rootScope) {
@@ -5,9 +11,9 @@ angular.module('classroom.AuthFactory', [])
   /**
   This service function posts a username and password, setting the $rootScope.currentUser and then executes the callback.
   @method login
-  @param username
-  @param password
-  @param callback
+  @param {String} username  User entered name.
+  @param {String} password User entered password
+  @param {Function} callback Function to be executred with the response
   */
   var login = function (username, password, cb) {
     $http({
@@ -35,8 +41,8 @@ angular.module('classroom.AuthFactory', [])
   /**
   This service function posts a new user's data, calls login() with userData and then executes the callback.
   @method signup
-  @param userData
-  @param callback
+  @param {Object} userData Entered user data.
+  @param {Function} callback Callback to be executed after logging in.
   */
   var signup = function (userData, cb) {
     return $http({
@@ -57,7 +63,7 @@ angular.module('classroom.AuthFactory', [])
   /**
   This service function resets the $rootScope.currentUser from the auth token when there is a refresh and then executes the callback.
   @method refreshUser
-  @param callback This callback is expected to be sending the user to the page the user was trying to get to.
+  @param {Function} callback This callback is expected to be sending the user to the page the user was trying to get to.
   */
   var refreshUser = function (cb) {
     return $http({

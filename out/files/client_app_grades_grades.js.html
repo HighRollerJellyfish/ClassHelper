@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>client/app/grades/grades.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><img src="../assets/css/logo.png" title="" width="117" height="52"></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                            <li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/classroom.html">classroom</a></li>
+                                <li><a href="../classes/classroom.attendance.html">classroom.attendance</a></li>
+                                <li><a href="../classes/classroom.AttendanceService.html">classroom.AttendanceService</a></li>
+                                <li><a href="../classes/classroom.AuthFactory.html">classroom.AuthFactory</a></li>
+                                <li><a href="../classes/classroom.grades.html">classroom.grades</a></li>
+                                <li><a href="../classes/classroom.GradeService.html">classroom.GradeService</a></li>
+                                <li><a href="../classes/classroom.LessonService.html">classroom.LessonService</a></li>
+                                <li><a href="../classes/classroom.login.html">classroom.login</a></li>
+                                <li><a href="../classes/classroom.signup.html">classroom.signup</a></li>
+                                <li><a href="../classes/classroom.syllabus.html">classroom.syllabus</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/ng.html">ng</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: client/app/grades/grades.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+This controller module is associated with the grades view and deals with grades data.
+@class classroom.grades
+*/
+
+angular.module(&#x27;classroom.grades&#x27;, [])
+.controller(&#x27;GradesController&#x27;, [&#x27;$rootScope&#x27;, &#x27;$scope&#x27;, &#x27;Grades&#x27;, function ($rootScope, $scope, Grades) {
+  /**
+  This method tests if the user has the role &#x27;teacher&#x27;.
+  @method isTeacher
+  @return {Boolean}
+  */
+  $scope.isTeacher = function () {
+    return $rootScope.currentUser.role === &#x27;teacher&#x27;;
+  }
+  /**
+  This method checks that the user is a teacher and adds gradeData to the server.
+  @method addGrade
+  @param {Object} gradeData Entered grade data.
+  */
+  $scope.addGrade = function (gradeData) {
+    Grades.add(gradeData);
+  }
+
+  // Show all grades if the user is a teacher or else it only displays the grades
+  // of the user if the user is not a teacher.
+
+  //To display grades data for teachers and individual users, D3 and Dimple.js
+  //was used.  Refer to dimplejs.org for documentation on how to use dimple.
+  if ($scope.isTeacher()) {
+    Grades.getAll().then(function(data) {
+      var svg = dimple.newSvg(&quot;.grades&quot;, 1000, 800);
+      var gradesData = angular.fromJson(data.data);
+      var myChart = new dimple.chart(svg, gradesData);
+
+      var x = myChart.addCategoryAxis(&quot;x&quot;, &quot;lesson_title&quot;);
+      x.addOrderRule(&quot;lesson_title&quot;);
+      myChart.addCategoryAxis(&quot;y&quot;, &quot;student&quot;);
+      myChart.addMeasureAxis(&quot;z&quot;, &quot;score&quot;);
+      myChart.addColorAxis(&quot;score&quot;,[&quot;#FF0000&quot;,&quot;#0000FF&quot;]);
+      myChart.addSeries(null, dimple.plot.bubble);
+      myChart.draw();
+    });
+  } else { // The user is a student, so only show that student&#x27;s grades
+    Grades.getForUser($rootScope.currentUser.username).then(function(data) {
+      var svg = dimple.newSvg(&quot;.grades&quot;, 1000, 800);
+      var gradesData = angular.fromJson(data.data);
+      var myChart = new dimple.chart(svg, gradesData);
+
+      var x = myChart.addCategoryAxis(&quot;x&quot;, &quot;lesson_title&quot;);
+      x.addOrderRule(&quot;lesson_title&quot;);
+      myChart.addMeasureAxis(&quot;y&quot;, &quot;score&quot;);
+      myChart.addColorAxis(&quot;score&quot;,[&quot;#FF0000&quot;,&quot;#0000FF&quot;]);
+      myChart.addSeries(null, dimple.plot.bar);
+      myChart.draw();
+    });
+  }
+}]);
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
