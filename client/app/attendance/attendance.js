@@ -39,7 +39,7 @@ angular.module('classroom.attendance', [])
       myChart.draw();
     });
   } else {
-    Attendance.attendanceForUser($rootScope.currentUser.username).then(function(data) {
+    Attendance.getForUser($rootScope.currentUser.username).then(function(data) {
       var svg = dimple.newSvg(".attendance", 1000, 800);
       var attendanceData = angular.fromJson(data.data);
       var myChart = new dimple.chart(svg, attendanceData);
