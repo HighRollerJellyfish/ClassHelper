@@ -1,5 +1,6 @@
 var attendance = require('../controllers/attendance.server.controller.js');
 var jwt = require('jwt-simple');
+var jwtSecret = require('../config/config.js').jwtSecret;
 
 module.exports = function(app) {
   app.get('/attendance', function(req, res, next) {
@@ -10,7 +11,7 @@ module.exports = function(app) {
         console.log("Token: ", token);
         // We are hardcoding our secret token in for now but in
         // production it should be an env variable.
-        var decoded = jwt.decode(token, 'abc');
+        var decoded = jwt.decode(token, jwtSecret);
         console.log(decoded);
         if (studentName) {
           attendance.listForUser(studentName, req, res, next);
