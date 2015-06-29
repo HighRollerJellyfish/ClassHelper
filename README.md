@@ -10,6 +10,7 @@
   - The schema is in /server/config/schema.sql
   - [Install mysql](https://dev.mysql.com/doc/refman/5.6/en/osx-installation-pkg.html) (or brew install mysql) and start the mysql service with ``mysql.server start``
   - Import the schema with the command ``mysql -u root -p < server/config/schema.sql``
+  - By default, all users initialized with the schema file have password 'test'.
 - __Running the app__
   - Rename start.sh.example to start.sh and edit it to use the username and password for your mysql database.
   - Run ``chmod +x start.sh`` to make the start.sh file executable.
