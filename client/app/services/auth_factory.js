@@ -1,6 +1,6 @@
-angular.module('classroom.AuthService', [])
+angular.module('classroom.AuthFactory', [])
 
-.service('Auth', ['$http', '$rootScope', function ($http, $rootScope) {
+.factory('Auth', ['$http', '$rootScope', function ($http, $rootScope) {
 
   /**
   This service function posts a username and password, setting the $rootScope.currentUser and then executes the callback.
@@ -9,7 +9,7 @@ angular.module('classroom.AuthService', [])
   @param password
   @param callback
   */
-  this.login = function (username, password, cb) {
+  var login = function (username, password, cb) {
     $http({
       method: 'POST',
       url: '/users/login',
@@ -39,8 +39,7 @@ angular.module('classroom.AuthService', [])
   @param userData
   @param callback
   */
-  var AuthService = this;
-  this.signup = function (userData, cb) {
+  var signup = function (userData, cb) {
     return $http({
       method: 'POST',
       url: '/users/signup',
@@ -49,7 +48,7 @@ angular.module('classroom.AuthService', [])
     .then(function (res) {
       //TODO: instead of calling login() to send a second request to the server, have the server
       //      create a new token when we call signup and respond with the token.
-      AuthService.login(userData.username, userData.password, cb);
+      login(userData.username, userData.password, cb);
     })
     .catch(function (err) {
       console.log('ERROR: User already exists.');
@@ -61,7 +60,7 @@ angular.module('classroom.AuthService', [])
   @method refreshUser
   @param callback This callback is expected to be sending the user to the page the user was trying to get to.
   */
-  this.refreshUser = function (cb) {
+  var refreshUser = function (cb) {
     console.log('refreshuser in auth', window.localStorage.jwtToken);
     return $http({
       method: 'GET',
@@ -78,5 +77,11 @@ angular.module('classroom.AuthService', [])
     .catch(function (err) {
       console.log('ERROR: Unable to refresh user credentials.');
     });
+  };
+
+  return {
+    login: login,
+    signup: signup,
+    refreshUser: refreshUser
   };
 }]);

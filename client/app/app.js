@@ -9,7 +9,7 @@ angular.module('classroom', [
   'classroom.login',
   'classroom.signup',
   'classroom.grades',
-  'classroom.AuthService',
+  'classroom.AuthFactory',
   'classroom.LessonService',
   'classroom.GradeService',
   'classroom.AttendanceService',
