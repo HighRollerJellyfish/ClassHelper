@@ -127,17 +127,19 @@ Curabitur eu lorem at sapien faucibus iaculis. Quisque porttitor vestibulum ferm
 INSERT INTO `lessons` (`title`, `description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES ('John Nash and Mystery debate Game Theory', 'It is often tricky to identify "the best" of a certain category. But without a doubt, the Game Theory debate between John Nash and Mystery completely destroys the previous debate champion (The infamous Bohr-Einstein debates of the early twentieth century).',
   '<h1>John F Nash Jr.</h1>
   <img src="http://static01.nyt.com/images/2015/05/25/nyregion/25NASH4-obit/25NASH4-obit-master675.jpg">
-  <p style="font-size: 200%;">
+  <br/>
+  <p class="lead"><font size="6">
   He was best known for his advances in game theory, which is essentially the study of how to come up with a winning strategy in the game of life.
-  </p>
+  </font></p>
 
   <h1>Mystery</h1>
-  <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQ422zmrlPIbpL4W9dQwisUyfYaeVdX2iyeMsbQNCf66NHSScso">
-  <p style="font-size: 200%;">
+  <img src="http://blog.vh1.com/files/2008/06/434x277.jpg">
+  <br/>
+  <p class="lead">
   He was best known for his advances in <b><i>\'game\'</i></b> theory, which is essentially the study of how to come up with baller pick-up lines and dress like a pimp swag boss master.
   </p>
   <p style="font-size: 150%;">
-  The debate was leaning heavily in Mystery\'s favor until Richard Feynman showed up with his playmate entourage and invite John Nash to Crazy Horse with them. Mystery gave up his life of bling swag pimping to take remedial math at Greendale Community College.
+  The debate was leaning heavily in Mystery\'s favor until Richard Feynman showed up and invited John Nash to Crazy Horse. Mystery gave up his life of bling swag pimping to take remedial math at Greendale Community College.
   </p>', '2015-07-08', NULL, NULL);
 
 INSERT INTO `lessons` (`title`, `description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES ('Olfactory Analysis of the Tenderloin', 'Sed mollis, augue eget ullamcorper mattis', 'Sed at tortor sit amet mauris volutpat malesuada. Sed maximus, lorem non dictum venenatis, magna nisl dictum nisi, vel maximus sem sem nec nulla. Duis scelerisque, tellus a rutrum aliquet, mauris nulla tincidunt nulla, vitae placerat lacus augue non lacus. Duis vel nisi eget magna gravida dignissim eu ac enim. Sed laoreet sem porta nibh egestas, eget laoreet massa mollis. In a quam quis sem feugiat lobortis. Sed sed magna maximus, tincidunt leo a, tristique est. Quisque ipsum tortor, tincidunt vel est in, accumsan aliquet tortor. Donec fermentum turpis pellentesque, viverra nulla in, posuere lorem. Etiam venenatis sagittis quam. Etiam cursus ornare tortor, quis luctus dolor pharetra in.
