@@ -26,9 +26,9 @@ out/
 .flooignore
 
 # Config File
-start.sh
+config.sh
+
 
 # Temp files
 npm-debug.log
 tmp/*.mwb*
-config.sh
