@@ -14,7 +14,7 @@ exports.list = function(req, res, next) {
 };
 
 // Creates a new user
-exports.create = function(req, res, next) {
+exports.signup = function(req, res, next) {
   var userData = req.body;
   User.add(userData, function(err, user) {
     if (err) {

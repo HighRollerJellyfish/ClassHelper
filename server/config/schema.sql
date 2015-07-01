@@ -14,16 +14,16 @@ USE classroom;
 
 CREATE TABLE IF NOT EXISTS users (
   id INT NOT NULL AUTO_INCREMENT,
-  -- first_name VARCHAR(30) NOT NULL,
-  -- last_name VARCHAR(30) NOT NULL,
+  first_name VARCHAR(30) NOT NULL,
+  last_name VARCHAR(30) NOT NULL,
   email VARCHAR(30) NOT NULL,
   password VARCHAR(100) NOT NULL,
   role VARCHAR(20) NOT NULL DEFAULT 'student',
   -- DELETE BELOW -- 
-  name VARCHAR(45) NOT NULL,
-  username VARCHAR(20) NOT NULL,
-  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  -- name VARCHAR(45) NOT NULL,
+  -- username VARCHAR(20) NOT NULL,
+  -- created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  -- updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   -- DELETE ABOVE -- 
   PRIMARY KEY (id)
 );
@@ -265,10 +265,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `classroom`;
-INSERT INTO `users` (`name`, `username`, `email`, `password`, `role`) VALUES ('Devon Harvey', 'devon', 'devon@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
-INSERT INTO `users` (`name`, `username`, `email`, `password`, `role`) VALUES ('Richard Stanley', 'richard', 'richard@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
-INSERT INTO `users` (`name`, `username`, `email`, `password`, `role`) VALUES ('Jake Lee', 'jake', 'jake@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'teacher');
-INSERT INTO `users` (`name`, `username`, `email`, `password`, `role`) VALUES ('Eric Ihli', 'eric', 'Eric@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
+INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`) VALUES ('Devon', 'Harvey', 'devon@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
+INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`) VALUES ('Richard', 'Stanley', 'richard@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
+INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`) VALUES ('Jake', 'Lee', 'jake@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'teacher');
+INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`) VALUES ('Eric', 'Ihli', 'Eric@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
 
 
 COMMIT;
