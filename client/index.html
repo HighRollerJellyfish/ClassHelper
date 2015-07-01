@@ -7,6 +7,23 @@
     <link href="https://ironsummitmedia.github.io/startbootstrap-simple-sidebar/css/simple-sidebar.css" rel="stylesheet">
     <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css'>
     <link rel="stylesheet" type="text/css" href="styles/styles.css"/>
+
+      <!-- Bootstrap core CSS -->
+    <link href="styles/bootstrap.min.css" rel="stylesheet">
+    <link href="styles/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+    <!--right slidebar-->
+    <link href="styles/slidebars.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+
+    <link href="styles/style-bootstrap-theme.css" rel="stylesheet">
+    <link href="styles/style-responsive.css" rel="stylesheet" />
+
+
+
   </head>
   <body style="position:relative;padding-top:80px">
     <div style="position:fixed;top:0;left:0;background-color:white;width:100%;">
@@ -16,15 +33,15 @@
         <button ui-sref="attendance">Attendance</button>
         <h2>{{currentUser.name}}</h2>
     </div>
-    
+
       <div ui-view></div>
 
-  
+
     <script src="lib/angular/angular.min.js"></script>
     <script src="lib/angular-bootstrap/ui-bootstrap.min.js"></script>
     <script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular-sanitize.min.js'></script>
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.1.2/textAngular.min.js'></script>  
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.1.2/textAngular.min.js'></script>
     <script src="lib/d3/d3.min.js"></script>
     <script src="lib/dimple/dist/dimple.latest.min.js"></script>
     <script src="app/app.js"></script>
@@ -37,5 +54,12 @@
     <script src="app/services/lesson_service.js"></script>
     <script src="app/services/auth_factory.js"></script>
     <script src="app/syllabus/syllabus.js"></script>
+
+
+    <!--right slidebar (For theme)-->
+    <!--script src="js/slidebars.min.js"></script-->
+
+    <!--common script for all pages (for theme)-->
+    <!--script src="js/common-scripts.js"></script-->
   </body>
 </html>
