@@ -1,7 +1,10 @@
-<div id="wrapper" class="">
+<div>
 
   <!-- Sidebar -->
-  <div id="sidebar-wrapper">
+
+  <!-- TEMPORARILY DISABLED FOR CONFIGURING WITH SIDEBAR -->
+
+  <!-- <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
         <li class="sidebar-brand">
             <a href="#">Syllabus</a>
@@ -10,46 +13,86 @@
           <a href="#lesson{{lesson.id}}" target="_self">{{lesson.title}}</a>
         </li>
     </ul>
-  </div>
-  
-  <!-- Text Editor -->
+  </div> -->
+  <div class="row">
+    <div class="col-md-3" style="font-size:110%;">
+      <button class="btn btn-lg btn-primary btn-block" ng-click="showEditor=!showEditor" ng-show="isTeacher()" style="margin-bottom:10px;">
+        <span ng-if="!showEditor">Add Lesson</span>
+        <span ng-if="showEditor">Hide Lesson Editor</span>
+      </button>
 
-    <div ng-show="isTeacher()" ng-controller="textController" class="container app">
+      <!-- <h1>Class lessons</h1>
+      <ul>
+          <li style="list-style: square inside; padding: 0 0 2px 0;">
+              <a href="#">Syllabus</a>
+          </li>
+          <li ng-repeat="lesson in lessons" style="list-style: circle inside; padding:2px 0 2px 0;">
+            <a href="#lesson{{lesson.id}}" target="_self">{{lesson.title}}</a>
+          </li>
+      </ul> -->
 
-      <div class="container-fluid">
-        <h3>Editor</h3>
-        
-          <input style="width:300px"type="text" ng-model="fields.title" placeholder="Lesson Title" />
-          <p></p>
-          <input style="width:1000px" type="text" ng-model="fields.description" placeholder="Description" />
-          <div text-angular="text-angular" ng-model="fields.content"></div>
-          <button type="button" ng-click="addLesson(fields)">Add Lesson</button>
-      </div>
+      <table class="table table-bordered table-hover" style="width:100%;background-color:white;">
+        <tr>
+          <th class="success" style="font-size:133%;">
+            <center>Class Lessons</center>
+          </th>
+        </tr>
+        <tr>
+          <td class="info">
+            <a href="#">Syllabus</a>
+          </td>
+        </tr>
+        <tr ng-repeat="lesson in lessons">
+          <td><a href="#lesson{{lesson.id}}" target="_self">{{lesson.title}}</a></td>
+        </tr>
+      </table>
+
+
     </div>
 
-  <!-- Main Content -->
+    <div class="col-md-9">
 
-      <div class="container-fluid">
-        <div ng-repeat="lesson in lessons">
-          <div id="lesson{{lesson.id}}" class="panel panel-default">
-            <div class="panel-heading">
-              <h4 class="panel-title">
-                <a href="#" ng-click="isCollapsed = !isCollapsed;">
-                  {{lesson.title}}
-                </a>
-              </h4>
-              <h5>
-                <p>
-                  Description: {{lesson.description}}
-                </p>
-              </h5>
-            <div ng-show="isCollapsed">
-              <div class="panel-body">
-                <p ng-bind-html="lesson.content"></p>
+    <!-- Text Editor -->
+        <div ng-controller="textController" ng-if="showEditor" class="panel panel-default"
+            style="margin-bottom:20px;padding:5px;
+                   -moz-box-shadow: 0 0 2px black;
+                   -webkit-box-shadow: 0 0 2px black;
+                   box-shadow: 0 0 2px black;">
+          <!-- <h1>Lesson Editor</h1> -->
+            <input style="width:100%"type="text" ng-model="fields.title" placeholder="Lesson Title" />
+            <p></p>
+            <textarea style="width:100%" type="textarea" ng-model="fields.description" placeholder="Description"></textarea>
+            <p></p>
+            <div text-angular="text-angular" ng-model="fields.content"></div>
+            <center><button type="button" class="btn btn-lg btn-primary" ng-click="addLesson(fields)" style="margin-top:5px;margin-bottom:3px;">Add Lesson</button></center>
+        </div>
+
+
+    <!-- Main Content -->
+
+        <!-- <div class="container-fluid"> -->
+        <div>
+          <div ng-repeat="lesson in lessons">
+            <div id="lesson{{lesson.id}}" class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a href="#" ng-click="isCollapsed = !isCollapsed;">
+                    {{lesson.title}}
+                  </a>
+                </h4>
+                <h5>
+                  <p>
+                    Description: {{lesson.description}}
+                  </p>
+                </h5>
+              <div ng-show="isCollapsed">
+                <div class="panel-body">
+                  <p ng-bind-html="lesson.content"></p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
+  </div>
