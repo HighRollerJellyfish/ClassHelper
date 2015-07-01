@@ -27,6 +27,34 @@ angular.module('classroom.grades', [])
 
   //To display grades data for teachers and individual users, D3 and Dimple.js
   //was used.  Refer to dimplejs.org for documentation on how to use dimple.
+
+  // Averages all student data by name
+  var averageData = function (dataObj){
+    var result = [];
+    dataObj.forEach(function(data){
+      var pushed = false;
+      for (var i=0; i<result.length; i++){
+        if (result[i].student === data.student) {
+          result[i].avg.push(data.score);
+          pushed = true;
+          break;
+        }
+      }
+      if (!pushed){
+        result.push( { student: data.student, avg: [data.score] } )// change to id later and add studentname property
+      }
+    });
+    // Go through each result obj and avg the avg data
+    result.forEach(function(data){
+      var total = data.avg.reduce( function(memo, num){
+        return memo = memo + num;
+      });
+      var average = total / data.avg.length;
+      data.avg = average;
+    })
+    return result;
+  }
+
   if ($scope.isTeacher()) {
     Grades.getAll().then(function(data) {
       var svg = dimple.newSvg(".grades", 1000, 800);
@@ -42,35 +70,49 @@ angular.module('classroom.grades', [])
       myChart.addSeries(null, dimple.plot.bubble);
       myChart.draw();
     });
-    
+
   } else { // The user is a student, so only show that student's grades
-    Grades.getAll().then(function(data) {
-      var gradesData = angular.fromJson(data.data);
+    Grades.getForUser($rootScope.currentUser.username).then(function(user){
+      var student = user.data[0].student;
+      Grades.getAll().then(function(data) {
+        var gradesData = angular.fromJson(data.data);
+        console.log(gradesData)
+        gradesData = averageData(gradesData);
+        console.log('averaged: ', gradesData)
 
-      // Data to be edited for chart creation
-      var numAtScore = [
-        {rank: 10, num: 0}, {rank: 20, num: 0}, {rank: 30, num: 0}, {rank: 40, num: 0}, {rank: 50, num: 0},
-        {rank: 60, num: 0}, {rank: 70, num: 0}, {rank: 80, num: 0}, {rank: 90, num: 0}, {rank: 100, num: 0}
-      ];
+        // Data to be edited for chart creation
+        var numAtScore = [
+          {rank: 10, num: 0}, {rank: 20, num: 0}, {rank: 30, num: 0}, {rank: 40, num: 0}, {rank: 50, num: 0},
+          {rank: 60, num: 0}, {rank: 70, num: 0}, {rank: 80, num: 0}, {rank: 90, num: 0}, {rank: 100, num: 0}
+        ];
 
-      // Modify info from gradesData and input into numAtScore for chart creation
-      gradesData.forEach(function(obj){
-        var range = 10;
-        while (obj.score > range){
-          range += 10;
-        }
-        numAtScore[ range.toString().slice(0,1)-1 ].num += 1;
+        // Modify info from gradesData and input into numAtScore for chart creation
+        gradesData.forEach(function(record){
+          var range = 10;
+          while (record.avg > range){
+            range += 10;
+          }
+          var index = range > 99 ? range.toString().slice(0,2)-1 : range.toString().slice(0,1)-1;
+          if (record.student === student){
+            numAtScore[index].student = student;
+          }
+          numAtScore[index].num += 1;
+          console.log(range, index, numAtScore[index], record.student)
+        });
+
+        // Create chart
+        var svg = dimple.newSvg(".grades", 700, 500);
+        var myChart = new dimple.chart(svg, numAtScore);
+        var x = myChart.addCategoryAxis("x", "rank");
+        var y1 = myChart.addMeasureAxis("y", "num");
+        // var y2 = myChar.addMeasureAxis("y", "student"); // For Student dot
+        var s1 = myChart.addSeries(null, dimple.plot.line, [x, y1]);
+        // var s2 = myChart.addSeries(null, dimple.plot.bubble, [x, y2]); // For Student dot
+
+        s1.interpolation = "cardinal";
+        myChart.addLegend(60, 10, 500, 20, "right");
+        myChart.draw();
       });
-
-      // Create chart
-      var svg = dimple.newSvg(".grades", 700, 500);
-      var myChart = new dimple.chart(svg, numAtScore);
-      var x = myChart.addCategoryAxis("x", "rank");
-      myChart.addMeasureAxis("y", "num");
-      var s = myChart.addSeries(null, dimple.plot.line);
-      s.interpolation = "cardinal";
-      myChart.addLegend(60, 10, 500, 20, "right");
-      myChart.draw();
     });
 
   }
