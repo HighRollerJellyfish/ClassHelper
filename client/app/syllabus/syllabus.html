@@ -16,11 +16,12 @@
   </div> -->
   <div class="row">
     <div class="col-md-3" style="font-size:110%;">
-      <button class="btn btn-lg btn-primary btn-block" ng-click="showEditor=!showEditor" ng-show="isTeacher()">
+      <button class="btn btn-lg btn-primary btn-block" ng-click="showEditor=!showEditor" ng-show="isTeacher()" style="margin-bottom:10px;">
         <span ng-if="!showEditor">Add Lesson</span>
         <span ng-if="showEditor">Hide Lesson Editor</span>
       </button>
-      <h1>Class lessons</h1>
+
+      <!-- <h1>Class lessons</h1>
       <ul>
           <li style="list-style: square inside; padding: 0 0 2px 0;">
               <a href="#">Syllabus</a>
@@ -28,13 +29,31 @@
           <li ng-repeat="lesson in lessons" style="list-style: circle inside; padding:2px 0 2px 0;">
             <a href="#lesson{{lesson.id}}" target="_self">{{lesson.title}}</a>
           </li>
-      </ul>
+      </ul> -->
+
+      <table class="table table-bordered table-hover" style="width:100%;background-color:white;">
+        <tr>
+          <th class="success" style="font-size:133%;">
+            <center>Class Lessons</center>
+          </th>
+        </tr>
+        <tr>
+          <td class="info">
+            <a href="#">Syllabus</a>
+          </td>
+        </tr>
+        <tr ng-repeat="lesson in lessons">
+          <td><a href="#lesson{{lesson.id}}" target="_self">{{lesson.title}}</a></td>
+        </tr>
+      </table>
+
+
     </div>
 
     <div class="col-md-9">
 
     <!-- Text Editor -->
-        <div ng-controller="textController" ng-if="showEditor"
+        <div ng-controller="textController" ng-if="showEditor" class="panel panel-default"
             style="margin-bottom:20px;padding:5px;
                    -moz-box-shadow: 0 0 2px black;
                    -webkit-box-shadow: 0 0 2px black;
@@ -45,7 +64,7 @@
             <textarea style="width:100%" type="textarea" ng-model="fields.description" placeholder="Description"></textarea>
             <p></p>
             <div text-angular="text-angular" ng-model="fields.content"></div>
-            <center><button type="button" class="btn btn-lg btn-primary" ng-click="addLesson(fields)">Add Lesson</button></center>
+            <center><button type="button" class="btn btn-lg btn-primary" ng-click="addLesson(fields)" style="margin-top:5px;margin-bottom:3px;">Add Lesson</button></center>
         </div>
 
 
