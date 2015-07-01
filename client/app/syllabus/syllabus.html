@@ -35,15 +35,17 @@
 
     <!-- Text Editor -->
         <div ng-controller="textController" ng-if="showEditor"
-        style="margin-bottom:20px;padding:5px; -moz-box-shadow: 0 0 2px black;
-    -webkit-box-shadow: 0 0 2px black;
-    box-shadow: 0 0 2px black;">
-          <h1>Lesson Editor</h1>
-            <input style="width:300px"type="text" ng-model="fields.title" placeholder="Lesson Title" />
+            style="margin-bottom:20px;padding:5px;
+                   -moz-box-shadow: 0 0 2px black;
+                   -webkit-box-shadow: 0 0 2px black;
+                   box-shadow: 0 0 2px black;">
+          <!-- <h1>Lesson Editor</h1> -->
+            <input style="width:100%"type="text" ng-model="fields.title" placeholder="Lesson Title" />
             <p></p>
-            <input style="width:1000px" type="text" ng-model="fields.description" placeholder="Description" />
+            <textarea style="width:100%" type="textarea" ng-model="fields.description" placeholder="Description"></textarea>
+            <p></p>
             <div text-angular="text-angular" ng-model="fields.content"></div>
-            <button type="button" ng-click="addLesson(fields)">Add Lesson</button>
+            <center><button type="button" class="btn btn-lg btn-primary" ng-click="addLesson(fields)">Add Lesson</button></center>
         </div>
 
 
