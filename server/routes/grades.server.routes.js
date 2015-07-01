@@ -24,6 +24,7 @@ module.exports = function(app) {
     },
     grades.listForUser
   );
+
   app.post('/grades', function(req, res, next) {
     var token = req.headers.authorization;
     var decoded = jwt.decode(token, 'abc');
@@ -35,4 +36,8 @@ module.exports = function(app) {
     }
   },
   grades.create);
+
+
+  // app.get('/grades/:classId')
+
 };

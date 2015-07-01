@@ -37,7 +37,7 @@ angular.module('classroom.signup', [])
       }
 
       // Check for valid password of at least 7 characters
-      else if ($scope.fields.password === "" || $scope.fields.password.length <= 7) {
+      else if ($scope.fields.password === "" || $scope.fields.password.length < 7) {
         return "Please enter a valid password of at least 7 characters";
       }
 
