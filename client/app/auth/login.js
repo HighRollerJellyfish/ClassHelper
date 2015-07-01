@@ -11,6 +11,10 @@ angular.module('classroom.login', [])
   @param {String} username Username to be entered into the database.
   @param {String} password Password associated with the Username to be added into the database.
   */
+
+  $scope.email = "";
+  $scope.password = "";
+
   $scope.submit = function (email, password) {
 
     // Use the Auth factory to login a user.
@@ -27,5 +31,20 @@ angular.module('classroom.login', [])
         console.log('Error logging in.');
       }
     });
+  };
+
+
+  $scope.formValidation = function() {
+    // Check for valid email
+    if ( !(($scope.email || "").match(/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i))){
+      return "Please enter a valid email address";
+    }
+
+    // Check for valid password of at least 7 characters
+    else if ($scope.password === "" || $scope.password.length <= 7) {
+      return "Please enter a valid password of at least 7 characters";
+    }
+
+    return "";
   };
 }]);
