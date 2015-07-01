@@ -10,6 +10,15 @@ angular.module('classroom.signup', [])
   @method submit
   @param {Object} userData UserData object with username and password.
   */
+  $scope.errorText = "Testing????";
+
+  $scope.formValidation = function() {
+    // if (fields.first_name === "" || fields.last_name)
+    console.log($('input').first().text());
+    // console.log($scope.fields.first_name);
+    return "Hello";
+  };
+
   $scope.submit = function (userData) {
     Auth.signup(userData, function(user) {
       $state.go('syllabus');
