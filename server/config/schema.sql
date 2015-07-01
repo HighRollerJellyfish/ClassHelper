@@ -13,12 +13,18 @@ USE classroom;
 -- ------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS users (
-  id int NOT NULL AUTO_INCREMENT,
-  first_name VARCHAR(30) NOT NULL,
-  last_name VARCHAR(30) NOT NULL,
+  id INT NOT NULL AUTO_INCREMENT,
+  -- first_name VARCHAR(30) NOT NULL,
+  -- last_name VARCHAR(30) NOT NULL,
   email VARCHAR(30) NOT NULL,
   password VARCHAR(100) NOT NULL,
   role VARCHAR(20) NOT NULL DEFAULT 'student',
+  -- DELETE BELOW -- 
+  name VARCHAR(45) NOT NULL,
+  username VARCHAR(20) NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  -- DELETE ABOVE -- 
   PRIMARY KEY (id)
 );
 
@@ -27,9 +33,9 @@ CREATE TABLE IF NOT EXISTS users (
 -- ------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS classes (
-  id int NOT NULL AUTO_INCREMENT,
+  id INT NOT NULL AUTO_INCREMENT,
   title VARCHAR(60) NOT NULL,
-  teacher_id int NOT NULL,
+  teacher_id INT NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (teacher_id) REFERENCES users(id)
 );
@@ -39,9 +45,9 @@ CREATE TABLE IF NOT EXISTS classes (
 -- ------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS assignments (
-  id int NOT NULL AUTO_INCREMENT,
+  id INT NOT NULL AUTO_INCREMENT,
   title VARCHAR(60) NOT NULL,
-  class_id int NOT NULL,
+  class_id INT NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (class_id) REFERENCES classes(id)
 );
@@ -53,12 +59,16 @@ CREATE TABLE IF NOT EXISTS assignments (
 -- ------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS lessons (
-  id int NOT NULL AUTO_INCREMENT,
+  id INT NOT NULL AUTO_INCREMENT,
   title VARCHAR(60) NOT NULL,
   description VARCHAR(500) NOT NULL,
   content TEXT NOT NULL,
   start_date DATETIME NOT NULL,
-  class_id int NOT NULL,
+  class_id INT NOT NULL,
+  -- DELETE BELOW -- 
+  created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  -- DELETE ABOVE -- 
   PRIMARY KEY (id),
   FOREIGN KEY (class_id) REFERENCES classes(id)
 );
@@ -69,31 +79,52 @@ CREATE TABLE IF NOT EXISTS lessons (
 -- ------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS grades (
-  id int NOT NULL AUTO_INCREMENT,
-  grade int NOT NULL,
-  assignment_id int NOT NULL,
-  student_id int NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (assignment_id) REFERENCES assignments(id),
-  FOREIGN KEY (student_id) REFERENCES users(id)
+  id INT NOT NULL AUTO_INCREMENT,
+  score INT NOT NULL,
+  -- assignment_id INT NOT NULL,
+  -- student_id INT NOT NULL,
+  -- DELETE BELOW -- 
+  lesson_title VARCHAR(45) NOT NULL,
+  created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  -- DELETE ABOVE -- 
+  PRIMARY KEY (id)
+  -- FOREIGN KEY (assignment_id) REFERENCES assignments(id),
+  -- FOREIGN KEY (student_id) REFERENCES users(id)
 );
+
+
+-- ------------------------------------------------------
+-- Table attendance
+-- ------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS attendance (
+  id INT NOT NULL AUTO_INCREMENT,
+  -- student_id INT NOT NULL,
+  -- DELETE BELOW -- 
+  student VARCHAR(20) NOT NULL,
+  presence TINYINT(1) NOT NULL,
+  created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  -- DELETE ABOVE -- 
+  PRIMARY KEY (id)
+);
+
+
+
 
 -- ------------------------------------------------------
 -- Table student_class_join
 -- ------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS student_class_join (
-  id int NOT NULL AUTO_INCREMENT,
-  student_id int NOT NULL,
-  class_id int NOT NULL,
+  id INT NOT NULL AUTO_INCREMENT,
+  student_id INT NOT NULL,
+  class_id INT NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (student_id) REFERENCES users(id),
   FOREIGN KEY (class_id) REFERENCES classes(id)
 );
-
-
-
-
 
 -- -- -----------------------------------------------------
 -- -- Data for table `lessons`
