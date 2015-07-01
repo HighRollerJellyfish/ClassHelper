@@ -31,7 +31,7 @@ exports.signup = function(req, res, next) {
 exports.refresh = function (req, res, next) {
   var token = req.headers.authorization;
   var decoded = jwt.decode(token, 'abc');
-  var userInfo = {username: decoded.username, name: decoded.name, role: decoded.role};
+  var userInfo = {user: decoded.first_name + ' ' + decoded.last_name, role: decoded.role, token: token};
   res.json(userInfo);
 };
 

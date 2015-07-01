@@ -8,8 +8,9 @@ exports.listAll = function(req, res, next) {
 };
 
 // Returns an object of all grades for a given student
-exports.listForUser = function(student, req, res, next) {
-  new Grade().where({student: student}).fetchAll().then(function(collection) {
+exports.listForUser = function(student_id, req, res, next) {
+  new Grade().where({student_id: student_id}).fetchAll().then(function(collection) {
+    console.log(collection.toJSON());
     res.json(collection);
   });
 };

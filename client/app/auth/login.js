@@ -40,9 +40,9 @@ angular.module('classroom.login', [])
       return "Please enter a valid email address";
     }
 
-    // Check for valid password of at least 7 characters
-    else if ($scope.password === "" || $scope.password.length < 7) {
-      return "Please enter a valid password of at least 7 characters";
+    // Check for valid password of at least 4 characters
+    else if ($scope.password === "" || $scope.password.length < 4) {
+      return "Please enter a valid password of at least 4 characters";
     }
 
     return "";

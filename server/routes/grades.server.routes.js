@@ -4,17 +4,19 @@ var jwtSecret = require('../config/config.js').jwtSecret;
 
 module.exports = function(app) {
   app.get('/grades', function(req, res, next) {
-      console.log("Authenticating...");
+      console.log("AAA");
+      console.log(req.body);
       var studentName = req.param('student');
+      console.log("Student name:", studentName);
       var token = req.headers.authorization;
+      console.log("Token: ", token);
+
       if (token) {
-        console.log("Token: ", token);
-        // We are hardcoding our secret token in for now but in
-        // production it should be an env variable.
         var decoded = jwt.decode(token, jwtSecret);
         console.log(decoded);
+        console.log("CCC")
         if (studentName) {
-          grades.listForUser(studentName, req, res, next);
+          grades.listForUser(5, req, res, next);
         } else {
           grades.listAll(req, res, next);
         }
