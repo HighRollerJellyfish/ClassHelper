@@ -4,10 +4,17 @@
 <h5>Sign Up</h5>
 <div>
   <form>
-    <input type="text" ng-model="fields.username" placeholder="Username" />
+    <input type="text" ng-model="fields.first_name" placeholder="First Name" />
+    <input type="text" ng-model="fields.last_name" placeholder="Last Name" />
+    <input type="email" ng-model="fields.email" placeholder="Email" />
+    <input type="password" ng-model="fields.password" placeholder="Password" />
+    <input type="password" placeholder="Confirm Password (NOT USED NOW)" />
+
+
+<!--     <input type="text" ng-model="fields.username" placeholder="Username" />
     <input type="email" ng-model="fields.email" placeholder="Email" />
     <input type="name" ng-model="fields.name" placeholder="Full Name" />
-    <input type="password" ng-model="fields.password" placeholder="Password" />
+    <input type="password" ng-model="fields.password" placeholder="Password" /> -->
     <button ng-click="submit(fields)">Submit</button>
   </form>
 </div>

@@ -1,138 +1,91 @@
--- ------------------------------------------------------
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+--------------------------------------------------------
 -- Schema classroom
--- ------------------------------------------------------
-
-DROP SCHEMA IF EXISTS classroom;
-
-CREATE SCHEMA IF NOT EXISTS classroom;
-
-USE classroom;
-
--- ------------------------------------------------------
--- Table users
--- ------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS users (
-  id INT NOT NULL AUTO_INCREMENT,
-  first_name VARCHAR(30) NOT NULL,
-  last_name VARCHAR(30) NOT NULL,
-  email VARCHAR(30) NOT NULL,
-  password VARCHAR(100) NOT NULL,
-  role VARCHAR(20) NOT NULL DEFAULT 'student',
-  -- DELETE BELOW -- 
-  -- name VARCHAR(45) NOT NULL,
-  -- username VARCHAR(20) NOT NULL,
-  -- created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  -- updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  -- DELETE ABOVE -- 
-  PRIMARY KEY (id)
-);
-
--- ------------------------------------------------------
--- Table classes
--- ------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS classes (
-  id INT NOT NULL AUTO_INCREMENT,
-  title VARCHAR(60) NOT NULL,
-  teacher_id INT NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (teacher_id) REFERENCES users(id)
-);
-
--- ------------------------------------------------------
--- Table assignments
--- ------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS assignments (
-  id INT NOT NULL AUTO_INCREMENT,
-  title VARCHAR(60) NOT NULL,
-  class_id INT NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (class_id) REFERENCES classes(id)
-);
+--------------------------------------------------------
+DROP SCHEMA IF EXISTS `classroom`;
 
 
+CREATE SCHEMA IF NOT EXISTS `classroom` ;
+USE `classroom` ;
 
--- ------------------------------------------------------
--- Table lessons
--- ------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS lessons (
-  id INT NOT NULL AUTO_INCREMENT,
-  title VARCHAR(60) NOT NULL,
-  description VARCHAR(500) NOT NULL,
-  content TEXT NOT NULL,
-  start_date DATETIME NOT NULL,
-  -- class_id INT NOT NULL,
-  -- DELETE BELOW -- 
-  created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  -- DELETE ABOVE -- 
-  PRIMARY KEY (id)
-  -- FOREIGN KEY (class_id) REFERENCES classes(id)
-);
-
-
--- ------------------------------------------------------
--- Table grades
--- ------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS grades (
-  id INT NOT NULL AUTO_INCREMENT,
-  score INT NOT NULL,
-  -- assignment_id INT NOT NULL,
-  -- student_id INT NOT NULL,
-  -- DELETE BELOW -- 
-  student VARCHAR(20) NOT NULL,
-  lesson_title VARCHAR(45) NOT NULL,
-  created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  -- DELETE ABOVE -- 
-  PRIMARY KEY (id)
-  -- FOREIGN KEY (assignment_id) REFERENCES assignments(id),
-  -- FOREIGN KEY (student_id) REFERENCES users(id)
-);
+-- -----------------------------------------------------
+-- Table `classroom`.`users`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `classroom`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(45) NOT NULL ,
+  `username` VARCHAR(20) NOT NULL ,
+  `email` VARCHAR(100) NOT NULL ,
+  `password` VARCHAR(100) NOT NULL ,
+  `role` VARCHAR(20) NOT NULL DEFAULT 'student' ,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC) ,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
+ENGINE = InnoDB;
 
 
--- ------------------------------------------------------
--- Table attendance
--- ------------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS attendance (
-  id INT NOT NULL AUTO_INCREMENT,
-  -- student_id INT NOT NULL,
-  -- lesson_id INT NOT NULL,
-  -- date DATETIME NOT NULL,
-  -- DELETE BELOW -- 
-  date VARCHAR(20) NOT NULL,
-  student VARCHAR(20) NOT NULL,
-  presence TINYINT(1) NOT NULL,
-  created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  -- DELETE ABOVE -- 
-  PRIMARY KEY (id)
-  -- FOREIGN KEY (student_id) REFERENCES users(id),
-  -- FOREIGN KEY (lesson_id) REFERENCES lessons(id)
-);
+-- -----------------------------------------------------
+-- Table `classroom`.`lessons`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `classroom`.`lessons` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `title` VARCHAR(60) NOT NULL ,
+  `description` VARCHAR(500) NOT NULL ,
+  `content` TEXT NOT NULL ,
+  `start_date` DATETIME NOT NULL ,
+  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ,
+  `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) )
+ENGINE = InnoDB;
 
 
--- ------------------------------------------------------
--- Table student_class_join
--- ------------------------------------------------------
+-- -----------------------------------------------------
+-- Table `classroom`.`grades`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `classroom`.`grades` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `lesson_title` VARCHAR(45) NOT NULL ,
+  `student` VARCHAR(20) NOT NULL ,
+  `score` INT NOT NULL ,
+  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ,
+  `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) )
+ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS student_class_join (
-  id INT NOT NULL AUTO_INCREMENT,
-  student_id INT NOT NULL,
-  class_id INT NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (student_id) REFERENCES users(id),
-  FOREIGN KEY (class_id) REFERENCES classes(id)
-);
 
--- -- -----------------------------------------------------
--- -- Data for table `lessons`
--- -- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Table `classroom`.`attendance`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `classroom`.`attendance` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `date` VARCHAR(20) NOT NULL ,
+  `student` VARCHAR(20) NOT NULL,
+  `presence` TINYINT(1) NOT NULL ,
+  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ,
+  `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) )
+ENGINE = InnoDB;
+
+USE `classroom` ;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+
+-- -----------------------------------------------------
+-- Data for table `lessons`
+-- -----------------------------------------------------
 START TRANSACTION;
 USE `classroom`;
 INSERT INTO `lessons` (`title`, `description`, `content`, `start_date`, `created_at`, `updated_at`) VALUES ('Algorithms', 'Analysis of time and space complexity of algorithms', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec congue bibendum bibendum. Nullam fermentum tortor a nisl elementum condimentum. Nunc lorem felis, facilisis et est vulputate, iaculis posuere felis. Donec nec rutrum erat, vel rhoncus nunc. Aenean et molestie libero. Vivamus justo libero, lobortis quis nibh sed, tempor interdum magna. Vestibulum finibus, massa quis pulvinar consectetur, mauris mi mattis quam, ut imperdiet risus lorem maximus nibh. Phasellus fermentum purus at efficitur venenatis. Quisque congue id quam nec accumsan. Ut augue dolor, mattis at arcu sit amet, aliquet vehicula enim. Donec tortor lorem, ultricies nec varius et, egestas vitae quam.
@@ -265,10 +218,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `classroom`;
-INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`) VALUES ('Devon', 'Harvey', 'devon@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
-INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`) VALUES ('Richard', 'Stanley', 'richard@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
-INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`) VALUES ('Jake', 'Lee', 'jake@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'teacher');
-INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`) VALUES ('Eric', 'Ihli', 'Eric@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
+INSERT INTO `users` (`name`, `username`, `email`, `password`, `role`) VALUES ('Devon Harvey', 'devon', 'devon@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
+INSERT INTO `users` (`name`, `username`, `email`, `password`, `role`) VALUES ('Richard Stanley', 'richard', 'richard@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
+INSERT INTO `users` (`name`, `username`, `email`, `password`, `role`) VALUES ('Jake Lee', 'jake', 'jake@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'teacher');
+INSERT INTO `users` (`name`, `username`, `email`, `password`, `role`) VALUES ('Eric Ihli', 'eric', 'Eric@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
 
 
 COMMIT;
