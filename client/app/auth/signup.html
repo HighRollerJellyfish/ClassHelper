@@ -13,6 +13,6 @@
     <input type="email" ng-model="fields.email" placeholder="Email" />
     <input type="password" ng-model="fields.password" placeholder="Password" />
     <input type="password" ng-model="passwordConfirm" placeholder="Confirm Password" />
-    <button ng-click="submit(fields)">Submit</button>
+    <button ng-show="!formValidation()" ng-click="submit(fields)">Submit</button>
   </form>
 </div>

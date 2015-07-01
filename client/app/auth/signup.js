@@ -20,9 +20,13 @@ angular.module('classroom.signup', [])
   };
   $scope.passwordConfirm = "";
 
-  $scope.errorText = "Testing????";
+  $scope.submit = function (userData) {
+    Auth.signup(userData, function(user) {
+      $state.go('syllabus');
+    });
+  };
 
-  $scope.formValidation = function() {
+    $scope.formValidation = function() {
     // Check for valid first and last name
     if ($scope.fields.first_name === "" || $scope.fields.last_name === "") {
       return "Please enter valid name";
@@ -47,11 +51,5 @@ angular.module('classroom.signup', [])
     }
 
     return "";
-  };
-
-  $scope.submit = function (userData) {
-    Auth.signup(userData, function(user) {
-      $state.go('syllabus');
-    });
   };
 }]);
