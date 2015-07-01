@@ -4,8 +4,11 @@
 <h5>Login</h5>
 <div>
   <form>
+    <div>
+      <p>{{formValidation()}}</p>
+    </div>
     <input type="text" ng-model="email" />
     <input type="password" ng-model="password" />
-    <button ng-click="submit(email, password)">Submit</button>
+    <button ng-show="!formValidation()" ng-click="submit(email, password)">Submit</button>
   </form>
 </div>
