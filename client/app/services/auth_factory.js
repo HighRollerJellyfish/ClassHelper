@@ -20,16 +20,17 @@ angular.module('classroom.AuthFactory', [])
       method: 'POST',
       url: '/users/login',
       data: {
-        username: username,
+        email: username,
         password: password
       }
     }).then(function(res) {
       window.localStorage['jwtToken'] = res.data.token;
       $rootScope.currentUser = {
-        username: res.data.username,
-        role: res.data.role,
-        name: res.data.name
-      }
+        name: res.data.name,
+        role: res.data.role
+      };
+
+      console.log($rootScope);
       // The res sent to callback is what is returned by our /users/login api
       // It is an object which contains a token, username,
       // and role (for now. we'll update this later).

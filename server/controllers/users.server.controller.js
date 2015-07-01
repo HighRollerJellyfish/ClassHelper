@@ -52,8 +52,7 @@ exports.authenticate = function(req, res, next) {
       var token = jwt.encode(user, jwtSecret);
       res.json({
         token: token,
-        username: user.get('username'),
-        name: user.get('name'),
+        name: user.get('first_name') + ' ' + user.get('last_name'),
         role: user.get('role')
       });
     }

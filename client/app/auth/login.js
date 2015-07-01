@@ -11,7 +11,7 @@ angular.module('classroom.login', [])
   @param {String} username Username to be entered into the database.
   @param {String} password Password associated with the Username to be added into the database.
   */
-  $scope.submit = function (username, password) {
+  $scope.submit = function (email, password) {
 
     // Use the Auth factory to login a user.
     // Auth.login makes an HTTP request to our api. Right now
@@ -19,7 +19,7 @@ angular.module('classroom.login', [])
     // object with a data property. In the future, we should probably
     // have our api always return an object with a success/fail property
     // or something.
-    Auth.login(username, password, function(res) {
+    Auth.login(email, password, function(res) {
       if (res.data.token) {
         $state.go('syllabus');
       } else {
