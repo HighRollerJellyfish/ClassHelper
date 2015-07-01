@@ -71,9 +71,10 @@ angular.module('classroom.grades', [])
       myChart.draw();
     });
 
-  } else { // The user is a student, so only show that student's grades
+  } else { // The user is a student, show student position in class
     Grades.getForUser($rootScope.currentUser.username).then(function(user){
       var student = user.data[0].student;
+
       Grades.getAll().then(function(data) {
         var gradesData = angular.fromJson(data.data);
         console.log(gradesData)
@@ -87,16 +88,21 @@ angular.module('classroom.grades', [])
         ];
 
         // Modify info from gradesData and input into numAtScore for chart creation
+        var max = 0; // used for y axis
         gradesData.forEach(function(record){
           var range = 10;
           while (record.avg > range){
             range += 10;
           }
+
           var index = range > 99 ? range.toString().slice(0,2)-1 : range.toString().slice(0,1)-1;
+
           if (record.student === student){
             numAtScore[index].student = student;
           }
           numAtScore[index].num += 1;
+          // store max number of students in a range to determine y axis
+          if (numAtScore[index].num > max) { max = numAtScore[index].num; }
           console.log(range, index, numAtScore[index], record.student)
         });
 
@@ -105,12 +111,9 @@ angular.module('classroom.grades', [])
         var myChart = new dimple.chart(svg, numAtScore);
         var x = myChart.addCategoryAxis("x", "rank");
         var y1 = myChart.addMeasureAxis("y", "num");
-        // var y2 = myChar.addMeasureAxis("y", "student"); // For Student dot
+        y1.overrideMax = max + 1;
         var s1 = myChart.addSeries(null, dimple.plot.line, [x, y1]);
-        // var s2 = myChart.addSeries(null, dimple.plot.bubble, [x, y2]); // For Student dot
-
         s1.interpolation = "cardinal";
-        myChart.addLegend(60, 10, 500, 20, "right");
         myChart.draw();
       });
     });
