@@ -6,26 +6,11 @@
   font-size: 100%;
 }
 
+.login-background {
+  background-image: url('http://orig15.deviantart.net/b927/f/2014/279/1/8/school_classroom__late_afternoon__by_enigma_xiii-d801u9q.png');
+  background-size: cover;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.login-form {
+  opacity: .8;
+}

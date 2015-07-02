@@ -1,32 +1,27 @@
-<!-- <h2>Classroom</h2>
-<button ui-sref="login">Login</button>
-<button ui-sref="signup">Signup</button>
-<h5>Login</h5>
-<div>
-  <form>
-    <div>
-      <p>{{formValidation()}}</p>
-    </div>
-    <input type="text" ng-model="email" />
-    <input type="password" ng-model="password" />
-    <button ng-show="!formValidation()" ng-click="submit(email, password)">Submit</button>
-  </form>
-</div> -->
-
-<form class="form-signin" action="index.html">
+<form name="form" class="form-signin" ng-submit="submit(email, password)" style="opacity:.93;">
 <h2 class="form-signin-heading">sign in now</h2>
 <div class="login-wrap">
-    <p>{{formValidation()}}</p>
-    <input type="text" class="form-control" placeholder="Enter email address..." ng-model="email" autofocus>
-    <input type="password" class="form-control" placeholder="Password" ng-model="password">
-    <label class="checkbox">
-        <input type="checkbox" value="remember-me"> Remember me
-        <span class="pull-right">
-            <a data-toggle="modal" href="#myModal"> Forgot Password?</a>
-        </span>
-    </label>
 
-    <button ng-show="!formValidation()" class="btn btn-lg btn-login btn-block" type="button" ng-click="submit(email, password)">Sign in</button>
+    <div class="panel panel-warning" ng-hide="form.$pristine || !formValidation()" >
+      <div class="panel-heading">
+        <p class="panel-title" style="color: red;">{{formValidation()}}</p>
+      </div>
+    </div>
+
+
+      <input type="email" class="form-control input-lg" placeholder="Enter email address..." ng-model="email" autofocus>
+      <input type="password" class="form-control input-lg" placeholder="Enter password..." ng-model="password">
+    
+
+      <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+          <span class="pull-right">
+              <a data-toggle="modal" href="#myModal"> Forgot Password?</a>
+          </span>
+      </label>
+
+
+    <button ng-disabled="formValidation()" class="btn btn-lg btn-login btn-block" type="submit">Sign in</button>
     <!-- <p>or you can sign in via social network</p>
     <div class="login-social-link">
         <a href="index.html" class="facebook">
@@ -47,7 +42,7 @@
   </div>
 
   <!-- Modal -->
-  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+  <!-- <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
@@ -65,7 +60,7 @@
               </div>
           </div>
       </div>
-  </div>
+  </div> -->
   <!-- modal -->
 
 </form>

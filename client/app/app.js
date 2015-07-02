@@ -79,6 +79,13 @@ angular.module('classroom', [
 
 .run(['$rootScope', '$state', 'Auth', function ($rootScope, $state, Auth) {
 
+  $rootScope.checkStateRoute = function(state) {
+    if($state.is(state)) {
+      return true;
+    }
+    return false;
+  };
+
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     var requireLogin = toState.data.requireLogin;
     // check if user is logged in
