@@ -118,8 +118,12 @@ angular.module('classroom.grades', [])
     grade: 95 }
     */
     Grades.getStudentGrades($rootScope.currentUser.id).then(function(data) {
+
       console.log('getting grades')
       // var svg = dimple.newSvg(".grades", 1000, 800);
+
+      console.log(data);
+      var svg = dimple.newSvg(".grades", 1000, 800);
       var gradesData = angular.fromJson(data.data);
       console.log('gradesData: ', gradesData);
 
