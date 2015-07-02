@@ -24,11 +24,15 @@ angular.module('classroom.grades', [])
 
   // Show all grades if the user is a teacher or else it only displays the grades
   // of the user if the user is not a teacher.
-
+  console.log($rootScope.currentUser);
   //To display grades data for teachers and individual users, D3 and Dimple.js
   //was used.  Refer to dimplejs.org for documentation on how to use dimple.
+
+  //DUMMY VARIABLE
+  var class_id = 1;
+
   if ($scope.isTeacher()) {
-    Grades.getAll().then(function(data) {
+    Grades.getClassGrades(class_id).then(function(data) {
       var svg = dimple.newSvg(".grades", 1000, 800);
       var gradesData = angular.fromJson(data.data);
       var myChart = new dimple.chart(svg, gradesData);
@@ -42,7 +46,7 @@ angular.module('classroom.grades', [])
       myChart.draw();
     });
   } else { // The user is a student, so only show that student's grades
-    Grades.getForUser($rootScope.currentUser.username).then(function(data) {
+    Grades.getStudentGrades($rootScope.currentUser.id).then(function(data) {
       var svg = dimple.newSvg(".grades", 1000, 800);
       var gradesData = angular.fromJson(data.data);
       var myChart = new dimple.chart(svg, gradesData);

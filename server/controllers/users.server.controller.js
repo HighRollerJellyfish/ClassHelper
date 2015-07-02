@@ -31,7 +31,7 @@ exports.signup = function(req, res, next) {
 exports.refresh = function (req, res, next) {
   var token = req.headers.authorization;
   var decoded = jwt.decode(token, 'abc');
-  var userInfo = {username: decoded.username, name: decoded.name, role: decoded.role};
+  var userInfo = {name: decoded.first_name + ' ' + decoded.last_name, role: decoded.role, id: decoded.id, token: token};
   res.json(userInfo);
 };
 
@@ -53,7 +53,8 @@ exports.authenticate = function(req, res, next) {
       res.json({
         token: token,
         name: user.get('first_name') + ' ' + user.get('last_name'),
-        role: user.get('role')
+        role: user.get('role'),
+        id: user.get('id')
       });
     }
   });
