@@ -30,6 +30,6 @@ Lesson.classLessons = function(class_id, callback) {
   .then(function(data) {
     callback(data[0]);
   });
-}
+};
 
 module.exports = Lesson;

@@ -4,9 +4,9 @@ This controller module is associated with the grades view and deals with grades 
 */
 
 angular.module('classroom.grades', [])
-.controller('GradesController', ['$rootScope', '$scope', 'Grades', 'Classes', function ($rootScope, $scope, Grades, Classes) {
+.controller('GradesController', ['$rootScope', '$scope', 'Grades', 'Assignments', function ($rootScope, $scope, Grades, Assignments) {
   
-  Classes.getUserClasses($rootScope.currentUser.id).then(function(data) {
+  Assignments.getUserAssignments($rootScope.currentUser.id).then(function(data) {
     console.log("User classes:");
     console.log(data);
   });
