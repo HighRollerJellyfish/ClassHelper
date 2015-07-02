@@ -96,7 +96,9 @@ angular.module('classroom', [
         // the user is not logged in, so send them to the login page
         event.preventDefault();
         console.log("User must be logged in to view this page");
-        $state.go('login');
+        //$state.go('login');
+        window.location.replace('#/login');
+        location.reload();
       }
     }
   });
