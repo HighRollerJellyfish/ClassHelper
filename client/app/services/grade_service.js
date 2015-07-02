@@ -29,7 +29,7 @@ angular.module('classroom.GradeService', [])
   this.getStudentGrades = function (student_id) {
     console.log('LocalStorage: ', window.localStorage.jwtToken);
     return $http({
-      url: '/grades?student=' + student_id,
+      url: '/grades/student/?student_id=' + student_id,
       method: 'GET',
       headers: {
         'Authorization': window.localStorage.jwtToken

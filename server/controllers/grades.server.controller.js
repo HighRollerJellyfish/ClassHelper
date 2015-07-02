@@ -5,20 +5,27 @@ var jwtSecret = require('../config/config.js').jwtSecret;
 // Returns a list of all of a single students grades in all 
 // of her assignments in all of her classes
 exports.studentGrades = function(req, res, next) {
-  console.log("AAAA");
     var student_id = req.param('student_id');
+    console.log(req.headers.authorization);
     var token = req.headers.authorization;
+    console.log(token);
     if (token) {
+
       var decoded = jwt.decode(token, jwtSecret);
-      if (student_id === decoded.id) {
+      console.log(student_id);
+      console.log(decoded.id);
+      if (student_id == decoded.id) {
+        console.log("XXX");
+        console.log("A");
         Grade.studentGrades(student_id, function(data) {
+          console.log("BBB");
+          console.log(data);
           return res.json(data);
         });
       } 
     } else {
       return res.send("No token...\n");
     }
-    next();
 };
 
 // OLD TO DELETE
