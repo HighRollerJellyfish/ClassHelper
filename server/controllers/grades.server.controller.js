@@ -29,13 +29,12 @@ exports.classGrades = function(req, res, next) {
   var class_id = req.param('class_id');
   var token = req.headers.authorization;
   if (token) {
-    console.log("A");
     var decoded = jwt.decode(token, jwtSecret);
     Class.getTeacherId(class_id, function(classTeacherId) {
       console.log(classTeacherId);
       if (decoded.id == classTeacherId) {
-        console.log("D");
         Grade.classGrades(class_id, function(data) {
+          console.log(data);
           res.json(data);
         });
       }
