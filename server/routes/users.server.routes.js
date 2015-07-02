@@ -6,6 +6,6 @@ module.exports = function(app, passport) {
   app.get('/users', users.list);
   app.get('/users/refresh', users.refresh);
 
-  app.post('/users/signup', users.create);
+  app.post('/users/signup', users.signup);
   app.post('/users/login', users.authenticate);
 };
