@@ -29,33 +29,32 @@ angular.module('classroom.grades', [])
     Grades.add(gradeData);
   }
 
-  // TEACHER: Sees all grades. STUDENT: Sees own grades
-
-  // Averages all student data by name
-  var averageData = function (dataObj, target, keyName){
-    var result = [];
-    dataObj.forEach(function(data){
-      var pushed = false;
-      for (var i=0; i<result.length; i++){
-        if (result[i][target] === data[target]) {
-          result[i].avg.push(data.score);
-          pushed = true;
-          break;
-        }
-      }
-      if (!pushed){
-        result.push( {keyName: data[target], avg: [data.score] } )// change to id later and add studentname property
-      }
-    });
-    // Go through each result obj and avg the avg data
-    result.forEach(function(data){
-      var total = data.avg.reduce( function(memo, num){
-        return memo = memo + num;
-      });
-      var average = total / data.avg.length;
-      data.avg = average;
-    })
-    return result;
+  // Averages student data by grade
+  var averageData = function (dataObj){
+    // var result = [];
+    // // 
+    // dataObj.forEach(function(data){
+    //   var pushed = false;
+    //   for (var i=0; i<result.length; i++){
+    //     if (result[i][target] === data[target]) {
+    //       result[i].avg.push(data.score);
+    //       pushed = true;
+    //       break;
+    //     }
+    //   }
+    //   if (!pushed){
+    //     result.push( {keyName: data[target], avg: [data.score] } )// change to id later and add studentname property
+    //   }
+    // });
+    // // Go through each result obj and avg the avg data
+    // result.forEach(function(data){
+    //   var total = data.avg.reduce( function(memo, num){
+    //     return memo = memo + num;
+    //   });
+    //   var average = total / data.avg.length;
+    //   data.avg = average;
+    // })
+    return dataObj;
   };
 
   // Create color pallette for legend
@@ -70,64 +69,56 @@ angular.module('classroom.grades', [])
     return result;
   };
 
-  // if ( $scope.isTeacher() ) { // TEACHER
-  //   Grades.getAll().then(function(data) {
-
-  //     var data = angular.fromJson(data.data); console.log(data);
-  //     var averaged = averageData(data);
-  //     averaged = averaged.forEach(function())
-
-  // Show all grades if the user is a teacher or else it only displays the grades
-  // of the user if the user is not a teacher.
   console.log($rootScope.currentUser);
-  //To display grades data for teachers and individual users, D3 and Dimple.js
-  //was used.  Refer to dimplejs.org for documentation on how to use dimple.
 
   //DUMMY VARIABLE
   var class_id = 1;
 
-  if ($scope.isTeacher()) {
+  if ($scope.isTeacher()) { //TEACHER: Show class average on assignments
     Grades.getClassGrades(class_id).then(function(data) {
-      console.log(data.data);
-      return data.data;
-    }).then(gradesData)
-      var svg = dimple.newSvg(".grades", 1000, 800);
-      var classChart = new dimple.chart(svg, gradesData);
-      classChart.setBounds( "5%", "5%", "80%", "80%");
-      var x = classChart.addCategoryAxis("x", assignment_date);
-      x.fontSize = "auto";
-      classChart.addMeasureAxis("y", /*averaged class grade*/);
-      y.fontSize = "auto";
-      classChart.addSeries(null, dimple.plot.bubble);
-      classChart.addLegend("85%", "5%", "10%", "80%", "right");
-      // classChart.draw();
-      
-
-
+      var gradesData = data.data;
+      gradesData = averageData(gradesData);
+      console.log('gradesData: ', gradesData);
+      return gradesData;
+    }).then(function(gradesData){
+      // // Create new svg and chart
       // var svg = dimple.newSvg(".grades", 1000, 800);
-      // var gradesData = angular.fromJson(data.data);
-      // console.dir(gradesData);
-      // var myChart = new dimple.chart(svg, gradesData);
+      // var classChart = new dimple.chart(svg, gradesData);
+      // classChart.setBounds( "5%", "5%", "80%", "80%");
 
-      // var x = myChart.addCategoryAxis("x", "lesson_title");
-      // x.addOrderRule("lesson_title");
-      // myChart.addCategoryAxis("y", "student");
-      // myChart.addMeasureAxis("z", "score");
-      // myChart.addColorAxis("score",["#FF0000","#0000FF"]);
-      // myChart.addSeries(null, dimple.plot.bubble);
-      // myChart.draw();
+      // // Define x-axis
+      // var x = classChart.addCategoryAxis("x", assignment_date);
+      // x.fontSize = "auto";
+
+      // // Define y-axis
+      // classChart.addMeasureAxis("y", /*averaged class grade*/);
+      // y.fontSize = "auto";
+
+      // // Define legend
+      // classChart.addSeries(null, dimple.plot.bubble);
+      // classChart.addLegend("85%", "5%", "10%", "80%", "right");
+
+      // chart = classChart;
+
+    }).then( function(){
+      // // Create the chart
+      // classChart.draw();
+
+      // // Format data point
+      // d3.selectAll("circle")
+      //   .attr("r", 7);
     });
+
+    var chart;
+
+    window.onresize = function () {
+      chart.draw(0, true);
+      d3.selectAll("circle")
+        .attr("r", 7);
+    };
 
   } else { // STUDENT: Show grades over time
 
-    /*
-    { assignment_date: "2015-07-02T06:01:17.000Z",
-    assignment_id: 1,
-    assignment_title: "Problem Set 1",
-    class_id: 1,
-    class_title: "Algorithms",
-    grade: 95 }
-    */
     Grades.getStudentGrades($rootScope.currentUser.id).then(function(data) {
       var gradesData = angular.fromJson(data.data);
 
