@@ -23,7 +23,8 @@
     "angular-ui-router": "~0.2.15",
     "angular-bootstrap": "~0.13.0",
     "d3": "~3.5.5",
-    "dimple": "~2.1.2"
+    "dimple": "~2.1.2",
+    "moment": "~2.10.3"
   },
   "devDependencies": {
     "jasmine": "~2.3.4"
