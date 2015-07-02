@@ -32,9 +32,9 @@ angular.module('classroom.syllabus', ['textAngular'])
     AddLesson.add(lessonData);
   }
 
-  Lessons.getAll().then(function(data) {
-    $scope.lessons = angular.fromJson(data.data);
-  });
+  // Lessons.getAll().then(function(data) {
+  //   $scope.lessons = angular.fromJson(data.data);
+  // });
 }])
 
 .controller('textController', function($rootScope, $scope, $state, Lessons) { 

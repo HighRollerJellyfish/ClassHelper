@@ -63,12 +63,24 @@ angular.module('classroom.grades', [])
     return result;
   };
 
-  if ( $scope.isTeacher() ) { // TEACHER
-    Grades.getAll().then(function(data) {
+  // if ( $scope.isTeacher() ) { // TEACHER
+  //   Grades.getAll().then(function(data) {
 
-      var data = angular.fromJson(data.data); console.log(data);
-      var averaged = averageData(data);
-      averaged = averaged.forEach(function())
+  //     var data = angular.fromJson(data.data); console.log(data);
+  //     var averaged = averageData(data);
+  //     averaged = averaged.forEach(function())
+
+  // Show all grades if the user is a teacher or else it only displays the grades
+  // of the user if the user is not a teacher.
+  console.log($rootScope.currentUser);
+  //To display grades data for teachers and individual users, D3 and Dimple.js
+  //was used.  Refer to dimplejs.org for documentation on how to use dimple.
+
+  //DUMMY VARIABLE
+  var class_id = 1;
+
+  if ($scope.isTeacher()) {
+    Grades.getClassGrades(class_id).then(function(data) {
       var svg = dimple.newSvg(".grades", 1000, 800);
       var classChart = new dimple.chart(svg, data);
       classChart.setBounds( "5%", "5%", "80%", "80%");
@@ -95,8 +107,11 @@ angular.module('classroom.grades', [])
       // myChart.draw();
     });
 
-  } else { // STUDENT: Show grades over time
-    Grades.getForUser($rootScope.currentUser.username).then(function(data){
+  // } else { // STUDENT: Show grades over time
+  //   Grades.getForUser($rootScope.currentUser.username).then(function(data){
+  } else { // The user is a student, so only show that student's grades
+    Grades.getStudentGrades($rootScope.currentUser.id).then(function(data) {
+      var svg = dimple.newSvg(".grades", 1000, 800);
       var gradesData = angular.fromJson(data.data);
       gradesData.forEach(function(obj){
         obj.createdAt = moment(obj.createdAt).format('L');
