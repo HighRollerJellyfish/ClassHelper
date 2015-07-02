@@ -90,8 +90,9 @@ User.findTeacherClasses = function(user_id, callback) {
       classes.id AS class_id \
     FROM classes, users \
     WHERE classes.teacher_id = users.id \
-      AND user.id ='  + user_id
-  )
+      AND users.id ='  + user_id + ' \
+      GROUP BY class_title \
+    ')
   .then(function(data) {
     callback(data[0]);
   });
