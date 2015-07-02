@@ -15,10 +15,12 @@ exports.studentGrades = function(req, res, next) {
         Grade.studentGrades(student_id, function(data) {
           return res.json(data);
         });
-      } 
-    } 
-
-    return res.send("Invalid credentials");
+      } else {
+        return res.send("Invalid credentials");
+      }
+    } else {
+      return res.send("Invalid credentials");
+    }
 };
 
 
@@ -34,12 +36,14 @@ exports.classGrades = function(req, res, next) {
         Grade.classGrades(class_id, function(data) {
           res.json(data);
         });
+      } else {
+        return res.send("Invalid credentials");
       }
     });
+  } else {
+    return res.send("Invalid credentials");
+  }
 
-  } 
-
-  return res.send("Invalid credentials");
 };
 
 // Greates a new grade
