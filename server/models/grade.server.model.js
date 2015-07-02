@@ -26,7 +26,36 @@ Grade.studentGrades = function(student_id, callback) {
   //   callback(data);
   // });
 
-  bookshelf.knex.raw('SELECT grades.score AS grade, assignments.title AS assignment_title, assignments.id AS assignment_id, classes.title AS class_title, classes.id AS class_id FROM grades, assignments, classes WHERE grades.assignment_id = assignments.id AND assignments.class_id = classes.id AND grades.student_id = ' + student_id)
+  bookshelf.knex.raw(' \
+    SELECT \
+      grades.score AS grade, \
+      assignments.title AS assignment_title, \
+      assignments.id AS assignment_id, \
+      classes.title AS class_title, \
+      classes.id AS class_id \
+    FROM grades, assignments, classes \
+    WHERE grades.assignment_id = assignments.id \
+      AND assignments.class_id = classes.id \
+      AND grades.student_id = ' + student_id
+  )
+  .then(function(data) {
+    callback(data[0]);
+  });
+};
+
+
+Grade.classGrades = function(class_id, callback) {
+  bookshelf.knex.raw(' \
+    SELECT \
+      CONCAT(users.first_name, \' \', users.last_name) AS student_name, \
+      grades.score AS grade, \
+      assignments.title AS assignment_title, \
+      assignments.id AS assignment_id \
+    FROM users, grades, assignments  \
+    WHERE users.id = grades.student_id \
+      AND grades.assignment_id = assignments.id \
+      AND assignments.class_id = ' + class_id 
+  )
   .then(function(data) {
     callback(data[0]);
   });
