@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+  <link rel="stylesheet" href="../../lib/fullcalendar/dist/fullcalendar.css" />
+  <link href='../../lib/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print' />
+  <link rel="stylesheet" href="../../lib/jquery-ui-1.11.4/jquery-ui.css">
+  <script src="../../lib/jquery/dist/jquery.min.js"></script>
+  <script src="../../lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+  <script src="../../lib/moment/min/moment.min.js"></script>
+  <script src="../../lib/fullcalendar/dist/fullcalendar.js"></script>
+  <script>
+    
+    function getCalendarHeight() {
+      return $(window).height() - 30;
+    }
+
+    $(document).ready(function() {
+
+      var currentEvent;
+
+      //dummy data to fake the input from a database
+      var assignments = [
+        {
+          title: 'Complete Recursion',             //title
+          start: '2015-07-01',                     //due date
+          description: 'Finish writing the n-queens assignment on page 30. Good luck and have fun!',
+          end: '2015-07-02',                       //not necessary
+          className: 'Computer Science 101'        //class name
+        }
+      ];
+
+      var events = [
+        {
+          title: 'Recurse Reduce Right',               //title
+          start: '2015-07-08',                         //start date
+          end: '2015-07-14',                           //end date
+          description: 'Implement underscore reduce right using recursion (do not worry about objects, just deal with arrays)',
+          className: 'Computer Science 202'            //class name
+        }
+      ];
+      // {
+      //   title  : 'event3',
+      //   start  : '2010-01-09T12:30:00',
+      //   allDay : false // will make the time show
+      // }
+
+      $(window).resize(function() {
+        $('#calendar').fullCalendar('option', 'height', getCalendarHeight());
+      });
+
+      $('#calendar').fullCalendar({
+
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek,agendaDay'
+        },
+
+        height: getCalendarHeight(), //dynamically resize the calendar
+
+        fixedWeekCount:false, //disables fixed Week Count
+
+        editable: true, //events can be dragged and resized
+
+        eventLimit: true, // allow "more" link when too many events
+
+        selectable: true, //allows events to be selectable
+
+        defaultView: 'month', //sets the default view as month
+
+        eventSources: //list of the different sources for the calendar
+          [
+            {
+              events: assignments,
+              color: 'red'
+            },
+            {
+              events: events,
+              color: 'blue'
+            },
+          ],
+
+        select: function(start, end){
+          /* DIALOG BOX CONTAINING EVENT NAME, TIME, AND THE OPTION TO CREATE OR EDIT EVENT  */
+          var eventName = prompt('Enter the event name');
+          var newEvent = {
+            title: eventName,
+            start: start.format(),
+            end: end.format()
+          }
+          if(newEvent.title !== '' && newEvent.title !== null){
+            $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
+          }
+        },
+
+        eventRender: function (event, element) {
+          // element.attr('href', 'javascript:void(0);');
+          element.click(function() {
+            $("#startTime").html(moment(event.start).format('MMMM Do h:mm A'));
+            $("#endTime").html(moment(event.end).format('MMMM Do h:mm A'));
+            $("#eventInfo").html(event.description);
+            $("#assignmentName").html(event.title);
+            $("#eventContent").dialog({
+              modal: true,
+              title: event.className.join(' '), 
+              width:400, 
+              buttons: {
+                Edit: function() {
+                  $(this).dialog('close');
+                  $("#editContent").dialog('open');
+                },
+                Delete: function() {
+                  $(this).dialog('close')
+                }
+              }
+            });
+            currentEvent = event;
+            $("#editContent").dialog({
+               bgiframe: true,
+               modal: true,
+               width: 300,
+               height: 300,
+               autoOpen: false,
+               buttons: {
+                 Apply: function(){
+                   $(this).dialog('close');
+                 }
+               }
+            });
+          });
+        }
+      });
+
+
+    });
+
+</script>
+<style>
+
+  body {
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+    font-size: 14px;
+  }
+
+  #calendar {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  #eventContent {
+    text-align: center;
+  }
+
+  #eventLink {
+    color: blue;
+  }
+
+  .className, .startTime, .endTime {
+    float: left;
+  }
+
+  .className2, .startTime2, .endTime2 {
+    display: block;
+    float: left;
+    margin-bottom: 1em;
+  }
+
+  #className, #startTime, #endTime {
+  }
+
+  input{
+    display: block;
+    float: right;
+    margin-bottom: 1em;
+  }
+
+  .ui-dialog{
+    text-align: center;
+    width: 100%;
+  }
+
+  .ui-dialog > .ui-widget-header { background: blue; }
+
+</style>
+</head>
+<body>
+  <div id='calendar'></div>
+  <div id="eventContent" title="Event Details" style="display:none;">
+    <span class="assignmentName"></span> <b><span id="assignmentName"></b></span><br><br>
+    <span class="startTime"></span> <span id="startTime"></span> - 
+    <span class="endTime"></span> <span id="endTime"></span><br>
+    <p id="eventInfo"></p>
+  </div>
+  <div id="editContent" title="Edit Stuff" style="display:none;">
+    <span class="className2">Class:</span> <input id="className2"></input><br><br>
+    <span class="startTime2">Start Date:</span> <input type="date" id="startTime2"></input><br>
+    <span class="endTime2">End Date:</span> <input type="date" id="endTime2"></input><br>
+  </div>
+
+</body>
+</html>
