@@ -67,14 +67,14 @@ CREATE TABLE IF NOT EXISTS lessons (
   title VARCHAR(60) NOT NULL,
   description VARCHAR(500) NOT NULL,
   content TEXT NOT NULL,
+  class_id INT NOT NULL DEFAULT '1',
   start_date DATETIME NOT NULL,
-  -- class_id INT NOT NULL,
   -- DELETE BELOW -- 
   created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   -- DELETE ABOVE -- 
-  PRIMARY KEY (id)
-  -- FOREIGN KEY (class_id) REFERENCES classes(id)
+  PRIMARY KEY (id),
+  FOREIGN KEY (class_id) REFERENCES classes(id)
 );
 
 
@@ -178,7 +178,7 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `classes`
+-- Data for table `assignments`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `classroom`;
