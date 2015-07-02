@@ -5,13 +5,10 @@ This service module has functions to deal with class data.
 
 angular.module('classroom.ClassService', [])
 
-.service('Classes', ['$http', '$rootScope', function ($http, $rootScope) {
-
+.service('Classes', function ($http) {
 
   // This service function gets a user's classes from the server.
   this.getUserClasses = function (user_id) {
-    console.log("AAA");
-    console.log(user_id);
     return $http({
       url: '/classes/?user_id=' + user_id,
       method: 'GET',
@@ -21,25 +18,4 @@ angular.module('classroom.ClassService', [])
     });
   };
 
-
-
-
-
-
-//   /**
-//   This service function posts grade data to the server.
-//   @method add
-//   @param {Object} gradeData Grades data from database.
-//   @return {Function} Returns a $http() Post promise.
-//   */
-//   this.add = function (gradeData) {
-//     return $http({
-//       method: 'POST',
-//       url: '/grades',
-//       data: gradeData,
-//       headers: {
-//         'Authorization': window.localStorage.jwtToken
-//       }
-//     });
-//   }
-}]);
+});

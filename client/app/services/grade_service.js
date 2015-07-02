@@ -5,7 +5,7 @@ This service module has functions to deal with grade data.
 
 angular.module('classroom.GradeService', [])
 
-.service('Grades', ['$http', '$rootScope', function ($http, $rootScope) {
+.service('Grades', function ($http, $rootScope) {
 
   /**
   This service function gets a user's grades from the server.
@@ -23,7 +23,6 @@ angular.module('classroom.GradeService', [])
     });
   };
 
-
   this.getClassGrades = function(class_id) {
     return $http({
       url: '/grades/class/?class_id=' + class_id,
@@ -32,11 +31,7 @@ angular.module('classroom.GradeService', [])
         'Authorization': window.localStorage.jwtToken
       }
     });
-  }
-
-
-
-
+  };
 
 
   /**
@@ -45,14 +40,14 @@ angular.module('classroom.GradeService', [])
   @param {Object} gradeData Grades data from database.
   @return {Function} Returns a $http() Post promise.
   */
-  this.add = function (gradeData) {
-    return $http({
-      method: 'POST',
-      url: '/grades',
-      data: gradeData,
-      headers: {
-        'Authorization': window.localStorage.jwtToken
-      }
-    });
-  }
-}]);
+  // this.add = function (gradeData) {
+  //   return $http({
+  //     method: 'POST',
+  //     url: '/grades',
+  //     data: gradeData,
+  //     headers: {
+  //       'Authorization': window.localStorage.jwtToken
+  //     }
+  //   });
+  // };
+});

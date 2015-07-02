@@ -6,7 +6,7 @@ This service module has functions to deal with lesson data.
 
 angular.module('classroom.LessonService', [])
 
-.service('Lessons', ['$http', '$rootScope', function ($http, $rootScope) {
+.service('Lessons', function ($http, $rootScope) {
   /**
   This service function gets the lessons from the server.
   @method getAll
@@ -20,7 +20,7 @@ angular.module('classroom.LessonService', [])
         'Authorization': window.localStorage.jwtToken
       }
     });
-  }
+  };
 
   /**
   This service function gets the lessons from the server.
@@ -37,5 +37,5 @@ angular.module('classroom.LessonService', [])
         'Authorization': window.localStorage.jwtToken
       }
     });
-  }
-}]);
+  };
+});
