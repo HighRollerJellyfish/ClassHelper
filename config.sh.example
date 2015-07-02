@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# After editing these values, rename this file to config.sh
+
+# This file will be seeded with default values that each individual
+# developer should change when they first start
+# working on the repo. This file should be in the .gitignore
+# so usernames and passwords aren't commited to the repo.
+
+export CLASSROOM_MYSQL_USER='root' # EDIT THIS AND RENAME FILE TO CONFIG.SH
+export CLASSROOM_MYSQL_HOST='host'
+export CLASSROOM_MYSQL_PASS='' # CANNOT BE EMPTY STRING. EDIT THIS AND RENAME FILE TO CONFIG.SH
+export CLASSROOM_MYSQL_DB='db_name'
