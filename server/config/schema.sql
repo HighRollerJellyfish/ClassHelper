@@ -103,22 +103,22 @@ CREATE TABLE IF NOT EXISTS grades (
 -- Table attendance
 -- ------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS attendance (
-  id INT NOT NULL AUTO_INCREMENT,
-  -- student_id INT NOT NULL,
-  -- lesson_id INT NOT NULL,
-  -- date DATETIME NOT NULL,
-  -- DELETE BELOW -- 
-  date VARCHAR(20) NOT NULL,
-  student VARCHAR(20) NOT NULL,
-  presence TINYINT(1) NOT NULL,
-  created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  -- DELETE ABOVE -- 
-  PRIMARY KEY (id)
-  -- FOREIGN KEY (student_id) REFERENCES users(id),
-  -- FOREIGN KEY (lesson_id) REFERENCES lessons(id)
-);
+-- CREATE TABLE IF NOT EXISTS attendance (
+--   id INT NOT NULL AUTO_INCREMENT,
+--   -- student_id INT NOT NULL,
+--   -- lesson_id INT NOT NULL,
+--   -- date DATETIME NOT NULL,
+--   -- DELETE BELOW -- 
+--   date VARCHAR(20) NOT NULL,
+--   student VARCHAR(20) NOT NULL,
+--   presence TINYINT(1) NOT NULL,
+--   created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+--   updated_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--   -- DELETE ABOVE -- 
+--   PRIMARY KEY (id)
+--   -- FOREIGN KEY (student_id) REFERENCES users(id),
+--   -- FOREIGN KEY (lesson_id) REFERENCES lessons(id)
+-- );
 
 
 
@@ -229,26 +229,26 @@ INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('29', '3',
 -- COMMIT;
 
 
--- -----------------------------------------------------
--- Data for table `attendance`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `classroom`;
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-01', 'devon', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-02', 'devon', '0');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-03', 'devon', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'devon', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-01', 'richard', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-02', 'richard', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-03', 'richard', '0');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'richard', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
+-- -- -----------------------------------------------------
+-- -- Data for table `attendance`
+-- -- -----------------------------------------------------
+-- START TRANSACTION;
+-- USE `classroom`;
+-- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-01', 'devon', '1');
+-- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-02', 'devon', '0');
+-- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-03', 'devon', '1');
+-- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'devon', '1');
+-- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-01', 'richard', '1');
+-- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-02', 'richard', '1');
+-- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-03', 'richard', '0');
+-- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'richard', '1');
+-- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
+-- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
+-- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
+-- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
 
 
-COMMIT;
+-- COMMIT;
 
 -- -----------------------------------------------------
 -- Data for table `enrollment`
