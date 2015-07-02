@@ -72,54 +72,51 @@ angular.module('classroom.grades', [])
     });
 
   } else { // The user is a student, show student position in class
-    Grades.getForUser($rootScope.currentUser.username).then(function(user){
-      var student = user.data[0].student;
-
-      Grades.getAll().then(function(data) {
-        var gradesData = angular.fromJson(data.data);
-        console.log(gradesData)
-        gradesData = averageData(gradesData);
-        console.log('averaged: ', gradesData)
-
-        // Data to be edited for chart creation
-        var numAtScore = [
-          {rank: 10, num: 0}, {rank: 20, num: 0}, {rank: 30, num: 0}, {rank: 40, num: 0}, {rank: 50, num: 0},
-          {rank: 60, num: 0}, {rank: 70, num: 0}, {rank: 80, num: 0}, {rank: 90, num: 0}, {rank: 100, num: 0}
-        ];
-
-        // Modify info from gradesData and input into numAtScore for chart creation
-        var max = 0; // used for y axis
-        gradesData.forEach(function(record){
-          var range = 10;
-          while (record.avg > range){
-            range += 10;
-          }
-
-          var index = range > 99 ? range.toString().slice(0,2)-1 : range.toString().slice(0,1)-1;
-
-          if (record.student === student){
-            numAtScore[index].student = student;
-          }
-          numAtScore[index].num += 1;
-          // store max number of students in a range to determine y axis
-          if (numAtScore[index].num > max) { max = numAtScore[index].num; }
-          console.log(range, index, numAtScore[index], record.student)
-        });
-
-        // Create chart
-        var svg = dimple.newSvg(".grades", 700, 500);
-        var myChart = new dimple.chart(svg, numAtScore);
-        var x = myChart.addCategoryAxis("x", "rank");
-        var y1 = myChart.addMeasureAxis("y", "num");
-        y1.overrideMax = max + 1;
-        var s1 = myChart.addSeries(null, dimple.plot.line, [x, y1]);
-        s1.interpolation = "cardinal";
-        myChart.draw();
+    Grades.getForUser($rootScope.currentUser.username).then(function(data){
+      var gradesData = angular.fromJson(data.data);
+      gradesData.forEach(function(obj){
+        obj.createdAt = moment(obj.createdAt).format('L');
       });
+      return gradesData;
+    }).then(function(gradesData){
+      var svg = dimple.newSvg(".grades", "100%", "100%");
+      var classChart = new dimple.chart(svg, gradesData);
+      classChart.setBounds( "5%", "5%", "80%", "80%");
+      // classChart.setMargins("60px", "30px", "110px", "70px");
+
+      var x = classChart.addCategoryAxis("x", "date");
+      x.fontSize = "auto";
+      // x.addOrderRule("Date");
+      var y = classChart.addMeasureAxis("y", "score");
+      y.overrideMax = 100;
+      y.fontSize = "auto";
+      var z = classChart.addSeries(["date", "score", "class"], dimple.plot.bubble);
+      classChart.assignColor("math", "blue");
+      classChart.assignColor("literature", "green");
+      classChart.assignColor("science", "yellow");
+      classChart.assignColor("war", "red");
+      var l = classChart.addLegend("85%", "5%", "10%", "80%", "right");
+      l.fontSize = "auto";
+      // classChart.addLegend("-100px", "30px", "100px", "-70px");
+      svg.selectAll("circle")
+        .attr("r", 100);
+      chart = classChart;
+    }).then(function(){
+      chart.draw();
+      d3.selectAll("circle")
+        .attr("r", 15);
     });
+    var chart;
+    window.onresize = function () {
+      chart.draw(0, true);
+      d3.selectAll("circle")
+        .attr("r", 15);
+    };
+    
 
   }
 
+  // SHOW STUDENT ONLY HIS GRADES, BAR CHART
   // if ($scope.isTeacher()) {
   //   Grades.getAll().then(function(data) {
   //     var svg = dimple.newSvg(".grades", 1000, 800);
@@ -149,4 +146,56 @@ angular.module('classroom.grades', [])
   //     myChart.draw();
   //   });
   // }
+
+  /**************************************************************************/
+
+  /******* SHOW ALL STUDENTS AVG GRADES (LINE CHART) ***********************/
+
+  /**************************************************************************/
+
+  // Grades.getForUser($rootScope.currentUser.username).then(function(user){
+  //   var student = user.data[0].student;
+
+  //   Grades.getAll().then(function(data) {
+  //     var gradesData = angular.fromJson(data.data);
+  //     console.log(gradesData)
+  //     gradesData = averageData(gradesData);
+  //     console.log('averaged: ', gradesData)
+
+  //     // Data to be edited for chart creation
+  //     var numAtScore = [
+  //       {rank: 10, num: 0}, {rank: 20, num: 0}, {rank: 30, num: 0}, {rank: 40, num: 0}, {rank: 50, num: 0},
+  //       {rank: 60, num: 0}, {rank: 70, num: 0}, {rank: 80, num: 0}, {rank: 90, num: 0}, {rank: 100, num: 0}
+  //     ];
+
+  //     // Modify info from gradesData and input into numAtScore for chart creation
+  //     var max = 0; // used for y axis
+  //     gradesData.forEach(function(record){
+  //       var range = 10;
+  //       while (record.avg > range){
+  //         range += 10;
+  //       }
+
+  //       var index = range > 99 ? range.toString().slice(0,2)-1 : range.toString().slice(0,1)-1;
+
+  //       if (record.student === student){
+  //         numAtScore[index].student = student;
+  //       }
+  //       numAtScore[index].num += 1;
+  //       // store max number of students in a range to determine y axis
+  //       if (numAtScore[index].num > max) { max = numAtScore[index].num; }
+  //       console.log(range, index, numAtScore[index], record.student)
+  //     });
+
+  //     // Create chart
+  //     var svg = dimple.newSvg(".grades", 700, 500);
+  //     var myChart = new dimple.chart(svg, numAtScore);
+  //     var x = myChart.addCategoryAxis("x", "rank");
+  //     var y1 = myChart.addMeasureAxis("y", "num");
+  //     y1.overrideMax = max + 1;
+  //     var s1 = myChart.addSeries(null, dimple.plot.line, [x, y1]);
+  //     s1.interpolation = "cardinal";
+  //     myChart.draw();
+  //   });
+  // });
 }]);
