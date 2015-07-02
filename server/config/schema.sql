@@ -49,7 +49,9 @@ CREATE TABLE IF NOT EXISTS classes (
 CREATE TABLE IF NOT EXISTS assignments (
   id INT NOT NULL AUTO_INCREMENT,
   title VARCHAR(60) NOT NULL,
+  description VARCHAR(300),
   class_id INT NOT NULL,
+  due_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   FOREIGN KEY (class_id) REFERENCES classes(id)
 );
@@ -83,13 +85,13 @@ CREATE TABLE IF NOT EXISTS lessons (
 CREATE TABLE IF NOT EXISTS grades (
   id INT NOT NULL AUTO_INCREMENT,
   score INT NOT NULL,
-  -- assignment_id INT NOT NULL,
-  -- student_id INT NOT NULL,
+  assignment_id INT NOT NULL,
+  student_id INT NOT NULL,
   -- DELETE BELOW -- 
-  student VARCHAR(20) NOT NULL,
-  lesson_title VARCHAR(45) NOT NULL,
-  created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  -- student VARCHAR(20) NOT NULL,
+  -- lesson_title VARCHAR(45) NOT NULL,
+  -- created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  -- updated_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   -- DELETE ABOVE -- 
   PRIMARY KEY (id)
   -- FOREIGN KEY (assignment_id) REFERENCES assignments(id),
@@ -119,6 +121,23 @@ CREATE TABLE IF NOT EXISTS attendance (
 );
 
 
+
+-- ------------------------------------------------------
+-- Table events
+-- ------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS events (
+  id INT NOT NULL AUTO_INCREMENT,
+  title VARCHAR(60) NOT NULL,
+  description VARCHAR(300),
+  class_id INT NOT NULL,
+  start_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  end_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  
+  PRIMARY KEY (id),
+  FOREIGN KEY (class_id) REFERENCES classes(id)
+);
+
 -- ------------------------------------------------------
 -- Table student_class_join
 -- ------------------------------------------------------
@@ -131,6 +150,92 @@ CREATE TABLE IF NOT EXISTS student_class_join (
   FOREIGN KEY (student_id) REFERENCES users(id),
   FOREIGN KEY (class_id) REFERENCES classes(id)
 );
+
+-- -----------------------------------------------------
+-- Data for table `users`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `classroom`;
+INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`) VALUES ('Devon', 'Harvey', 'devon@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
+INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`) VALUES ('Richard', 'Stanley', 'richard@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
+INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`) VALUES ('Jake', 'Lee', 'jake@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'teacher');
+INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`) VALUES ('Eric', 'Ihli', 'Eric@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
+
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `classes`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `classroom`;
+INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algorithms', '3');
+INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('American History', '3');
+INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algebra', '3');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `classes`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `classroom`;
+INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Problem Set 1', '1');
+INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Problem Set 2', '1');
+INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Problem Set 3', '1');
+INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Essay 1: Civil War', '2');
+INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Essay 2: Industrial Revolution', '2');
+INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Final Project', '2');
+INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Pop Quiz 1', '3');
+INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Assignment 1: Variables', '3');
+INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Test 3: Multivariable Equations', '3');
+
+COMMIT;
+
+
+
+-- -----------------------------------------------------
+-- Data for table `grades`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `classroom`;
+
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('95', '1', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('55', '1', '2');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('85', '1', '4');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('75', '2', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('83', '2', '2');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('91', '2', '4');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('99', '3', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('42', '3', '2');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('29', '3', '4');
+
+-- COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `attendance`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `classroom`;
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-01', 'devon', '1');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-02', 'devon', '0');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-03', 'devon', '1');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'devon', '1');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-01', 'richard', '1');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-02', 'richard', '1');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-03', 'richard', '0');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'richard', '1');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
+INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
+
+
+COMMIT;
+
 
 -- -- -----------------------------------------------------
 -- -- Data for table `lessons`
@@ -217,60 +322,5 @@ Curabitur ut ultricies metus. Nullam blandit laoreet dictum. Sed molestie ex et 
 Suspendisse bibendum arcu et auctor maximus. Praesent vehicula quam ac ipsum scelerisque, eget ornare massa dictum. Nullam tincidunt mi ultrices nisi ornare dapibus. Suspendisse nec massa augue. Donec rutrum quam lorem. Cras sollicitudin mauris nec tortor pretium fermentum. Etiam vitae lorem vitae tortor facilisis iaculis nec quis velit. In finibus diam eu sapien commodo tempor. Cras consectetur est interdum leo viverra, in tempor sapien posuere. Praesent tempor commodo ex sed blandit.
 
 ', '2015-07-08', NULL, NULL);
-
-COMMIT;
-
--- -----------------------------------------------------
--- Data for table `grades`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `classroom`;
-INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Algorithms', 'devon', '60');
-INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Data Structures', 'devon', '55');
-INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Algorithms2', 'devon', '45');
-INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Data Structures2', 'devon', '32');
-INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Algorithms', 'richard', '100');
-INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Data Structures', 'richard', '98');
-INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Algorithms2', 'richard', '87');
-INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Data Structures', 'richard', '76');
-INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Algorithms', 'eric', '100');
-INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Data Structures', 'eric', '99');
-INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Algorithms2', 'eric', '100');
-INSERT INTO `grades` (`lesson_title`, `student`, `score`) VALUES ('Data Structures', 'eric', '98');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `attendance`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `classroom`;
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-01', 'devon', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-02', 'devon', '0');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-03', 'devon', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'devon', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-01', 'richard', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-02', 'richard', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-03', 'richard', '0');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'richard', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
-INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
-
-
-COMMIT;
-
--- -----------------------------------------------------
--- Data for table `users`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `classroom`;
-INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`) VALUES ('Devon', 'Harvey', 'devon@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
-INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`) VALUES ('Richard', 'Stanley', 'richard@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
-INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`) VALUES ('Jake', 'Lee', 'jake@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'teacher');
-INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `role`) VALUES ('Eric', 'Ihli', 'Eric@a.com', '$2a$05$cf.yjZq7w8.J0xqTph5GuODea5/6NywitFojEtJIT5gaXv3kFrvfC', 'student');
-
 
 COMMIT;
