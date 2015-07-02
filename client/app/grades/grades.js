@@ -29,32 +29,25 @@ angular.module('classroom.grades', [])
     Grades.add(gradeData);
   }
 
-  // Averages student data by grade
+  // Averages student grade by assignment
   var averageData = function (dataObj){
-    // var result = [];
-    // // 
-    // dataObj.forEach(function(data){
-    //   var pushed = false;
-    //   for (var i=0; i<result.length; i++){
-    //     if (result[i][target] === data[target]) {
-    //       result[i].avg.push(data.score);
-    //       pushed = true;
-    //       break;
-    //     }
-    //   }
-    //   if (!pushed){
-    //     result.push( {keyName: data[target], avg: [data.score] } )// change to id later and add studentname property
-    //   }
-    // });
-    // // Go through each result obj and avg the avg data
-    // result.forEach(function(data){
-    //   var total = data.avg.reduce( function(memo, num){
-    //     return memo = memo + num;
-    //   });
-    //   var average = total / data.avg.length;
-    //   data.avg = average;
-    // })
-    return dataObj;
+    var result = {};
+
+    // Assign all student scores to assignment by ID
+    dataObj.forEach(function(data){
+      result[data.assignment_id] = result[data.assignment_id] || [];
+      result[data.assignment_id].push( data.grade );
+    });
+
+    // Average all student scores at ID
+    Object.keys(result).forEach(function(key){
+      var total = result[key].reduce(function(memo, score){
+        return memo += score;
+      });
+      result[key] = Math.round( total / result[key].length );
+    });
+    
+    return result;
   };
 
   // Create color pallette for legend
