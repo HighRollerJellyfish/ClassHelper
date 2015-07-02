@@ -15,12 +15,10 @@ exports.getAssignments = function(req, res, next) {
       .then(function(user) {
         if (user.get('role') == 'student') {
           new Assignment.studentAssignments(user_id, function(data) {
-            console.log(data);
             return res.json(data);
           });
         } else if (user.get('role') == 'teacher') {
           new Assignment.teacherAssignments(user_id, function(data) {
-            console.log(data);
             return res.json(data);
           });
         }
