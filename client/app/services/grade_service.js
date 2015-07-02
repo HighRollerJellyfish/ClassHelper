@@ -6,20 +6,7 @@ This service module has functions to deal with grade data.
 angular.module('classroom.GradeService', [])
 
 .service('Grades', ['$http', '$rootScope', function ($http, $rootScope) {
-  /**
-  This service function gets all the grades data from the server.
-  @method getAll
-  @return {Function} Returns a $http() Get promise.
-  */
-  this.getAll = function () {
-    return $http({
-      url: '/grades',
-      method: 'GET',
-      headers: {
-        'Authorization': window.localStorage.jwtToken
-      }
-    });
-  };
+
   /**
   This service function gets a user's grades from the server.
   @method getForUser
@@ -27,7 +14,6 @@ angular.module('classroom.GradeService', [])
   @return {Function} Returns a $http() Get promise.
   */
   this.getStudentGrades = function (student_id) {
-    console.log('LocalStorage: ', window.localStorage.jwtToken);
     return $http({
       url: '/grades/student/?student_id=' + student_id,
       method: 'GET',
@@ -36,6 +22,23 @@ angular.module('classroom.GradeService', [])
       }
     });
   };
+
+
+  this.getClassGrades = function(class_id) {
+    return $http({
+      url: '/grades/class/?class_id=' + class_id,
+      method: 'GET',
+      headers: {
+        'Authorization': window.localStorage.jwtToken
+      }
+    });
+  }
+
+
+
+
+
+
   /**
   This service function posts grade data to the server.
   @method add

@@ -28,7 +28,7 @@ angular.module('classroom.grades', [])
   //To display grades data for teachers and individual users, D3 and Dimple.js
   //was used.  Refer to dimplejs.org for documentation on how to use dimple.
   if ($scope.isTeacher()) {
-    Grades.getAll().then(function(data) {
+    Grades.getClassGrades($rootScope.currentUser.id).then(function(data) {
       var svg = dimple.newSvg(".grades", 1000, 800);
       var gradesData = angular.fromJson(data.data);
       var myChart = new dimple.chart(svg, gradesData);
