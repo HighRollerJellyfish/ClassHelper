@@ -4,7 +4,14 @@ This controller module is associated with the grades view and deals with grades 
 */
 
 angular.module('classroom.grades', [])
-.controller('GradesController', ['$rootScope', '$scope', 'Grades', function ($rootScope, $scope, Grades) {
+.controller('GradesController', ['$rootScope', '$scope', 'Grades', 'Classes', function ($rootScope, $scope, Grades, Classes) {
+  
+  Classes.getUserClasses($rootScope.currentUser.id).then(function(data) {
+    console.log("User classes:");
+    console.log(data);
+  });
+
+
   /**
   This method tests if the user has the role 'teacher'.
   @method isTeacher
@@ -122,8 +129,6 @@ angular.module('classroom.grades', [])
     grade: 95 }
     */
     Grades.getStudentGrades($rootScope.currentUser.id).then(function(data) {
-
-      console.log('getting grades')
       var gradesData = angular.fromJson(data.data);
 
       gradesData.forEach(function(obj){
