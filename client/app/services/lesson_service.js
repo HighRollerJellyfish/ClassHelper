@@ -12,9 +12,11 @@ angular.module('classroom.LessonService', [])
   @method getAll
   @return {Function} Returns a $http() Get promise.
   */
-  this.getAll = function() {
+ 
+
+  this.getClassLessons = function(class_id) {
     return $http({
-      url: '/lessons',
+      url: '/lessons/?class_id=' + class_id,
       method: 'GET',
       headers: {
         'Authorization': window.localStorage.jwtToken
@@ -28,14 +30,17 @@ angular.module('classroom.LessonService', [])
   @param {Object} lessonData Lesson data to be posted to server database.
   @return {Function} Returns a $http() Post promise.
   */
-  this.add = function (lessonData) {
-    return $http({
-      method: 'POST',
-      url: '/lessons',
-      data: lessonData,
-      headers: {
-        'Authorization': window.localStorage.jwtToken
-      }
-    });
-  };
+  // this.add = function (lessonData) {
+  //   return $http({
+  //     method: 'POST',
+  //     url: '/lessons',
+  //     data: lessonData,
+  //     headers: {
+  //       'Authorization': window.localStorage.jwtToken
+  //     }
+  //   });
+  // };
+
+
+
 });

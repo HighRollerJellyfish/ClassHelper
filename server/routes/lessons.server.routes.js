@@ -1,6 +1,5 @@
 var lessons = require('../controllers/lessons.server.controller.js');
-var jwt = require('jwt-simple');
-var jwtSecret = require('../config/config.js').jwtSecret;
+
 
 module.exports = function(app) {
   app.get('/lessons', function(req, res, next) {
@@ -20,4 +19,8 @@ module.exports = function(app) {
     lessons.list
   );
   app.post('/lessons', lessons.create);
+};
+
+module.exports = function(app) {
+  app.get('/lessons/', lessons.classLessons);
 };
