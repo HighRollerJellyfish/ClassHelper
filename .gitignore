@@ -27,6 +27,7 @@ out/
 
 # Config File
 config.sh
+config.sh.example
 
 
 # Temp files
