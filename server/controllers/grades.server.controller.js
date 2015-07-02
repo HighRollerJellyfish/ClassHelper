@@ -15,6 +15,12 @@ exports.listForUser = function(student_id, req, res, next) {
   });
 };
 
+exports.studentGrades = function(student_id, req, res, next) {
+  new Grade().studentGrades(function(data) {
+    res.json(data);
+  });
+};
+
 // Greates a new grade
 exports.create = function(req, res, next) {
   Grade.add(req.body, function(model) {

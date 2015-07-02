@@ -39,6 +39,19 @@ module.exports = function(app) {
   },
   grades.create);
 
+  app.get('/grades/student', function(req, res, next) {
+    var student_id = req.param('student_id');
+    var token = req.headers.authorization;
+    if (token) {
+      var decoded = jwt.decode(token, jwtSecret);
+      if (student_id === decoded.id) {
+        grades.studentGrades(student_id, req, res, next);
+      } 
+    } else {
+      res.send("No token...\n");
+    }
+  });
+
 
   // app.get('/grades/:classId')
 
