@@ -1,7 +1,11 @@
 <h3>Grades</h3>
 
-<div class = "grades"></div>
+<div class="grades"></div>
 
+<select class="form-control input-lg" ng-model="selection" ng-change="clear(document.getElementsByClassName('grades')); makeChart(selection.class_id)"
+ng-options="class.class_id for class in classList">
+  <!-- <option ng-repeat="class in classList" name="{{class.class_id}}">{{class.class_title}}</option> -->
+</select>
 <!-- This div will only show if the user is a teacher -->
 <!-- <div ng-show="isTeacher()">
   Add Grades:

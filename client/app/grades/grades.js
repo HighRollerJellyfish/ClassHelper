@@ -5,11 +5,6 @@ This controller module is associated with the grades view and deals with grades 
 
 angular.module('classroom.grades', [])
 .controller('GradesController', ['$rootScope', '$scope', 'Grades', 'Classes', function ($rootScope, $scope, Grades, Classes) {
-  
-  Classes.getUserClasses($rootScope.currentUser.id).then(function(data) {
-    console.log("User classes:");
-    console.log(data);
-  });
 
 
   /**
@@ -27,6 +22,15 @@ angular.module('classroom.grades', [])
   */
   $scope.addGrade = function (gradeData) {
     Grades.add(gradeData);
+  }
+
+  // Clear the grades div
+  var gradesDiv = document.getElementsByClassName('grades')[0];
+  $scope.clear = function (){
+    console.log(gradesDiv)
+    while (gradesDiv.hasChildNodes()) {
+      gradesDiv.removeChild(gradesDiv.lastChild);
+    };
   }
 
   // Averages student grade by assignment
@@ -69,45 +73,56 @@ angular.module('classroom.grades', [])
     return result;
   };
 
-  console.log($rootScope.currentUser);
-
-  //DUMMY VARIABLE
-  var class_id = 1;
+  console.log('currentUser', $rootScope.currentUser.id);
 
   if ($scope.isTeacher()) { //TEACHER: Show class average on assignments
-    Grades.getClassGrades(class_id).then(function(data) {
-      var gradesData = data.data;
-      gradesData = averageData(gradesData);
-      console.log('gradesData: ', gradesData);
-      return gradesData;
-    }).then(function(gradesData){
-      // Create new svg and chart
-      var svg = dimple.newSvg(".grades", "100%", "100%");
-      var classChart = new dimple.chart(svg, gradesData);
-      classChart.setBounds( "5%", "5%", "80%", "80%");
-
-      // Define x-axis
-      var x = classChart.addCategoryAxis("x", "assignment_title");
-      x.fontSize = "auto";
-
-      // Define y-axis
-      var y = classChart.addMeasureAxis("y", "grade");
-      y.fontSize = "auto";
-
-      // Define z-axis
-      var z = classChart.addMeasureAxis("z", "assignment_id");
-
-      classChart.addSeries(null, dimple.plot.bubble);
-      chart = classChart;
-    }).then( function(){
-      // Create the chart
-      chart.draw();
-
-      // Format data point
-      d3.selectAll("circle")
-        .attr("r", 7);
-      // chart.axes[0].titleShape[0][0].innerHTML("Assignment");
+    var class_id = 1;// Alter based on drop down
+    // Create dropdown
+    // Gather teacher class_titles and ids by using teacher id
+    Classes.getUserClasses($rootScope.currentUser.id).then(function(data) {
+      console.log("User classes:");
+      $scope.classList = data.data;
+      console.log('scope.classList', $scope.classList[0], $scope.classList[0].class_id);
+    }).then(function(){
+      $scope.makeChart($scope.classList[1].class_id);
     });
+      
+    $scope.makeChart = function(classID){
+      Grades.getClassGrades(classID).then(function(data) {
+        var gradesData = data.data;
+        gradesData = averageData(gradesData);
+        console.log('gradesData: ', gradesData);
+        return gradesData;
+      }).then(function(gradesData){
+        // Create new svg and chart
+        chart = null;
+        var svg = dimple.newSvg(".grades", "100%", "100%");
+        var classChart = new dimple.chart(svg, gradesData);
+        classChart.setBounds( "5%", "5%", "80%", "80%");
+
+        // Define x-axis
+        var x = classChart.addCategoryAxis("x", "assignment_title");
+        x.fontSize = "auto";
+
+        // Define y-axis
+        var y = classChart.addMeasureAxis("y", "grade");
+        y.fontSize = "auto";
+
+        // Define z-axis
+        var z = classChart.addMeasureAxis("z", "assignment_id");
+
+        classChart.addSeries(null, dimple.plot.bubble);
+        chart = classChart;
+      }).then( function(){
+        // Create the chart
+        chart.draw();
+        console.log('drawing')
+        // Format data point
+        d3.selectAll("circle")
+          .attr("r", 7);
+        // chart.axes[0].titleShape[0][0].innerHTML("Assignment");
+      });
+    };
 
     var chart;
 
