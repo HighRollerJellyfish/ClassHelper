@@ -16,9 +16,9 @@ exports.studentGrades = function(req, res, next) {
           return res.json(data);
         });
       } 
-    } else {
-      return res.send("Invalid credentials");
-    }
+    } 
+
+    return res.send("Invalid credentials");
 };
 
 
@@ -37,10 +37,9 @@ exports.classGrades = function(req, res, next) {
       }
     });
 
-  } else {
-    return res.send("Invalid credentials");
-  }
+  } 
 
+  return res.send("Invalid credentials");
 };
 
 // Greates a new grade

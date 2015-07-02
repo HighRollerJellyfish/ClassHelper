@@ -43,7 +43,6 @@ exports.refresh = function (req, res, next) {
 // object by storing it in $rootScope.
 exports.authenticate = function(req, res, next) {
   var userData = req.body;
-  console.log(userData);
   User.authenticate(userData, function(err, user) {
     if (err) {
       console.log(err);

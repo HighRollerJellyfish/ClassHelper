@@ -11,9 +11,9 @@ exports.classLessons = function(req, res, next) {
       Lesson.classLessons(class_id, function(data) {
         return res.json(data);
       });
-  } else {
-    return res.send("Invalid credentials");
   }
+  
+  return res.send("Invalid credentials");
 };
 
 
