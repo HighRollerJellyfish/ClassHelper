@@ -82,7 +82,7 @@ angular.module('classroom.grades', [])
       return gradesData;
     }).then(function(gradesData){
       // Create new svg and chart
-      var svg = dimple.newSvg(".grades", 1000, 800);
+      var svg = dimple.newSvg(".grades", "100%", "100%");
       var classChart = new dimple.chart(svg, gradesData);
       classChart.setBounds( "5%", "5%", "80%", "80%");
 
@@ -94,9 +94,10 @@ angular.module('classroom.grades', [])
       var y = classChart.addMeasureAxis("y", "grade");
       y.fontSize = "auto";
 
-      // Define legend
+      // Define z-axis
+      var z = classChart.addMeasureAxis("z", "assignment_id");
+
       classChart.addSeries(null, dimple.plot.bubble);
-      classChart.addLegend("85%", "5%", "10%", "80%", "right");
       chart = classChart;
     }).then( function(){
       // Create the chart
@@ -105,6 +106,7 @@ angular.module('classroom.grades', [])
       // Format data point
       d3.selectAll("circle")
         .attr("r", 7);
+      // chart.axes[0].titleShape[0][0].innerHTML("Assignment");
     });
 
     var chart;
