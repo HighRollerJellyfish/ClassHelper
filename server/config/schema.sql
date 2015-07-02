@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS events (
 -- Table student_class_join
 -- ------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS student_class_join (
+CREATE TABLE IF NOT EXISTS enrollment (
   id INT NOT NULL AUTO_INCREMENT,
   student_id INT NOT NULL,
   class_id INT NOT NULL,

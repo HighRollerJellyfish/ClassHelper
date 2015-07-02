@@ -4,7 +4,14 @@ This controller module is associated with the grades view and deals with grades 
 */
 
 angular.module('classroom.grades', [])
-.controller('GradesController', ['$rootScope', '$scope', 'Grades', function ($rootScope, $scope, Grades) {
+.controller('GradesController', ['$rootScope', '$scope', 'Grades', 'Classes', function ($rootScope, $scope, Grades, Classes) {
+  
+  Classes.getUserClasses($rootScope.currentUser.id).then(function(data) {
+    console.log("User classes:");
+    console.log(data);
+  });
+
+
   /**
   This method tests if the user has the role 'teacher'.
   @method isTeacher
@@ -47,7 +54,6 @@ angular.module('classroom.grades', [])
     });
   } else { // The user is a student, so only show that student's grades
     Grades.getStudentGrades($rootScope.currentUser.id).then(function(data) {
-      console.log(data);
       var svg = dimple.newSvg(".grades", 1000, 800);
       var gradesData = angular.fromJson(data.data);
       var myChart = new dimple.chart(svg, gradesData);

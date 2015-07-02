@@ -5,15 +5,15 @@ This service module has functions to deal with class data.
 
 angular.module('classroom.ClassService', [])
 
-.service('Grades', ['$http', '$rootScope', function ($http, $rootScope) {
+.service('Classes', ['$http', '$rootScope', function ($http, $rootScope) {
 
 
   // This service function gets a user's classes from the server.
-
-
   this.getUserClasses = function (user_id) {
+    console.log("AAA");
+    console.log(user_id);
     return $http({
-      url: '/grades/student/?user_id=' + user_id,
+      url: '/classes/?user_id=' + user_id,
       method: 'GET',
       headers: {
         'Authorization': window.localStorage.jwtToken
@@ -42,4 +42,4 @@ angular.module('classroom.ClassService', [])
 //       }
 //     });
 //   }
-// }]);
+}]);

@@ -82,4 +82,34 @@ User.authenticate = function(userData, callback) {
   });
 };
 
+
+User.findTeacherClasses = function(user_id) {
+  bookshelf.knex.raw(' \
+    SELECT \
+      classes.title AS class_title, \
+      classes.id AS class_id \
+    FROM classes, users \
+    WHERE classes.teacher_id = users.id \
+      AND user.id ='  + user_id
+  )
+  .then(function(data) {
+    callback(data[0]);
+  });
+};
+
+User.findStudentClasses = function(user_id) {
+  bookshelf.knex.raw(' \
+    SELECT \
+      classes.title AS class_title, \
+      classes.id AS class_id \
+    FROM classes, enrollment, users \
+    WHERE classes.id = enrollment.class_id \
+    AND enrollment.student_id = ' + user_id
+  )
+  .then(function(data) {
+    callback(data[0]);
+  });
+};
+
+
 module.exports = User;
