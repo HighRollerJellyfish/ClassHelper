@@ -131,8 +131,8 @@ CREATE TABLE IF NOT EXISTS events (
   title VARCHAR(60) NOT NULL,
   description VARCHAR(300),
   class_id INT NOT NULL,
-  start_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  end_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  start_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  end_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   
   PRIMARY KEY (id),
   FOREIGN KEY (class_id) REFERENCES classes(id)
@@ -182,15 +182,15 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `classroom`;
-INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Problem Set 1', '1');
-INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Problem Set 2', '1');
-INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Problem Set 3', '1');
-INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Essay 1: Civil War', '2');
-INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Essay 2: Industrial Revolution', '2');
-INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Final Project', '2');
-INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Pop Quiz 1', '3');
-INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Assignment 1: Variables', '3');
-INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Test 3: Multivariable Equations', '3');
+INSERT INTO `assignments` (`title`, `description`, `class_id`, `due_date`) VALUES ('Problem Set 1', 'Test', '1', '2015-07-05 12:30:15');
+INSERT INTO `assignments` (`title`, `description`, `class_id`, `due_date`) VALUES ('Problem Set 2', 'Second problem set', '1', '2015-07-12 12:30:15');
+INSERT INTO `assignments` (`title`, `description`, `class_id`, `due_date`) VALUES ('Problem Set 3', 'Third problem set', '1', '2015-07-19 12:30:15');
+INSERT INTO `assignments` (`title`, `description`, `class_id`, `due_date`) VALUES ('Essay 1: Civil War', '1000 word essay on Civil War', '2', '2015-07-05 12:30:15');
+INSERT INTO `assignments` (`title`, `description`, `class_id`, `due_date`) VALUES ('Essay 2: Industrial Revolution', '1200 word essay on Industrial Revolution', '2', '2015-07-12 12:30:15');
+INSERT INTO `assignments` (`title`, `description`, `class_id`, `due_date`) VALUES ('Final Project', 'Build educational website within 4 person group', '2', '2015-07-19 12:30:15');
+INSERT INTO `assignments` (`title`, `description`, `class_id`, `due_date`) VALUES ('Pop Quiz 1', 'Covers concepts from first three lectures', '3', '2015-07-05 12:30:15');
+INSERT INTO `assignments` (`title`, `description`, `class_id`, `due_date`) VALUES ('Assignment 1: Variables', 'Page 222, questions 1-12, 18-21', '3', '2015-07-12 12:30:15');
+INSERT INTO `assignments` (`title`, `description`, `class_id`, `due_date`) VALUES ('Test 3: Multivariable Equations', 'Exam on multivariable equations.  Worth 20% of final grade', '3', '2014-05-19 12:30:15');
 
 COMMIT;
 
@@ -198,21 +198,17 @@ COMMIT;
 -- -----------------------------------------------------
 -- Data for table `assignments`
 -- -----------------------------------------------------
-START TRANSACTION;
-USE `classroom`;
-INSERT INTO `events` (`title`, `class_id`) VALUES ('Problem Set 1', '1');
-INSERT INTO `events` (`title`, `class_id`) VALUES ('Problem Set 2', '1');
-INSERT INTO `events` (`title`, `class_id`) VALUES ('Problem Set 3', '1');
-INSERT INTO `events` (`title`, `class_id`) VALUES ('Essay 1: Civil War', '2');
-INSERT INTO `events` (`title`, `class_id`) VALUES ('Essay 2: Industrial Revolution', '2');
-INSERT INTO `events` (`title`, `class_id`) VALUES ('Final Project', '2');
-INSERT INTO `events` (`title`, `class_id`) VALUES ('Pop Quiz 1', '3');
-INSERT INTO `events` (`title`, `class_id`) VALUES ('Assignment 1: Variables', '3');
-INSERT INTO `events` (`title`, `class_id`) VALUES ('Test 3: Multivariable Equations', '3');
+-- START TRANSACTION;
+-- USE `classroom`;
+INSERT INTO `events` (`title`, `description`, `class_id`, `start_date`, `end_date`) VALUES ('Field Trip to Zoo', 'First field trip.  Don\'t forget permission slips!', '1', '2015-07-06 08:30:15', '2014-07-06 14:30:15');
+INSERT INTO `events` (`title`, `description`, `class_id`, `start_date`, `end_date`) VALUES ('Review Session', 'We\'ll cover content that will be in the exam', '1', '2015-07-07 15:30:15', '2014-07-07 16:30:15');
+INSERT INTO `events` (`title`, `description`, `class_id`, `start_date`, `end_date`) VALUES ('After Hours', 'Cover any questions you have on the homework assignment', '1', '2015-07-08 15:30:15', '2014-07-08 16:30:15');
+INSERT INTO `events` (`title`, `description`, `class_id`, `start_date`, `end_date`) VALUES ('Field Trip to Zoo', 'First field trip.  Don\'t forget permission slips!', '2', '2015-07-09 08:30:15', '2014-07-09 14:30:15');
+INSERT INTO `events` (`title`, `description`, `class_id`, `start_date`, `end_date`) VALUES ('Review Session', 'We\'ll cover content that will be in the exam', '2', '2015-07-10 15:30:15', '2014-07-10 16:30:15');
+INSERT INTO `events` (`title`, `description`, `class_id`, `start_date`, `end_date`) VALUES ('After Hours', 'Cover any questions you have on the homework assignment', '2', '2015-07-11 15:30:15', '2014-07-11 16:30:15');
+
 
 COMMIT;
-
-
 
 -- -----------------------------------------------------
 -- Data for table `grades`
