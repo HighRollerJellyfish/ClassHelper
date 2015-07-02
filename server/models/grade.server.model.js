@@ -25,18 +25,11 @@ Grade.studentGrades = function(student_id, callback) {
   // .then(function(data) {
   //   callback(data);
   // });
-  bookshelf.knex.from('grades')
-  .innerJoin('assignments', 'grades.assignment_id', 'assignments.id')
-  .innerJoin('classes', 'assignments.class_id', 'classes.id')
-  .select('grades.id', 'assignments.title', 'grades.score', 'grades.student_id', 'grades.assignment_id', 'assignments.class_id', 'classes.title')
-  .where('grades.student_id', '=', student_id)
+
+  bookshelf.knex.raw('SELECT grades.score AS grade, assignments.title AS assignment_title, assignments.id AS assignment_id, classes.title AS class_title, classes.id AS class_id FROM grades, assignments, classes WHERE grades.assignment_id = assignments.id AND assignments.class_id = classes.id AND grades.student_id = ' + student_id)
   .then(function(data) {
-    callback(data);
+    callback(data[0]);
   });
 };
 
 module.exports = Grade;
-
-Grade.studentGrades('5', function(data) {
-  console.log(data);
-});
