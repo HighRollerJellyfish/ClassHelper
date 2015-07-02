@@ -31,6 +31,7 @@ Grade.studentGrades = function(student_id, callback) {
       grades.score AS grade, \
       assignments.title AS assignment_title, \
       assignments.id AS assignment_id, \
+      assignments.due_date AS assignment_date, \
       classes.title AS class_title, \
       classes.id AS class_id \
     FROM grades, assignments, classes \
@@ -50,7 +51,8 @@ Grade.classGrades = function(class_id, callback) {
       CONCAT(users.first_name, \' \', users.last_name) AS student_name, \
       grades.score AS grade, \
       assignments.title AS assignment_title, \
-      assignments.id AS assignment_id \
+      assignments.id AS assignment_id, \
+      assignments.due_date AS assignment_date \
     FROM users, grades, assignments  \
     WHERE users.id = grades.student_id \
       AND grades.assignment_id = assignments.id \

@@ -47,6 +47,7 @@ angular.module('classroom.grades', [])
     });
   } else { // The user is a student, so only show that student's grades
     Grades.getStudentGrades($rootScope.currentUser.id).then(function(data) {
+      console.log(data);
       var svg = dimple.newSvg(".grades", 1000, 800);
       var gradesData = angular.fromJson(data.data);
       var myChart = new dimple.chart(svg, gradesData);
