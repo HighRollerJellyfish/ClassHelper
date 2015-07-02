@@ -26,10 +26,10 @@ angular.module('classroom.GradeService', [])
   @param {String} username currentUser
   @return {Function} Returns a $http() Get promise.
   */
-  this.getForUser = function (username) {
+  this.getStudentGrades = function (student_id) {
     console.log('LocalStorage: ', window.localStorage.jwtToken);
     return $http({
-      url: '/grades?student=' + username,
+      url: '/grades?student=' + student_id,
       method: 'GET',
       headers: {
         'Authorization': window.localStorage.jwtToken

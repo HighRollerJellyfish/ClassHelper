@@ -4,15 +4,13 @@ var Class = bookshelf.Model.extend({
   tableName: 'classes'
 });
 
-// Attendance.add = function(attendanceData, callback) {
-//   grade = new Attendance(attendanceData)
-//   .save()
-//   .then(function(model) {
-//     callback(model);
-//   })
-//   .catch(function(err) {
-//     callback(err);
-//   });
-// };
+Class.getTeacherId = function(class_id) {
+  bookshelf.knex('classes')
+  .select('teacher_id')
+  .where('id', '=', class_id)
+  .then(function(data) {
+    callback(data);
+  });
+};
 
 module.exports = Class;

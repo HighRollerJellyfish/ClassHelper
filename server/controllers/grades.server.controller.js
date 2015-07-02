@@ -1,22 +1,37 @@
 var Grade = require('../models/grade.server.model');
+var jwt = require('jwt-simple');
+var jwtSecret = require('../config/config.js').jwtSecret;
 
-// Returns an object of all grades
-exports.listAll = function(req, res, next) {
-  new Grade().fetchAll().then(function(collection) {
-    res.json(collection);
-  });
+// Returns a list of all of a single students grades in all 
+// of her assignments in all of her classes
+exports.studentGrades = function(req, res, next) {
+  console.log("AAAA");
+    var student_id = req.param('student_id');
+    var token = req.headers.authorization;
+    if (token) {
+      var decoded = jwt.decode(token, jwtSecret);
+      if (student_id === decoded.id) {
+        Grade.studentGrades(student_id, function(data) {
+          return res.json(data);
+        });
+      } 
+    } else {
+      return res.send("No token...\n");
+    }
+    next();
 };
 
-// Returns an object of all grades for a given student
-exports.listForUser = function(student_id, req, res, next) {
-  new Grade().where({student_id: student_id}).fetchAll().then(function(collection) {
-    console.log(collection.toJSON());
-    res.json(collection);
-  });
-};
+// OLD TO DELETE
+// exports.studentGrades = function(student_id, req, res, next) {
+//   Grade.studentGrades(student_id, function(data) {
+//     res.json(data);
+//   });
+// });
 
-exports.studentGrades = function(student_id, req, res, next) {
-  new Grade().studentGrades(function(data) {
+// Returns a list of every student's grades in all assignments
+// for a given class
+exports.classGrades = function(class_id, req, res, next) {
+  Grade.classGrades(class_id, function(data) {
     res.json(data);
   });
 };

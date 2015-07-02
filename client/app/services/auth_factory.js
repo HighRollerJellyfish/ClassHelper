@@ -27,7 +27,8 @@ angular.module('classroom.AuthFactory', [])
       window.localStorage['jwtToken'] = res.data.token;
       $rootScope.currentUser = {
         name: res.data.name,
-        role: res.data.role
+        role: res.data.role,
+        id: res.data.id
       };
 
       console.log($rootScope);
@@ -77,7 +78,8 @@ angular.module('classroom.AuthFactory', [])
     })
     .then(function (res) {
       //set rootscope userdata
-      $rootScope.currentUser = {email: res.data.email, role: res.data.role};
+      console.log(res.data);
+      $rootScope.currentUser = {name: res.data.name, role: res.data.role, id: res.data.id};
       cb();
     })
     .catch(function (err) {

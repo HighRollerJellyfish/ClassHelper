@@ -57,6 +57,7 @@ Grade.classGrades = function(class_id, callback) {
       AND assignments.class_id = ' + class_id 
   )
   .then(function(data) {
+    console.log("CCC");
     callback(data[0]);
   });
 };
