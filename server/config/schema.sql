@@ -195,6 +195,24 @@ INSERT INTO `assignments` (`title`, `class_id`) VALUES ('Test 3: Multivariable E
 COMMIT;
 
 
+-- -----------------------------------------------------
+-- Data for table `assignments`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `classroom`;
+INSERT INTO `events` (`title`, `class_id`) VALUES ('Problem Set 1', '1');
+INSERT INTO `events` (`title`, `class_id`) VALUES ('Problem Set 2', '1');
+INSERT INTO `events` (`title`, `class_id`) VALUES ('Problem Set 3', '1');
+INSERT INTO `events` (`title`, `class_id`) VALUES ('Essay 1: Civil War', '2');
+INSERT INTO `events` (`title`, `class_id`) VALUES ('Essay 2: Industrial Revolution', '2');
+INSERT INTO `events` (`title`, `class_id`) VALUES ('Final Project', '2');
+INSERT INTO `events` (`title`, `class_id`) VALUES ('Pop Quiz 1', '3');
+INSERT INTO `events` (`title`, `class_id`) VALUES ('Assignment 1: Variables', '3');
+INSERT INTO `events` (`title`, `class_id`) VALUES ('Test 3: Multivariable Equations', '3');
+
+COMMIT;
+
+
 
 -- -----------------------------------------------------
 -- Data for table `grades`
