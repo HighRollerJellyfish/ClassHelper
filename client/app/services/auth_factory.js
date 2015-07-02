@@ -6,7 +6,7 @@ a service to allow for easier client side integration.
 
 angular.module('classroom.AuthFactory', [])
 
-.factory('Auth', ['$http', '$rootScope', function ($http, $rootScope) {
+.factory('Auth', function ($http, $rootScope) {
 
   /**
   This service function posts a username and password, setting the $rootScope.currentUser and then executes the callback.
@@ -31,7 +31,6 @@ angular.module('classroom.AuthFactory', [])
         id: res.data.id
       };
 
-      console.log($rootScope);
       // The res sent to callback is what is returned by our /users/login api
       // It is an object which contains a token, username,
       // and role (for now. we'll update this later).
@@ -92,4 +91,4 @@ angular.module('classroom.AuthFactory', [])
     signup: signup,
     refreshUser: refreshUser
   };
-}]);
+});

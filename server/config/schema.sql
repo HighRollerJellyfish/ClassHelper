@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS lessons (
   title VARCHAR(60) NOT NULL,
   description VARCHAR(500) NOT NULL,
   content TEXT NOT NULL,
-  -- start_date DATETIME NOT NULL,
+  start_date DATETIME NOT NULL,
   -- class_id INT NOT NULL,
   -- DELETE BELOW -- 
   created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS events (
 -- Table student_class_join
 -- ------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS student_class_join (
+CREATE TABLE IF NOT EXISTS enrollment (
   id INT NOT NULL AUTO_INCREMENT,
   student_id INT NOT NULL,
   class_id INT NOT NULL,
@@ -232,6 +232,25 @@ INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', '
 INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
 INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
 INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
+
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `enrollment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `classroom`;
+INSERT INTO `enrollment` (`class_id`, `student_id`) VALUES ('1', '1');
+INSERT INTO `enrollment` (`class_id`, `student_id`) VALUES ('1', '2');
+INSERT INTO `enrollment` (`class_id`, `student_id`) VALUES ('1', '4');
+INSERT INTO `enrollment` (`class_id`, `student_id`) VALUES ('2', '1');
+INSERT INTO `enrollment` (`class_id`, `student_id`) VALUES ('2', '2');
+INSERT INTO `enrollment` (`class_id`, `student_id`) VALUES ('2', '4');
+INSERT INTO `enrollment` (`class_id`, `student_id`) VALUES ('3', '1');
+INSERT INTO `enrollment` (`class_id`, `student_id`) VALUES ('3', '2');
+INSERT INTO `enrollment` (`class_id`, `student_id`) VALUES ('3', '4');
+
 
 
 COMMIT;

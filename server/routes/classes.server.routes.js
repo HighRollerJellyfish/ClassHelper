@@ -1,9 +1,6 @@
-var lessons = require('../controllers/classes.server.controller.js');
-var jwt = require('jwt-simple');
-var jwtSecret = require('../config/config.js').jwtSecret;
+var classes = require('../controllers/classes.server.controller.js');
 
 module.exports = function(app) {
-
   app.get('/classes', classes.getClasses);
 
 };

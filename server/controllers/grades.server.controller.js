@@ -11,7 +11,6 @@ exports.studentGrades = function(req, res, next) {
     if (token) {
 
       var decoded = jwt.decode(token, jwtSecret);
-
       if (student_id == decoded.id) {
         Grade.studentGrades(student_id, function(data) {
           return res.json(data);
@@ -31,10 +30,8 @@ exports.classGrades = function(req, res, next) {
   if (token) {
     var decoded = jwt.decode(token, jwtSecret);
     Class.getTeacherId(class_id, function(classTeacherId) {
-      console.log(classTeacherId);
       if (decoded.id == classTeacherId) {
         Grade.classGrades(class_id, function(data) {
-          console.log(data);
           res.json(data);
         });
       }

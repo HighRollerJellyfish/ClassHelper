@@ -11,6 +11,7 @@ angular.module('classroom', [
   'classroom.AuthFactory',
   'classroom.LessonService',
   'classroom.GradeService',
+  'classroom.ClassService',
   'classroom.AttendanceService',
   'classroom.syllabus',
   'ui.router',

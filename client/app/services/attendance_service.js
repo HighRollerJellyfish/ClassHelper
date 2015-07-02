@@ -5,7 +5,7 @@ This service module contains the functions dealling with attendance data.
 
 angular.module('classroom.AttendanceService', [])
 
-.service('Attendance', ['$http', '$rootScope', function ($http, $rootScope) {
+.service('Attendance', function ($http, $rootScope) {
   /**
   This service function gets all attendance records from the server.
   @method getAll
@@ -52,4 +52,4 @@ angular.module('classroom.AttendanceService', [])
       }
     });
   }
-}]);
+});
