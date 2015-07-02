@@ -32,22 +32,29 @@ angular.module('classroom.grades', [])
   // Averages student grade by assignment
   var averageData = function (dataObj){
     var result = {};
-
+    var solution = [];
     // Assign all student scores to assignment by ID
     dataObj.forEach(function(data){
-      result[data.assignment_id] = result[data.assignment_id] || [];
+      result[data.assignment_id] = result[data.assignment_id] || [data.assignment_title];
       result[data.assignment_id].push( data.grade );
     });
-
     // Average all student scores at ID
     Object.keys(result).forEach(function(key){
+      var title = result[key].shift();
       var total = result[key].reduce(function(memo, score){
         return memo += score;
       });
-      result[key] = Math.round( total / result[key].length );
-    });
-    
-    return result;
+      result[key] = [title, Math.round( total / result[key].length )];
+    });  
+    // Convert result from object with array properties to solution array with object properties
+    Object.keys(result).forEach(function(key){
+      var obj = {};
+      obj.assignment_id = parseInt(key, 10);
+      obj.assignment_title = result[key][0];
+      obj.grade = result[key][1];
+      solution.push(obj);
+    })
+    return solution;
   };
 
   // Create color pallette for legend
@@ -74,32 +81,30 @@ angular.module('classroom.grades', [])
       console.log('gradesData: ', gradesData);
       return gradesData;
     }).then(function(gradesData){
-      // // Create new svg and chart
-      // var svg = dimple.newSvg(".grades", 1000, 800);
-      // var classChart = new dimple.chart(svg, gradesData);
-      // classChart.setBounds( "5%", "5%", "80%", "80%");
+      // Create new svg and chart
+      var svg = dimple.newSvg(".grades", 1000, 800);
+      var classChart = new dimple.chart(svg, gradesData);
+      classChart.setBounds( "5%", "5%", "80%", "80%");
 
-      // // Define x-axis
-      // var x = classChart.addCategoryAxis("x", assignment_date);
-      // x.fontSize = "auto";
+      // Define x-axis
+      var x = classChart.addCategoryAxis("x", "assignment_title");
+      x.fontSize = "auto";
 
-      // // Define y-axis
-      // classChart.addMeasureAxis("y", /*averaged class grade*/);
-      // y.fontSize = "auto";
+      // Define y-axis
+      var y = classChart.addMeasureAxis("y", "grade");
+      y.fontSize = "auto";
 
-      // // Define legend
-      // classChart.addSeries(null, dimple.plot.bubble);
-      // classChart.addLegend("85%", "5%", "10%", "80%", "right");
-
-      // chart = classChart;
-
+      // Define legend
+      classChart.addSeries(null, dimple.plot.bubble);
+      classChart.addLegend("85%", "5%", "10%", "80%", "right");
+      chart = classChart;
     }).then( function(){
-      // // Create the chart
-      // classChart.draw();
+      // Create the chart
+      chart.draw();
 
-      // // Format data point
-      // d3.selectAll("circle")
-      //   .attr("r", 7);
+      // Format data point
+      d3.selectAll("circle")
+        .attr("r", 7);
     });
 
     var chart;
