@@ -17,12 +17,12 @@ exports.getClasses = function(req, res, next) {
         if (user.get('role') == 'student') {
           new User.findStudentClasses(user_id, function(data) {
             console.log(data);
-            return json(data);
+            return res.json(data);
           });
         } else if (user.get('role') == 'teacher') {
           new User.findTeacherClasses(user_id, function(data) {
             console.log(data);
-            return json(data);
+            return res.json(data);
           });
         }
       });

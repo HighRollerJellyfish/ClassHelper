@@ -83,7 +83,7 @@ User.authenticate = function(userData, callback) {
 };
 
 
-User.findTeacherClasses = function(user_id) {
+User.findTeacherClasses = function(user_id, callback) {
   bookshelf.knex.raw(' \
     SELECT \
       classes.title AS class_title, \
@@ -97,15 +97,16 @@ User.findTeacherClasses = function(user_id) {
   });
 };
 
-User.findStudentClasses = function(user_id) {
+User.findStudentClasses = function(user_id, callback) {
   bookshelf.knex.raw(' \
     SELECT \
       classes.title AS class_title, \
       classes.id AS class_id \
     FROM classes, enrollment, users \
     WHERE classes.id = enrollment.class_id \
-    AND enrollment.student_id = ' + user_id
-  )
+    AND enrollment.student_id = ' + user_id + ' \
+    GROUP BY class_title \
+  ')
   .then(function(data) {
     callback(data[0]);
   });
