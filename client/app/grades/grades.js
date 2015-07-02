@@ -56,8 +56,8 @@ angular.module('classroom.grades', [])
     var possibilities = ["#4541A4", "#DCE845", "#AA52C7", "#D46C1D", "#2B918A", "#D4A81D", "#76C11A", "#CA3C75"];
     var result = {};
     dataObj.forEach(function(obj){
-      if ( !result[obj.class] ){
-        result[obj.class] = [obj.class, possibilities.shift()];
+      if ( !result[obj.class_title] ){
+        result[obj.class_title] = [obj.class_title, possibilities.shift()];
       }
     });
     return result;
@@ -82,14 +82,17 @@ angular.module('classroom.grades', [])
   if ($scope.isTeacher()) {
     Grades.getClassGrades(class_id).then(function(data) {
       console.log(data.data);
-      // var svg = dimple.newSvg(".grades", 1000, 800);
-      // var classChart = new dimple.chart(svg, data);
-      // classChart.setBounds( "5%", "5%", "80%", "80%");
-      // classChart.addCategoryAxis("x", lesson_title);
-      // classChart.addMeasureAxis("y", );
-      // classChart.addMeasureAxis("z", "Operating Profit");
-      // classChart.addSeries("Channel", dimple.plot.bubble);
-      // classChart.addLegend(70, 10, 510, 20, "right");
+      return data.data;
+    }).then(gradesData)
+      var svg = dimple.newSvg(".grades", 1000, 800);
+      var classChart = new dimple.chart(svg, gradesData);
+      classChart.setBounds( "5%", "5%", "80%", "80%");
+      var x = classChart.addCategoryAxis("x", assignment_date);
+      x.fontSize = "auto";
+      classChart.addMeasureAxis("y", /*averaged class grade*/);
+      y.fontSize = "auto";
+      classChart.addSeries(null, dimple.plot.bubble);
+      classChart.addLegend("85%", "5%", "10%", "80%", "right");
       // classChart.draw();
       
 
@@ -111,7 +114,8 @@ angular.module('classroom.grades', [])
   } else { // STUDENT: Show grades over time
 
     /*
-    { assignment_id: 1,
+    { assignment_date: "2015-07-02T06:01:17.000Z",
+    assignment_id: 1,
     assignment_title: "Problem Set 1",
     class_id: 1,
     class_title: "Algorithms",
@@ -120,63 +124,59 @@ angular.module('classroom.grades', [])
     Grades.getStudentGrades($rootScope.currentUser.id).then(function(data) {
 
       console.log('getting grades')
-      // var svg = dimple.newSvg(".grades", 1000, 800);
-
-      console.log(data);
-      var svg = dimple.newSvg(".grades", 1000, 800);
       var gradesData = angular.fromJson(data.data);
+
+      gradesData.forEach(function(obj){
+        obj.assignment_date = moment(obj.createdAt).format('L');
+      });
+
       console.log('gradesData: ', gradesData);
+      return gradesData;
+    }).then(function(gradesData){
+      // Create new svg and chart
+      var svg = dimple.newSvg(".grades", "100%", "100%");
+      var progressChart = new dimple.chart(svg, gradesData);
+      progressChart.setBounds( "5%", "5%", "80%", "80%");
 
-      // gradesData.forEach(function(obj){
-      //   obj.createdAt = moment(obj.createdAt).format('L');
-      // });
-      // return gradesData;
-    })
-    // .then(function(gradesData){
-    //   // Create new svg and chart
-    //   var svg = dimple.newSvg(".grades", "100%", "100%");
-    //   var progressChart = new dimple.chart(svg, gradesData);
-    //   progressChart.setBounds( "5%", "5%", "80%", "80%");
+      // Define x-axis
+      var x = progressChart.addCategoryAxis("x", "assignment_date");
+      x.fontSize = "auto";
 
-    //   // Define x-axis
-    //   var x = progressChart.addCategoryAxis("x", "date");
-    //   x.fontSize = "auto";
+      // Define y-axis
+      var y = progressChart.addMeasureAxis("y", "grade");
+      y.overrideMax = 100;
+      y.fontSize = "auto";
 
-    //   // Define y-axis
-    //   var y = progressChart.addMeasureAxis("y", "score");
-    //   y.overrideMax = 100;
-    //   y.fontSize = "auto";
+      // Define z-axis
+      var z = progressChart.addSeries(["assignment_date", "grade", "class_title"], dimple.plot.bubble);
 
-    //   // Define z-axis
-    //   var z = progressChart.addSeries(["date", "score", "class"], dimple.plot.bubble);
+      // For each class type, assign a color
+      var pallette = createPallete(gradesData);
+      Object.keys(pallette).forEach( function(key){
+        progressChart.assignColor(pallette[key][0], pallette[key][1]);
+      });
 
-    //   // For each class type, assign a color
-    //   var pallette = createPallete(gradesData);
-    //   Object.keys(pallette).forEach( function(key){
-    //     progressChart.assignColor(pallette[key][0], pallette[key][1]);
-    //   });
+      // Define legend
+      var l = progressChart.addLegend("85%", "5%", "10%", "80%", "right");
+      l.fontSize = "auto";
 
-    //   // Define legend
-    //   var l = progressChart.addLegend("85%", "5%", "10%", "80%", "right");
-    //   l.fontSize = "auto";
+      chart = progressChart;
+    }).then(function(){
+      // Create the chart
+      chart.draw();
 
-    //   chart = progressChart;
-    // }).then(function(){
-    //   // Create the chart
-    //   chart.draw();
+      // Format datapoint
+      d3.selectAll("circle")
+        .attr("r", 7);
+    });
 
-    //   // Format datapoint
-    //   d3.selectAll("circle")
-    //     .attr("r", 7);
-    // });
+    var chart;
 
-    // var chart;
-
-    // window.onresize = function () {
-    //   chart.draw(0, true);
-    //   d3.selectAll("circle")
-    //     .attr("r", 7);
-    // };
+    window.onresize = function () {
+      chart.draw(0, true);
+      d3.selectAll("circle")
+        .attr("r", 7);
+    };
   
   }
 
