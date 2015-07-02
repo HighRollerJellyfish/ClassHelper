@@ -18,7 +18,7 @@ angular.module('classroom', [
   'textAngular'
 ])
 .controller('LogoutController', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
-  
+
   /**
   This function logs out the currentUser by deleting their info and jwtToken from the browser.
   @method logout
@@ -27,7 +27,8 @@ angular.module('classroom', [
   $scope.logout = function () {
     delete $rootScope.currentUser;
     delete localStorage.jwtToken;
-    $state.go('login');
+    //$state.go('login');
+    window.location.reload('#/login');
   };
 }])
 
