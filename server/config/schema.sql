@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS lessons (
   title VARCHAR(60) NOT NULL,
   description VARCHAR(500) NOT NULL,
   content TEXT NOT NULL,
-  start_date DATETIME NOT NULL,
+  -- start_date DATETIME NOT NULL,
   -- class_id INT NOT NULL,
   -- DELETE BELOW -- 
   created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
