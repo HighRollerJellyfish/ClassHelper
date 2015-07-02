@@ -22,11 +22,7 @@ angular.module('classroom.grades', [])
     Grades.add(gradeData);
   }
 
-  // Show all grades if the user is a teacher or else it only displays the grades
-  // of the user if the user is not a teacher.
-
-  //To display grades data for teachers and individual users, D3 and Dimple.js
-  //was used.  Refer to dimplejs.org for documentation on how to use dimple.
+  // TEACHER: Sees all grades. STUDENT: Sees own grades
 
   // Averages all student data by name
   var averageData = function (dataObj){
@@ -55,7 +51,7 @@ angular.module('classroom.grades', [])
     return result;
   }
 
-  if ($scope.isTeacher()) {
+  if ($scope.isTeacher()) { // TEACHER
     Grades.getAll().then(function(data) {
       var svg = dimple.newSvg(".grades", 1000, 800);
       var gradesData = angular.fromJson(data.data);
@@ -71,7 +67,7 @@ angular.module('classroom.grades', [])
       myChart.draw();
     });
 
-  } else { // The user is a student, show student position in class
+  } else { // STUDENT: Show grades over time
     Grades.getForUser($rootScope.currentUser.username).then(function(data){
       var gradesData = angular.fromJson(data.data);
       gradesData.forEach(function(obj){
@@ -79,73 +75,53 @@ angular.module('classroom.grades', [])
       });
       return gradesData;
     }).then(function(gradesData){
+      // Create new svg and chart
       var svg = dimple.newSvg(".grades", "100%", "100%");
       var classChart = new dimple.chart(svg, gradesData);
       classChart.setBounds( "5%", "5%", "80%", "80%");
-      // classChart.setMargins("60px", "30px", "110px", "70px");
 
+      // Define x-axis
       var x = classChart.addCategoryAxis("x", "date");
       x.fontSize = "auto";
-      // x.addOrderRule("Date");
+
+      // Define y-axis
       var y = classChart.addMeasureAxis("y", "score");
       y.overrideMax = 100;
       y.fontSize = "auto";
+
+      // Define z-axis
       var z = classChart.addSeries(["date", "score", "class"], dimple.plot.bubble);
+
+      // For each class type, assign a color
+      for (var i=0; i<)
       classChart.assignColor("math", "blue");
       classChart.assignColor("literature", "green");
       classChart.assignColor("science", "yellow");
       classChart.assignColor("war", "red");
+
+      // Define legend
       var l = classChart.addLegend("85%", "5%", "10%", "80%", "right");
       l.fontSize = "auto";
-      // classChart.addLegend("-100px", "30px", "100px", "-70px");
-      svg.selectAll("circle")
-        .attr("r", 100);
+
       chart = classChart;
     }).then(function(){
+      // Create the chart
       chart.draw();
+
+      // Format datapoint
       d3.selectAll("circle")
-        .attr("r", 15);
+        .attr("r", 7);
     });
+
     var chart;
+
     window.onresize = function () {
       chart.draw(0, true);
       d3.selectAll("circle")
-        .attr("r", 15);
+        .attr("r", 7);
     };
-    
-
+  
   }
-
-  // SHOW STUDENT ONLY HIS GRADES, BAR CHART
-  // if ($scope.isTeacher()) {
-  //   Grades.getAll().then(function(data) {
-  //     var svg = dimple.newSvg(".grades", 1000, 800);
-  //     var gradesData = angular.fromJson(data.data);
-  //     console.dir(gradesData);
-  //     var myChart = new dimple.chart(svg, gradesData);
-
-  //     var x = myChart.addCategoryAxis("x", "lesson_title");
-  //     x.addOrderRule("lesson_title");
-  //     myChart.addCategoryAxis("y", "student");
-  //     myChart.addMeasureAxis("z", "score");
-  //     myChart.addColorAxis("score",["#FF0000","#0000FF"]);
-  //     myChart.addSeries(null, dimple.plot.bubble);
-  //     myChart.draw();
-  //   });
-  // } else { // The user is a student, so only show that student's grades
-  //   Grades.getForUser($rootScope.currentUser.username).then(function(data) {
-  //     var svg = dimple.newSvg(".grades", 1000, 800);
-  //     var gradesData = angular.fromJson(data.data);
-  //     var myChart = new dimple.chart(svg, gradesData);
-
-  //     var x = myChart.addCategoryAxis("x", "lesson_title");
-  //     x.addOrderRule("lesson_title");
-  //     myChart.addMeasureAxis("y", "score");
-  //     myChart.addColorAxis("score",["#FF0000","#0000FF"]);
-  //     myChart.addSeries(null, dimple.plot.bar);
-  //     myChart.draw();
-  //   });
-  // }
 
   /**************************************************************************/
 
