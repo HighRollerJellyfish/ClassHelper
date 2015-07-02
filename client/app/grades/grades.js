@@ -25,19 +25,19 @@ angular.module('classroom.grades', [])
   // TEACHER: Sees all grades. STUDENT: Sees own grades
 
   // Averages all student data by name
-  var averageData = function (dataObj){
+  var averageData = function (dataObj, target, keyName){
     var result = [];
     dataObj.forEach(function(data){
       var pushed = false;
       for (var i=0; i<result.length; i++){
-        if (result[i].student === data.student) {
+        if (result[i][target] === data[target]) {
           result[i].avg.push(data.score);
           pushed = true;
           break;
         }
       }
       if (!pushed){
-        result.push( { student: data.student, avg: [data.score] } )// change to id later and add studentname property
+        result.push( {keyName: data[target], avg: [data.score] } )// change to id later and add studentname property
       }
     });
     // Go through each result obj and avg the avg data
@@ -49,22 +49,50 @@ angular.module('classroom.grades', [])
       data.avg = average;
     })
     return result;
-  }
+  };
 
-  if ($scope.isTeacher()) { // TEACHER
+  // Create color pallette for legend
+  var createPallete = function (dataObj){
+    var possibilities = ["#4541A4", "#DCE845", "#AA52C7", "#D46C1D", "#2B918A", "#D4A81D", "#76C11A", "#CA3C75"];
+    var result = {};
+    dataObj.forEach(function(obj){
+      if ( !result[obj.class] ){
+        result[obj.class] = [obj.class, possibilities.shift()];
+      }
+    });
+    return result;
+  };
+
+  if ( $scope.isTeacher() ) { // TEACHER
     Grades.getAll().then(function(data) {
-      var svg = dimple.newSvg(".grades", 1000, 800);
-      var gradesData = angular.fromJson(data.data);
-      console.dir(gradesData);
-      var myChart = new dimple.chart(svg, gradesData);
 
-      var x = myChart.addCategoryAxis("x", "lesson_title");
-      x.addOrderRule("lesson_title");
-      myChart.addCategoryAxis("y", "student");
-      myChart.addMeasureAxis("z", "score");
-      myChart.addColorAxis("score",["#FF0000","#0000FF"]);
-      myChart.addSeries(null, dimple.plot.bubble);
-      myChart.draw();
+      var data = angular.fromJson(data.data); console.log(data);
+      var averaged = averageData(data);
+      averaged = averaged.forEach(function())
+      var svg = dimple.newSvg(".grades", 1000, 800);
+      var classChart = new dimple.chart(svg, data);
+      classChart.setBounds( "5%", "5%", "80%", "80%");
+      classChart.addCategoryAxis("x", lesson_title);
+      classChart.addMeasureAxis("y", );
+      // classChart.addMeasureAxis("z", "Operating Profit");
+      // classChart.addSeries("Channel", dimple.plot.bubble);
+      // classChart.addLegend(70, 10, 510, 20, "right");
+      // classChart.draw();
+      
+
+
+      // var svg = dimple.newSvg(".grades", 1000, 800);
+      // var gradesData = angular.fromJson(data.data);
+      // console.dir(gradesData);
+      // var myChart = new dimple.chart(svg, gradesData);
+
+      // var x = myChart.addCategoryAxis("x", "lesson_title");
+      // x.addOrderRule("lesson_title");
+      // myChart.addCategoryAxis("y", "student");
+      // myChart.addMeasureAxis("z", "score");
+      // myChart.addColorAxis("score",["#FF0000","#0000FF"]);
+      // myChart.addSeries(null, dimple.plot.bubble);
+      // myChart.draw();
     });
 
   } else { // STUDENT: Show grades over time
@@ -77,33 +105,32 @@ angular.module('classroom.grades', [])
     }).then(function(gradesData){
       // Create new svg and chart
       var svg = dimple.newSvg(".grades", "100%", "100%");
-      var classChart = new dimple.chart(svg, gradesData);
-      classChart.setBounds( "5%", "5%", "80%", "80%");
+      var progressChart = new dimple.chart(svg, gradesData);
+      progressChart.setBounds( "5%", "5%", "80%", "80%");
 
       // Define x-axis
-      var x = classChart.addCategoryAxis("x", "date");
+      var x = progressChart.addCategoryAxis("x", "date");
       x.fontSize = "auto";
 
       // Define y-axis
-      var y = classChart.addMeasureAxis("y", "score");
+      var y = progressChart.addMeasureAxis("y", "score");
       y.overrideMax = 100;
       y.fontSize = "auto";
 
       // Define z-axis
-      var z = classChart.addSeries(["date", "score", "class"], dimple.plot.bubble);
+      var z = progressChart.addSeries(["date", "score", "class"], dimple.plot.bubble);
 
       // For each class type, assign a color
-      for (var i=0; i<)
-      classChart.assignColor("math", "blue");
-      classChart.assignColor("literature", "green");
-      classChart.assignColor("science", "yellow");
-      classChart.assignColor("war", "red");
+      var pallette = createPallete(gradesData);
+      Object.keys(pallette).forEach( function(key){
+        progressChart.assignColor(pallette[key][0], pallette[key][1]);
+      });
 
       // Define legend
-      var l = classChart.addLegend("85%", "5%", "10%", "80%", "right");
+      var l = progressChart.addLegend("85%", "5%", "10%", "80%", "right");
       l.fontSize = "auto";
 
-      chart = classChart;
+      chart = progressChart;
     }).then(function(){
       // Create the chart
       chart.draw();
