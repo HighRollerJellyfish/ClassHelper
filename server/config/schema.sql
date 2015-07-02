@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS classes (
 CREATE TABLE IF NOT EXISTS assignments (
   id INT NOT NULL AUTO_INCREMENT,
   title VARCHAR(60) NOT NULL,
+  description VARCHAR(300),
   class_id INT NOT NULL,
   due_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
@@ -120,6 +121,23 @@ CREATE TABLE IF NOT EXISTS attendance (
 );
 
 
+
+-- ------------------------------------------------------
+-- Table events
+-- ------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS events (
+  id INT NOT NULL AUTO_INCREMENT,
+  title VARCHAR(60) NOT NULL,
+  description VARCHAR(300),
+  class_id INT NOT NULL,
+  start_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  end_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  
+  PRIMARY KEY (id),
+  FOREIGN KEY (class_id) REFERENCES classes(id)
+);
+
 -- ------------------------------------------------------
 -- Table student_class_join
 -- ------------------------------------------------------
@@ -132,8 +150,6 @@ CREATE TABLE IF NOT EXISTS student_class_join (
   FOREIGN KEY (student_id) REFERENCES users(id),
   FOREIGN KEY (class_id) REFERENCES classes(id)
 );
-
-
 
 -- -----------------------------------------------------
 -- Data for table `users`
