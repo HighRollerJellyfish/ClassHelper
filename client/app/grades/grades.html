@@ -6,7 +6,7 @@
 </div>
 
 <div class="lessonChoice">
-  <select class="form-control input-lg" ng-model="lessonSelection" ng-change="clear(); lessonChart(classList[selection.class_id])"
+  <select class="form-control input-lg" ng-model="lessonSelection" ng-change="clear(); lessonChart(selection.class_id, lessonSelection.assignment_id)"
   ng-options="lesson.assignment_title for lesson in lessonList track by lesson.assignment_id">
   </select>
 </div>

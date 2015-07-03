@@ -62,12 +62,14 @@ angular.module('classroom.grades', [])
   // Returns only objects that match targetID
   var filterAssignment = function (dataObj, targetID){
     // Go through dataObj
+    targetID = parseInt(targetID, 10)
     for (var i=0; i<dataObj.length; i++){
       var obj = dataObj[i];
       if (obj.assignment_id !== targetID){
         dataObj = dataObj.slice(0, i).concat( dataObj.slice(i+1, dataObj.length));
         i--;
       }
+      console.log('dataObj in filterAssignment: ', typeof targetID, typeof obj.assignment_id, dataObj)
     };
     return dataObj;
       // If Assignment id doesn't match assignment_id target
@@ -160,17 +162,18 @@ angular.module('classroom.grades', [])
       });
     };
 
-    $scope.lessonChart = function(classObj){
+    $scope.lessonChart = function(classID, AssignmentID){
       // Input is an object with a class_id and title
 
-      classID = classObj.class_id;
-      console.log(classID, classObj, 'classList: ', $scope.classList)
+      console.log('classID', classID, 'AssignmentID', AssignmentID)
+      // Get all grades for the class
       Grades.getClassGrades(classID).then(function(data) {
         var newData = data.data;
-        // seperate by assignment
-        var gradesData = filterAssignment(newData, 1);
+        if(newData){console.log('DATA!', newData)}
+        // Filter grades by assignment
+        var gradesData = filterAssignment(newData, AssignmentID);
         console.log('filterAssignment: ', gradesData);
-        console.log('classList: ', $scope.classList);
+        // console.log('classList: ', $scope.classList);
         return gradesData;
       }).then(function(gradesData){
         // Create new svg and chart
