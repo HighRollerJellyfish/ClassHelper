@@ -144,27 +144,20 @@ angular.module('classroom.grades', [])
         // Format data point
         d3.selectAll("circle")
           .attr("r", 7);
-        // chart.axes[0].titleShape[0][0].innerHTML("Assignment");
+        // Create data for assignment selector
         makeLessonList(classID);
       });
     };
 
     $scope.lessonChart = function(classID, AssignmentID){
-      // Input is an object with a class_id and title
-
-      console.log('classID', classID, 'AssignmentID', AssignmentID)
       // Get all grades for the class
       Grades.getClassGrades(classID).then(function(data) {
         var newData = data.data;
-        if(newData){console.log('DATA!', newData)}
         // Filter grades by assignment
         var gradesData = filterAssignment(newData, AssignmentID);
-        console.log('filterAssignment: ', gradesData);
-        // console.log('classList: ', $scope.classList);
         return gradesData;
-      }).then(function(gradesData){
+      }).then(function(gradesData){ // Draw chart
         // Create new svg and chart
-        chart = null;
         var svg = dimple.newSvg(".grades", "100%", "100%");
         var lessonChart = new dimple.chart(svg, gradesData);
         lessonChart.setBounds( "5%", "7%", "93%", "85%");
@@ -178,19 +171,14 @@ angular.module('classroom.grades', [])
         y.fontSize = "auto";
         y.overrideMax = 100;
 
-        // Define z-axis
-        // var z = lessonChart.addMeasureAxis("z", "");
-
         lessonChart.addSeries(null, dimple.plot.bubble);
         chart = lessonChart;
       }).then( function(){
         // Create the chart
         chart.draw();
-        console.log('drawing')
         // Format data point
         d3.selectAll("circle")
           .attr("r", 7);
-        // chart.axes[0].titleShape[0][0].innerHTML("Assignment");
       });
     };
 
@@ -255,8 +243,9 @@ angular.module('classroom.grades', [])
         .attr("r", 7);
     });
 
-    var chart;
+    var chart; // Allow chart access after construction
 
+    // Resize chart on window size change
     window.onresize = function () {
       chart.draw(0, true);
       d3.selectAll("circle")
