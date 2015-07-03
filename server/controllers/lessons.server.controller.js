@@ -13,7 +13,7 @@ exports.classLessons = function(req, res, next) {
       });
   } else {
     return res.send("Invalid credentials");
-  }
+  } 
 };
 
 
