@@ -24,6 +24,10 @@
       console.dir(window.assignmentsData.data)
 
       var allData = window.eventsData.data.concat(window.assignmentsData.data);
+      var classes = [];
+      for (var i = 0; i < allData.length; i++) {
+
+      }
 
       $(window).resize(function() {
         $('#calendar').fullCalendar('option', 'height', getCalendarHeight());
@@ -74,7 +78,7 @@
             $("#assignmentName").html(event.title);
             $("#eventContent").dialog({
               modal: true,
-              title: event.className.join(' '), 
+              title: event.class_title,
               width:400, 
               buttons: {
                 Edit: function() {
@@ -126,6 +130,10 @@
     color: blue;
   }
 
+  .fc-time{
+    display : none;
+  }
+
   .className, .startTime, .endTime {
     float: left;
   }
@@ -168,17 +176,18 @@
 </head>
 <body>
     <div id='calendar'></div>
-    <div id="eventContent" title="" style="display:none;">
+    <div id="eventContent" title=""style="display:none;">
       <span class="assignmentName"></span> <b><span id="assignmentName"></b></span><br><br>
       <span class="startTime"></span> <span id="startTime"></span> 
       <span class="endTime"></span> <span id="endTime"></span><br>
       <p id="eventInfo"></p>
     </div>
-    <div id="editContent" title="Edit Stuff" style="display:none;">
+    <div id="editContent" style="display:none;">
       <span class="className2">Class:</span> <input id="className2"></input><br><br>
       <span class="startTime2">Start Date:</span> <input type="date" id="startTime2"></input><br>
       <span class="endTime2">End Date:</span> <input type="date" id="endTime2"></input><br>
     </div>
+    <div id="addContent">
 
 </body>
 </html>
