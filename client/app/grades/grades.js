@@ -52,6 +52,10 @@ angular.module('classroom.grades', [])
     targetID = parseInt(targetID, 10)
     for (var i=0; i<dataObj.length; i++){
       var obj = dataObj[i];
+      obj['Student Name'] = obj.student_name;
+      delete obj.student_name;
+      obj.Grade = obj.grade;
+      delete obj.grade;
       if (obj.assignment_id !== targetID){
         dataObj = dataObj.slice(0, i).concat( dataObj.slice(i+1, dataObj.length));
         i--;
@@ -163,11 +167,11 @@ angular.module('classroom.grades', [])
         lessonChart.setBounds( "5%", "7%", "93%", "85%");
 
         // Define x-axis
-        var x = lessonChart.addCategoryAxis("x", "student_name");
+        var x = lessonChart.addCategoryAxis("x", "Student Name");
         x.fontSize = "auto";
 
         // Define y-axis
-        var y = lessonChart.addMeasureAxis("y", "grade");
+        var y = lessonChart.addMeasureAxis("y", "Grade");
         y.fontSize = "auto";
         y.overrideMax = 100;
 
@@ -254,6 +258,7 @@ angular.module('classroom.grades', [])
   
   }
 
+}]);
   /**************************************************************************/
 
   /******* SHOW ALL STUDENTS AVG GRADES (LINE CHART) ***********************/
@@ -305,4 +310,3 @@ angular.module('classroom.grades', [])
   //     myChart.draw();
   //   });
   // });
-}]);
