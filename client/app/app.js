@@ -176,6 +176,8 @@ angular.module('classroom', [
 
   $scope.items = ['item1', 'item2', 'item3'];
 
+  $scope.assignment = {};
+
   $scope.animationsEnabled = true;
 
   $scope.open = function (size) {
@@ -188,6 +190,9 @@ angular.module('classroom', [
       resolve: {
         items: function () {
           return $scope.items;
+        },
+        assignment: function() {
+          return $scope.assignment;
         },
         lessons: function() {
           return Lessons.getClassLessons(1)
@@ -211,14 +216,25 @@ angular.module('classroom', [
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items, lessons) {
+.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items, lessons, Assignments) {
 
   $scope.items = items;
   $scope.selected = null;
   $scope.lessons = lessons.data;
+  $scope.assignment = {};
 
   $scope.ok = function () {
-    $modalInstance.close($scope.selected.item);
+    //$modalInstance.close($scope.selected.item);
+    console.dir($scope.assignment);
+    $scope.assignment.class_id = 1;
+    Assignments.saveAssignment($scope.assignment)
+      .success(function(data) {
+        console.log("Success saving assignment:", data);
+      })
+      .error(function(data) {
+        console.error("ERROR SAVING ASIGNMENT!");
+      });
+    //Assignments.saveAssignment()
   };
 
   $scope.cancel = function () {
