@@ -4,9 +4,9 @@
 <meta charset='utf-8' />
   <link rel="stylesheet" href="../../lib/fullcalendar/dist/fullcalendar.css" />
   <link href='../../lib/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print' />
-  <link rel="stylesheet" href="../../lib/jquery-ui-1.11.4/jquery-ui.css">
+  <link rel="stylesheet" href="../../js/jquery-ui-1.11.4/jquery-ui.css">
   <script src="../../lib/jquery/dist/jquery.min.js"></script>
-  <script src="../../lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+  <script src="../../js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
   <script src="../../lib/moment/min/moment.min.js"></script>
   <script src="../../lib/fullcalendar/dist/fullcalendar.js"></script>
   <script>
@@ -24,6 +24,13 @@
       console.dir(window.assignmentsData.data)
 
       var allData = window.eventsData.data.concat(window.assignmentsData.data);
+      // var classes = {};
+      // for (var i = 0; i < allData.length; i++) {
+      //   console.log(allData[i].class_title)
+      //   if(!classes.allData[i].class_title) {
+      //     classes.allData[i].class_title = 0;
+      //   }
+      // }
 
       $(window).resize(function() {
         $('#calendar').fullCalendar('option', 'height', getCalendarHeight());
@@ -42,7 +49,7 @@
 
         width: getCalendarWidth(), //calendar width
 
-        fixedWeekCount:false, //disables fixed Week Count
+        fixedWeekCount: false, //disables fixed Week Count
 
         editable: true, //events can be dragged and resized
 
@@ -74,7 +81,7 @@
             $("#assignmentName").html(event.title);
             $("#eventContent").dialog({
               modal: true,
-              title: event.className.join(' '), 
+              title: event.class_title,
               width:400, 
               buttons: {
                 Edit: function() {
@@ -168,17 +175,18 @@
 </head>
 <body>
     <div id='calendar'></div>
-    <div id="eventContent" title="" style="display:none;">
+    <div id="eventContent" title=""style="display:none;">
       <span class="assignmentName"></span> <b><span id="assignmentName"></b></span><br><br>
       <span class="startTime"></span> <span id="startTime"></span> 
       <span class="endTime"></span> <span id="endTime"></span><br>
       <p id="eventInfo"></p>
     </div>
-    <div id="editContent" title="Edit Stuff" style="display:none;">
+    <div id="editContent" style="display:none;">
       <span class="className2">Class:</span> <input id="className2"></input><br><br>
       <span class="startTime2">Start Date:</span> <input type="date" id="startTime2"></input><br>
       <span class="endTime2">End Date:</span> <input type="date" id="endTime2"></input><br>
     </div>
+    <div id="addContent">
 
 </body>
 </html>
