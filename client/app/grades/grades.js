@@ -6,21 +6,9 @@ This controller module is associated with the grades view and deals with grades 
 angular.module('classroom.grades', [])
 .controller('GradesController', ['$rootScope', '$scope', 'Grades', 'Classes', function ($rootScope, $scope, Grades, Classes) {
 
-  /**
-  This method tests if the user has the role 'teacher'.
-  @method isTeacher
-  @return {Boolean}
-  */
+  // Check if user is a teacher
   $scope.isTeacher = function () {
     return $rootScope.currentUser.role === 'teacher';
-  }
-  /**
-  This method checks that the user is a teacher and adds gradeData to the server.
-  @method addGrade
-  @param {Object} gradeData Entered grade data.
-  */
-  $scope.addGrade = function (gradeData) {
-    Grades.add(gradeData);
   }
 
   // Clear the grades div
@@ -59,9 +47,8 @@ angular.module('classroom.grades', [])
     return solution;
   };
 
-  // Returns only objects that match targetID
+  // Filter array for objects with ID that match targetID
   var filterAssignment = function (dataObj, targetID){
-    // Go through dataObj
     targetID = parseInt(targetID, 10)
     for (var i=0; i<dataObj.length; i++){
       var obj = dataObj[i];
@@ -69,68 +56,71 @@ angular.module('classroom.grades', [])
         dataObj = dataObj.slice(0, i).concat( dataObj.slice(i+1, dataObj.length));
         i--;
       }
-      console.log('dataObj in filterAssignment: ', typeof targetID, typeof obj.assignment_id, dataObj)
     };
     return dataObj;
-      // If Assignment id doesn't match assignment_id target
-        //delete obj
-    // Return obj
   };
 
-  // Given the class_id, returns Class's assignments and corresponding Ids
+  // Filter array for specific class's assignments and corresponding IDs
   var makeLessonList = function(id){
     console.log('making lesson list', id, gradesInformation);
     console.log('classList', $scope.classList)
     var result = [];
     var ids = {};
-    // Key is a_id, value is a_title
+    // Filter for objects matching class ID
     gradesInformation.forEach(function(obj){
       ids[obj.assignment_id] = obj.assignment_title;
     });
-    console.log('objids', ids)
     // Convert for angular options
     Object.keys(ids).forEach(function(idKey){
       var newObj = {assignment_id: idKey, assignment_title: ids[idKey]};
       result.push(newObj);
     });
-    console.log('makeLessonList result: ', result)
     $scope.lessonList = result;
   };
 
-  // Create color pallette for legend
+  // Create color pallette for student legend
   var createPallete = function (dataObj){
     var possibilities = ["#4541A4", "#DCE845", "#AA52C7", "#D46C1D", "#2B918A", "#D4A81D", "#76C11A", "#CA3C75"];
     var result = {};
     dataObj.forEach(function(obj){
-      if ( !result[obj.class_title] ){
-        result[obj.class_title] = [obj.class_title, possibilities.shift()];
+      if ( !result[obj.Class] ){
+        result[obj.Class] = [obj.Class, possibilities.shift()];
       }
     });
     return result;
   };
 
+  // Store teacher's classes' information
   var gradesInformation;
 
-  if ($scope.isTeacher()) { //TEACHER: Show class average on assignments
-
+  //TEACHER: Show class average on assignments
+  if ($scope.isTeacher()) { 
+    // Get teacher's classes information
     Classes.getUserClasses($rootScope.currentUser.id).then(function(data) {
       $scope.classList = data.data;
-    })
-    .then(function(){
+    }).then(function(){
       // Auto-draw the first class on list
       $scope.makeChart($scope.classList[0].class_id);
+      // Auto-select first of teacher's classes on droptable
       $scope.selection = $scope.classList[0];
     });
-      
+     
+    // Create class averages table  
     $scope.makeChart = function(classID){
-      console.log('makeChart classID', classID)
+      // Get grades by class
       Grades.getClassGrades(classID).then(function(data) {
         var gradesData = data.data;
         gradesInformation = data.data;
         gradesData = averageData(gradesData);
-        console.log('gradesData: ', gradesData);
+        // Rename object properties for axis title
+        gradesData.forEach(function(dataObj){
+          dataObj.Grade = dataObj.grade;
+          delete dataObj.grade;
+          dataObj["Assignment Title"] = dataObj.assignment_title
+          delete dataObj.assignment_title;
+        });
         return gradesData;
-      }).then(function(gradesData){
+      }).then(function(gradesData){ // Draw chart
         // Create new svg and chart
         chart = null;
         var svg = dimple.newSvg(".grades", "100%", "100%");
@@ -138,46 +128,36 @@ angular.module('classroom.grades', [])
         classChart.setBounds( "5%", "7%", "93%", "85%");
 
         // Define x-axis
-        var x = classChart.addCategoryAxis("x", "assignment_title");
+        var x = classChart.addCategoryAxis("x", "Assignment Title");
         x.fontSize = "auto";
 
         // Define y-axis
-        var y = classChart.addMeasureAxis("y", "grade");
+        var y = classChart.addMeasureAxis("y", "Grade");
         y.fontSize = "auto";
-
-        // Define z-axis
-        var z = classChart.addMeasureAxis("z", "assignment_id");
+        y.overrideMax = 100;
 
         classChart.addSeries(null, dimple.plot.bubble);
+        // Assign accessible variable for window resizing
         chart = classChart;
-      }).then( function(){
         // Create the chart
         chart.draw();
-        console.log('drawing')
         // Format data point
         d3.selectAll("circle")
           .attr("r", 7);
-        // chart.axes[0].titleShape[0][0].innerHTML("Assignment");
+        // Create data for assignment selector
         makeLessonList(classID);
       });
     };
 
     $scope.lessonChart = function(classID, AssignmentID){
-      // Input is an object with a class_id and title
-
-      console.log('classID', classID, 'AssignmentID', AssignmentID)
       // Get all grades for the class
       Grades.getClassGrades(classID).then(function(data) {
         var newData = data.data;
-        if(newData){console.log('DATA!', newData)}
         // Filter grades by assignment
         var gradesData = filterAssignment(newData, AssignmentID);
-        console.log('filterAssignment: ', gradesData);
-        // console.log('classList: ', $scope.classList);
         return gradesData;
-      }).then(function(gradesData){
+      }).then(function(gradesData){ // Draw chart
         // Create new svg and chart
-        chart = null;
         var svg = dimple.newSvg(".grades", "100%", "100%");
         var lessonChart = new dimple.chart(svg, gradesData);
         lessonChart.setBounds( "5%", "7%", "93%", "85%");
@@ -189,29 +169,25 @@ angular.module('classroom.grades', [])
         // Define y-axis
         var y = lessonChart.addMeasureAxis("y", "grade");
         y.fontSize = "auto";
-
-        // Define z-axis
-        // var z = lessonChart.addMeasureAxis("z", "");
+        y.overrideMax = 100;
 
         lessonChart.addSeries(null, dimple.plot.bubble);
         chart = lessonChart;
       }).then( function(){
         // Create the chart
         chart.draw();
-        console.log('drawing')
         // Format data point
         d3.selectAll("circle")
           .attr("r", 7);
-        // chart.axes[0].titleShape[0][0].innerHTML("Assignment");
       });
     };
 
-    // var chart;
-    // window.onresize = function () {
-    //   chart.draw(0, true);
-    //   d3.selectAll("circle")
-    //     .attr("r", 7);
-    // };
+    var chart;
+    window.onresize = function () {
+      chart.draw(0, true);
+      d3.selectAll("circle")
+        .attr("r", 7);
+    };
 
   } else { // STUDENT: Show grades over time
 
@@ -219,7 +195,12 @@ angular.module('classroom.grades', [])
       var gradesData = angular.fromJson(data.data);
 
       gradesData.forEach(function(obj){
-        obj.assignment_date = moment(obj.createdAt).format('L');
+        obj["Assignment Date"] = moment(obj.createdAt).format('L');
+        delete obj.assignment_date;
+        obj.Grade = obj.grade;
+        delete obj.grade;
+        obj.Class = obj.class_title;
+        delete obj.class_title;
       });
 
       console.log('gradesData: ', gradesData);
@@ -231,16 +212,16 @@ angular.module('classroom.grades', [])
       progressChart.setBounds( "5%", "5%", "80%", "80%");
 
       // Define x-axis
-      var x = progressChart.addCategoryAxis("x", "assignment_date");
+      var x = progressChart.addCategoryAxis("x", "Assignment Date");
       x.fontSize = "auto";
 
       // Define y-axis
-      var y = progressChart.addMeasureAxis("y", "grade");
+      var y = progressChart.addMeasureAxis("y", "Grade");
       y.overrideMax = 100;
       y.fontSize = "auto";
 
       // Define z-axis
-      var z = progressChart.addSeries(["assignment_date", "grade", "class_title"], dimple.plot.bubble);
+      var z = progressChart.addSeries(["Assignment Date", "Grade", "Class"], dimple.plot.bubble);
 
       // For each class type, assign a color
       var pallette = createPallete(gradesData);
@@ -249,7 +230,7 @@ angular.module('classroom.grades', [])
       });
 
       // Define legend
-      var l = progressChart.addLegend("85%", "5%", "10%", "80%", "right");
+      var l = progressChart.addLegend("90%", "5%", "10%", "80%", "right");
       l.fontSize = "auto";
 
       chart = progressChart;
@@ -262,8 +243,9 @@ angular.module('classroom.grades', [])
         .attr("r", 7);
     });
 
-    var chart;
+    var chart; // Allow chart access after construction
 
+    // Resize chart on window size change
     window.onresize = function () {
       chart.draw(0, true);
       d3.selectAll("circle")
