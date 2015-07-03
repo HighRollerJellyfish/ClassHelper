@@ -10,16 +10,19 @@
   <script src="../../lib/moment/min/moment.min.js"></script>
   <script src="../../lib/fullcalendar/dist/fullcalendar.js"></script>
   <script>
-    
+
     function getCalendarHeight() {
-      return $(window).height() - 30;
+      return $(window).height() - 60;
+    }
+
+    function getCalendarWidth() {
+      return $(window).width() - 60;
     }
 
     $(document).ready(function() {
+      console.dir(window.eventsData.data);
+      console.dir(window.assignmentsData.data)
 
-      var currentEvent;
-
-      //dummy data to fake the input from a database
       var assignments = [
         {
           title: 'Complete Recursion',             //title
@@ -30,15 +33,24 @@
         }
       ];
 
-      var events = [
-        {
-          title: 'Recurse Reduce Right',               //title
-          start: '2015-07-08',                         //start date
-          end: '2015-07-14',                           //end date
-          description: 'Implement underscore reduce right using recursion (do not worry about objects, just deal with arrays)',
-          className: 'Computer Science 202'            //class name
-        }
-      ];
+      // var events = [
+      //   {
+      //     title: 'Recurse Reduce Right',               //title
+      //     start: '2015-07-08',                         //start date
+      //     end: '2015-07-14',                           //end date
+      //     description: 'Implement underscore reduce right using recursion (do not worry about objects, just deal with arrays)',
+      //     className: 'Computer Science 202',            //class name
+      //     event_id: 
+      //     class_title:
+      //     class_id: 
+      //   },
+      //   {
+      //     className: 'hearthstone',
+      //     title  : 'event3',
+      //     start  : '2015-07-14T12:30:00',
+      //     allDay : false // will make the time show
+      //   }
+      // ];
       // {
       //   title  : 'event3',
       //   start  : '2010-01-09T12:30:00',
@@ -47,6 +59,7 @@
 
       $(window).resize(function() {
         $('#calendar').fullCalendar('option', 'height', getCalendarHeight());
+        $('#calendar').fullCalendar('option', 'width', getCalendarWidth());
       });
 
       $('#calendar').fullCalendar({
@@ -59,6 +72,8 @@
 
         height: getCalendarHeight(), //dynamically resize the calendar
 
+        width: getCalendarWidth(),
+
         fixedWeekCount:false, //disables fixed Week Count
 
         editable: true, //events can be dragged and resized
@@ -69,20 +84,9 @@
 
         defaultView: 'month', //sets the default view as month
 
-        eventSources: //list of the different sources for the calendar
-          [
-            {
-              events: assignments,
-              color: 'red'
-            },
-            {
-              events: events,
-              color: 'blue'
-            },
-          ],
+        events: assignments,
 
         select: function(start, end){
-          /* DIALOG BOX CONTAINING EVENT NAME, TIME, AND THE OPTION TO CREATE OR EDIT EVENT  */
           var eventName = prompt('Enter the event name');
           var newEvent = {
             title: eventName,
@@ -95,10 +99,9 @@
         },
 
         eventRender: function (event, element) {
-          // element.attr('href', 'javascript:void(0);');
           element.click(function() {
             $("#startTime").html(moment(event.start).format('MMMM Do h:mm A'));
-            $("#endTime").html(moment(event.end).format('MMMM Do h:mm A'));
+            event.end !== null ? $("#endTime").html(moment(event.end).format('- MMMM Do h:mm A')) : $("#endTime").html('');
             $("#eventInfo").html(event.description);
             $("#assignmentName").html(event.title);
             $("#eventContent").dialog({
@@ -115,23 +118,21 @@
                 }
               }
             });
-            currentEvent = event;
             $("#editContent").dialog({
-               bgiframe: true,
-               modal: true,
-               width: 300,
-               height: 300,
-               autoOpen: false,
-               buttons: {
-                 Apply: function(){
-                   $(this).dialog('close');
-                 }
-               }
+              bgiframe: true,
+              modal: true,
+              width: 300,
+              height: 300,
+              autoOpen: false,
+              buttons: {
+                Apply: function(){
+                  $(this).dialog('close');
+                }
+              }
             });
           });
         }
       });
-
 
     });
 
@@ -144,6 +145,7 @@
   }
 
   #calendar {
+    margin-top: 60px;
     max-width: 900px;
     margin: 0 auto;
   }
@@ -166,7 +168,11 @@
     margin-bottom: 1em;
   }
 
-  #className, #startTime, #endTime {
+  .wrapper {
+    margin-top: 60px;
+  }
+  .fc-toolbar {
+    margin-bottom: 50px;
   }
 
   input{
@@ -180,23 +186,31 @@
     width: 100%;
   }
 
-  .ui-dialog > .ui-widget-header { background: blue; }
+  .ui-dialog-title {
+    padding-left: 33.375px;
+  }
+
+  .ui-dialog > .ui-widget-header { 
+    background: blue; 
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+  }
 
 </style>
 </head>
 <body>
-  <div id='calendar'></div>
-  <div id="eventContent" title="Event Details" style="display:none;">
-    <span class="assignmentName"></span> <b><span id="assignmentName"></b></span><br><br>
-    <span class="startTime"></span> <span id="startTime"></span> - 
-    <span class="endTime"></span> <span id="endTime"></span><br>
-    <p id="eventInfo"></p>
-  </div>
-  <div id="editContent" title="Edit Stuff" style="display:none;">
-    <span class="className2">Class:</span> <input id="className2"></input><br><br>
-    <span class="startTime2">Start Date:</span> <input type="date" id="startTime2"></input><br>
-    <span class="endTime2">End Date:</span> <input type="date" id="endTime2"></input><br>
-  </div>
+    <div id='calendar'></div>
+    <div id="eventContent" title="" style="display:none;">
+      <span class="assignmentName"></span> <b><span id="assignmentName"></b></span><br><br>
+      <span class="startTime"></span> <span id="startTime"></span> 
+      <span class="endTime"></span> <span id="endTime"></span><br>
+      <p id="eventInfo"></p>
+    </div>
+    <div id="editContent" title="Edit Stuff" style="display:none;">
+      <span class="className2">Class:</span> <input id="className2"></input><br><br>
+      <span class="startTime2">Start Date:</span> <input type="date" id="startTime2"></input><br>
+      <span class="endTime2">End Date:</span> <input type="date" id="endTime2"></input><br>
+    </div>
 
 </body>
 </html>
