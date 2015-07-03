@@ -43,8 +43,7 @@ angular.module('classroom', [
 
       var events = Events.getUserEvents($rootScope.currentUser.id);
       events.success(function(data) {
-        console.log("List of returned user events:", data);
-        window.eventsData = data;
+        sessionStorage.setItem("eventsData", JSON.stringify(data));
       })
       .error(function(data) {
         console.error("Error getting data:", data);
@@ -52,8 +51,7 @@ angular.module('classroom', [
 
       var assignments = Assignments.getUserAssignments($rootScope.currentUser.id);
       assignments.success(function(data){
-        console.log("List of returned user assignments", data);
-        window.assignmentsData = data;
+        sessionStorage.setItem("assignmentsData", JSON.stringify(data));
       })
       .error(function(data){
         console.error("Error getting data:", data)
