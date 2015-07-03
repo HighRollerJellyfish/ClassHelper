@@ -63,7 +63,7 @@
                     <li class="dropdown" ng-class="{open: showProfile}">
                         <a class="dropdown-toggle" href="#" ng-click="showProfile=!showProfile">
                             <img alt="" src="https://500px.com/graphics/user/pseudo_user_avatar.png" width="29px" height="29px">
-                            <span class="username">Jhon Doue</span>
+                            <span class="username">{{currentUser.name}}</span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout" style="margin-top:-7px;">
@@ -86,9 +86,8 @@
       <!--header end-->
       <!--sidebar start-->
 
-      <aside ng-show="currentUser">
+      <aside ng-show="currentUser" ng-controller="MenuCtrl">
           <div id="sidebar" class="nav-collapse ">
-
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
                   <li class="sub-menu">
@@ -97,10 +96,14 @@
                           <span>Classes</span>
                       </a>
                       <ul class="sub">
-                          <li><a ui-sref="syllabus">CS 206</a></li>
-                          <li><a  href="horizontal_menu.html">CS 134</a></li>
+                        <li ng-repeat="class in classes">
+                          <!-- <a href="#/syllabus/{{class.class_id}}">{{class.class_title}}</a> -->
+                          <a ui-sref="syllabus({ class_id: class.class_id })">{{class.class_title}}</a>
+                        </li>
+
+                          <!-- <li><a  href="horizontal_menu.html">CS 134</a></li>
                           <li><a  href="header-color.html">Algebra</a></li>
-                          <li><a  href="mega_menu.html">Economics</a></li>
+                          <li><a  href="mega_menu.html">Economics</a></li> -->
                       </ul>
                   </li>
 
@@ -117,6 +120,18 @@
                           <span>Attendance</span>
                       </a>
                   </li>
+
+                    <li>
+                        <a ui-sref="calendar">
+                            <i class="fa fa-calendar"></i>
+                            <span>Calendar</span>
+                        </a>
+                    </li>
+
+                    <!-- <li>
+                        {{classes}}
+                        {{currentUser}}
+                    </li> -->
 
                   <!--multi level menu start (leaving this for example)-->
 
@@ -190,6 +205,7 @@
     <script src="app/services/lesson_service.js"></script>
     <script src="app/services/auth_factory.js"></script>
     <script src="app/syllabus/syllabus.js"></script>
+    <script src="app/calendar/calendar.js"></script>
     <script>
         moment().format();
     </script>

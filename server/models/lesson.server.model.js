@@ -8,6 +8,7 @@ Lesson.add = function(lessonData, callback) {
   lesson = new Lesson(lessonData)
   .save()
   .then(function(model) {
+    console.log("Lesson successfully saved");
     callback(model);
   })
   .catch(function(err) {
@@ -31,5 +32,6 @@ Lesson.classLessons = function(class_id, callback) {
     callback(data[0]);
   });
 };
+
 
 module.exports = Lesson;

@@ -5,15 +5,19 @@ This controller module is associated with the data to deal with the syllabus vie
 
 angular.module('classroom.syllabus', ['textAngular'])
 
-.controller('SyllabusController', ['$rootScope', '$scope', '$state', 'Lessons', function ($rootScope, $scope, $state, Lessons) {
+.controller('SyllabusController', function ($rootScope, $scope, $state, Lessons, $stateParams) {
 
+  console.log("$stateParams", $stateParams);
   $scope.isCollapsed = false;
+
+  var class_id = $stateParams.class_id;
+
   /**
   This function sets the current user as a teacher.
   @method isTeacher
   */
   $scope.isTeacher = function () {
-   return $rootScope.currentUser && $rootScope.currentUser.role === 'teacher'; 
+   return $rootScope.currentUser && $rootScope.currentUser.role === 'teacher';
   }
 
   /**
@@ -32,12 +36,21 @@ angular.module('classroom.syllabus', ['textAngular'])
     AddLesson.add(lessonData);
   }
 
+  Lessons.getClassLessons(class_id)
+    .success(function(data) {
+      console.log("Lessons.getClassLessons(1):", data);
+      $scope.lessons = data;
+    })
+    .error(function(data) {
+      $scope.lessons = "ERROR:" + data;
+    });
+
   // Lessons.getAll().then(function(data) {
   //   $scope.lessons = angular.fromJson(data.data);
   // });
-}])
+})
 
-.controller('textController', function($rootScope, $scope, $state, Lessons) { 
+.controller('textController', function($rootScope, $scope, $state, Lessons) {
   $scope.html = '<h3> Add and Edit Lessons here !</h3>';
   $scope.htmlcontent = $scope.orightml;
   /**

@@ -9,6 +9,7 @@ angular.module('classroom.ClassService', [])
 
   // This service function gets a user's classes from the server.
   this.getUserClasses = function (user_id) {
+    console.log("Token:", window.localStorage.jwtToken);
     return $http({
       url: '/classes/?user_id=' + user_id,
       method: 'GET',
