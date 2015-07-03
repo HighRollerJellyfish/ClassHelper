@@ -196,6 +196,9 @@ INSERT INTO `assignments` (`title`, `description`, `class_id`, `due_date`) VALUE
 INSERT INTO `assignments` (`title`, `description`, `class_id`, `due_date`) VALUES ('Pop Quiz 1', 'Covers concepts from first three lectures', '3', '2015-07-05 12:30:15');
 INSERT INTO `assignments` (`title`, `description`, `class_id`, `due_date`) VALUES ('Assignment 1: Variables', 'Page 222, questions 1-12, 18-21', '3', '2015-07-12 12:30:15');
 INSERT INTO `assignments` (`title`, `description`, `class_id`, `due_date`) VALUES ('Test 3: Multivariable Equations', 'Exam on multivariable equations.  Worth 20% of final grade', '3', '2014-05-19 12:30:15');
+INSERT INTO `assignments` (`title`, `description`, `class_id`, `due_date`) VALUES ('That thing about stuff', 'Like I said', '1', '2015-07-05 12:30:15');
+INSERT INTO `assignments` (`title`, `description`, `class_id`, `due_date`) VALUES ('More things to learn', 'Practice', '1', '2015-07-12 12:30:15');
+INSERT INTO `assignments` (`title`, `description`, `class_id`, `due_date`) VALUES ('Learn so much wow', 'More practive', '1', '2015-07-19 12:30:15');
 
 COMMIT;
 

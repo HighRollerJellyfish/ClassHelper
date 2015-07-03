@@ -59,6 +59,44 @@ angular.module('classroom.grades', [])
     return solution;
   };
 
+  // Returns only objects that match targetID
+  var filterAssignment = function (dataObj, targetID){
+    // Go through dataObj
+    targetID = parseInt(targetID, 10)
+    for (var i=0; i<dataObj.length; i++){
+      var obj = dataObj[i];
+      if (obj.assignment_id !== targetID){
+        dataObj = dataObj.slice(0, i).concat( dataObj.slice(i+1, dataObj.length));
+        i--;
+      }
+      console.log('dataObj in filterAssignment: ', typeof targetID, typeof obj.assignment_id, dataObj)
+    };
+    return dataObj;
+      // If Assignment id doesn't match assignment_id target
+        //delete obj
+    // Return obj
+  };
+
+  // Given the class_id, returns Class's assignments and corresponding Ids
+  var makeLessonList = function(id){
+    console.log('making lesson list', id, gradesInformation);
+    console.log('classList', $scope.classList)
+    var result = [];
+    var ids = {};
+    // Key is a_id, value is a_title
+    gradesInformation.forEach(function(obj){
+      ids[obj.assignment_id] = obj.assignment_title;
+    });
+    console.log('objids', ids)
+    // Convert for angular options
+    Object.keys(ids).forEach(function(idKey){
+      var newObj = {assignment_id: idKey, assignment_title: ids[idKey]};
+      result.push(newObj);
+    });
+    console.log('makeLessonList result: ', result)
+    $scope.lessonList = result;
+  };
+
   // Create color pallette for legend
   var createPallete = function (dataObj){
     var possibilities = ["#4541A4", "#DCE845", "#AA52C7", "#D46C1D", "#2B918A", "#D4A81D", "#76C11A", "#CA3C75"];
@@ -85,9 +123,10 @@ angular.module('classroom.grades', [])
     });
       
     $scope.makeChart = function(classID){
-      console.log(classID)
+      console.log('makeChart classID', classID)
       Grades.getClassGrades(classID).then(function(data) {
         var gradesData = data.data;
+        gradesInformation = data.data;
         gradesData = averageData(gradesData);
         console.log('gradesData: ', gradesData);
         return gradesData;
@@ -119,15 +158,60 @@ angular.module('classroom.grades', [])
         d3.selectAll("circle")
           .attr("r", 7);
         // chart.axes[0].titleShape[0][0].innerHTML("Assignment");
+        makeLessonList(classID);
       });
     };
 
-    var chart;
-    window.onresize = function () {
-      chart.draw(0, true);
-      d3.selectAll("circle")
-        .attr("r", 7);
+    $scope.lessonChart = function(classID, AssignmentID){
+      // Input is an object with a class_id and title
+
+      console.log('classID', classID, 'AssignmentID', AssignmentID)
+      // Get all grades for the class
+      Grades.getClassGrades(classID).then(function(data) {
+        var newData = data.data;
+        if(newData){console.log('DATA!', newData)}
+        // Filter grades by assignment
+        var gradesData = filterAssignment(newData, AssignmentID);
+        console.log('filterAssignment: ', gradesData);
+        // console.log('classList: ', $scope.classList);
+        return gradesData;
+      }).then(function(gradesData){
+        // Create new svg and chart
+        chart = null;
+        var svg = dimple.newSvg(".grades", "100%", "100%");
+        var lessonChart = new dimple.chart(svg, gradesData);
+        lessonChart.setBounds( "5%", "7%", "93%", "85%");
+
+        // Define x-axis
+        var x = lessonChart.addCategoryAxis("x", "student_name");
+        x.fontSize = "auto";
+
+        // Define y-axis
+        var y = lessonChart.addMeasureAxis("y", "grade");
+        y.fontSize = "auto";
+
+        // Define z-axis
+        // var z = lessonChart.addMeasureAxis("z", "");
+
+        lessonChart.addSeries(null, dimple.plot.bubble);
+        chart = lessonChart;
+      }).then( function(){
+        // Create the chart
+        chart.draw();
+        console.log('drawing')
+        // Format data point
+        d3.selectAll("circle")
+          .attr("r", 7);
+        // chart.axes[0].titleShape[0][0].innerHTML("Assignment");
+      });
     };
+
+    // var chart;
+    // window.onresize = function () {
+    //   chart.draw(0, true);
+    //   d3.selectAll("circle")
+    //     .attr("r", 7);
+    // };
 
   } else { // STUDENT: Show grades over time
 

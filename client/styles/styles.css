@@ -25,6 +25,23 @@
   float: right;
 }
 
+.lessonChoice {
+  display: inline-block;
+  width: 30vw;
+  float: right;
+}
+
+.dropTitle {
+  display: inline-block;
+  float: right;
+  font-size: 1.4em;
+  margin-right: 8vw;
+}
+
+#classAvg {
+  margin-right: 20vw;
+}
+
 #gradeTitle {
   display: inline-block;
 }
