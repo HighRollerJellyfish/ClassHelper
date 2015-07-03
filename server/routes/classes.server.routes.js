@@ -5,4 +5,6 @@ module.exports = function(app) {
 
   app.post('/classes', classes.addClass);
 
+  app.post('/enrollment', classes.addEnrollment);
+
 };
