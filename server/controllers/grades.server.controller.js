@@ -54,3 +54,14 @@ exports.create = function(req, res, next) {
   });
 };
 
+
+exports.addGrade = function(req, res, next) {
+
+  Grade.add(req.body, function(model) {
+    console.log(model);
+    res.send(model);
+  });
+
+  
+};
+
