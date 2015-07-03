@@ -65,6 +65,7 @@ Grade.classGrades = function(class_id, callback) {
     SELECT \
       CONCAT(users.first_name, \' \', users.last_name) AS student_name, \
       grades.score AS grade, \
+      grades.id AS grade_id, \
       assignments.title AS assignment_title, \
       assignments.id AS assignment_id, \
       assignments.due_date AS assignment_date \

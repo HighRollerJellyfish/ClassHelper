@@ -1,14 +1,22 @@
 <h1>Classes</h1>
 <ul>
-  <li ng-repeat="class in classes" ng-click="getClassGrades(class.class_id)">{{class.class_title}}</li>
+  <li ng-repeat="class in classes" ng-click="setActiveClass(class.class_id)">{{class.class_title}}</li>
 </ul>
 
 <h1>Assignments</h1>
 <ul>
-  <li ng-repeat="(assignment_title, assignment_id) in assignments">{{assignment_title}}</li>
+  <li ng-repeat="(assignment_title, assignment_id) in assignments" ng-click="setA">{{assignment_title}}</li>
 </ul>
 
 <h1>Class Grades</h1>
 
 <p>{{assignments}}</p>
+<table>
+  <th>Grades for assigment</th>
+  <tr>
+    <td>Student</td>
+    <td>Grade</td>
+  </tr>
+
+</table>
 	
