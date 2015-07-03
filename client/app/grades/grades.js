@@ -83,12 +83,12 @@ angular.module('classroom.grades', [])
   };
 
   // Create color pallette for student legend
-  var createPallete = function (dataObj){
+  var createPallete = function (dataObj, key){
     var possibilities = ["#4541A4", "#DCE845", "#AA52C7", "#D46C1D", "#2B918A", "#D4A81D", "#76C11A", "#CA3C75"];
     var result = {};
     dataObj.forEach(function(obj){
-      if ( !result[obj.Class] ){
-        result[obj.Class] = [obj.Class, possibilities.shift()];
+      if ( !result[obj[key]] ){
+        result[obj[key]] = [obj[key], possibilities.shift()];
       }
     });
     return result;
@@ -175,7 +175,12 @@ angular.module('classroom.grades', [])
         y.fontSize = "auto";
         y.overrideMax = 100;
 
-        lessonChart.addSeries(null, dimple.plot.bubble);
+        var pallette = createPallete(gradesData, "Student Name");
+        Object.keys(pallette).forEach( function(key){
+          lessonChart.assignColor(pallette[key][0], pallette[key][1]);
+        });
+
+        z = lessonChart.addSeries(["Student Name", "Grade"], dimple.plot.bubble);
         chart = lessonChart;
       }).then( function(){
         // Create the chart
@@ -228,7 +233,7 @@ angular.module('classroom.grades', [])
       var z = progressChart.addSeries(["Assignment Date", "Grade", "Class"], dimple.plot.bubble);
 
       // For each class type, assign a color
-      var pallette = createPallete(gradesData);
+      var pallette = createPallete(gradesData, "Class");
       Object.keys(pallette).forEach( function(key){
         progressChart.assignColor(pallette[key][0], pallette[key][1]);
       });
