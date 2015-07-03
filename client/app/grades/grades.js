@@ -219,7 +219,12 @@ angular.module('classroom.grades', [])
       var gradesData = angular.fromJson(data.data);
 
       gradesData.forEach(function(obj){
-        obj.assignment_date = moment(obj.createdAt).format('L');
+        obj["Assignment Date"] = moment(obj.createdAt).format('L');
+        delete obj.assignment_date;
+        obj.Grade = obj.grade;
+        delete obj.grade;
+        obj.Class = obj.class_title;
+        delete obj.class_title;
       });
 
       console.log('gradesData: ', gradesData);
@@ -231,16 +236,16 @@ angular.module('classroom.grades', [])
       progressChart.setBounds( "5%", "5%", "80%", "80%");
 
       // Define x-axis
-      var x = progressChart.addCategoryAxis("x", "assignment_date");
+      var x = progressChart.addCategoryAxis("x", "Assignment Date");
       x.fontSize = "auto";
 
       // Define y-axis
-      var y = progressChart.addMeasureAxis("y", "grade");
+      var y = progressChart.addMeasureAxis("y", "Grade");
       y.overrideMax = 100;
       y.fontSize = "auto";
 
       // Define z-axis
-      var z = progressChart.addSeries(["assignment_date", "grade", "class_title"], dimple.plot.bubble);
+      var z = progressChart.addSeries(["Assignment Date", "Grade", "Class"], dimple.plot.bubble);
 
       // For each class type, assign a color
       var pallette = createPallete(gradesData);
