@@ -37,7 +37,7 @@ angular.module('classroom.grades', [])
     var solution = [];
     // Assign all student scores to assignment by ID
     dataObj.forEach(function(data){
-      result[data.assignment_id] = result[data.assignment_id] || [data.assignment_title];
+      result[data.assignment_id] = result[data.assignment_id] || [data.title];
       result[data.assignment_id].push( data.grade );
     });
     // Average all student scores at ID
@@ -52,7 +52,7 @@ angular.module('classroom.grades', [])
     Object.keys(result).forEach(function(key){
       var obj = {};
       obj.assignment_id = parseInt(key, 10);
-      obj.assignment_title = result[key][0];
+      obj.title = result[key][0];
       obj.grade = result[key][1];
       solution.push(obj);
     })
@@ -99,7 +99,7 @@ angular.module('classroom.grades', [])
         classChart.setBounds( "5%", "7%", "93%", "85%");
 
         // Define x-axis
-        var x = classChart.addCategoryAxis("x", "assignment_title");
+        var x = classChart.addCategoryAxis("x", "title");
         x.fontSize = "auto";
 
         // Define y-axis
