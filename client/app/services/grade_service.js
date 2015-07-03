@@ -40,14 +40,14 @@ angular.module('classroom.GradeService', [])
   @param {Object} gradeData Grades data from database.
   @return {Function} Returns a $http() Post promise.
   */
-  // this.add = function (gradeData) {
-  //   return $http({
-  //     method: 'POST',
-  //     url: '/grades',
-  //     data: gradeData,
-  //     headers: {
-  //       'Authorization': window.localStorage.jwtToken
-  //     }
-  //   });
-  // };
+  this.add = function (gradeData) {
+    return $http({
+      method: 'POST',
+      url: '/grades',
+      data: gradeData,
+      headers: {
+        'Authorization': window.localStorage.jwtToken
+      }
+    });
+  };
 });

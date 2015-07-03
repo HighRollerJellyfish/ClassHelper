@@ -18,10 +18,11 @@ Event.add = function(eventData, callback) {
 Event.studentEvents = function(student_id, callback) {
   bookshelf.knex.raw(' \
     SELECT \
-      events.title AS event_title, \
-      events.description AS event_description, \
+      events.title AS title, \
+      events.description AS description, \
       events.id AS event_id, \
-      events.due_date AS event_due_date, \
+      events.start_date AS start, \
+      events.end_date AS end, \
       classes.title AS class_title, \
       classes.id AS class_id \
     FROM events, classes, enrollment \
@@ -36,11 +37,11 @@ Event.studentEvents = function(student_id, callback) {
 Event.teacherEvents = function(teacher_id, callback) {
   bookshelf.knex.raw(' \
     SELECT \
-      events.title AS event_title, \
-      events.description AS event_description, \
+      events.title AS title, \
+      events.description AS description, \
       events.id AS event_id, \
-      events.start_date AS event_start_date, \
-      events.end_date AS event_end_date, \
+      events.start_date AS start, \
+      events.end_date AS end, \
       classes.title AS class_title, \
       classes.id AS class_id \
     FROM events, classes \

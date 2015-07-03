@@ -18,10 +18,10 @@ Assignment.add = function(assignmentData, callback) {
 Assignment.studentAssignments = function(student_id, callback) {
   bookshelf.knex.raw(' \
     SELECT \
-      assignments.title AS assignment_title, \
-      assignments.description AS assignment_description, \
+      assignments.title AS title, \
+      assignments.description AS description, \
       assignments.id AS assignment_id, \
-      assignments.due_date AS assignment_due_date, \
+      assignments.due_date AS start, \
       classes.title AS class_title, \
       classes.id AS class_id \
     FROM assignments, classes, enrollment \
@@ -36,10 +36,10 @@ Assignment.studentAssignments = function(student_id, callback) {
 Assignment.teacherAssignments = function(teacher_id, callback) {
   bookshelf.knex.raw(' \
     SELECT \
-      assignments.title AS assignment_title, \
-      assignments.description AS assignment_description, \
+      assignments.title AS title, \
+      assignments.description AS description, \
       assignments.id AS assignment_id, \
-      assignments.due_date AS assignment_due_date, \
+      assignments.due_date AS start, \
       classes.title AS class_title, \
       classes.id AS class_id \
     FROM assignments, classes \
