@@ -156,7 +156,7 @@ angular.module('classroom', [
     });
 }])
 
-.controller('ModalDemoCtrl', function ($scope, $modal, $log) {
+.controller('ModalDemoCtrl', function ($scope, $modal, $log, Lessons) {
 
   $scope.items = ['item1', 'item2', 'item3'];
 
@@ -172,6 +172,9 @@ angular.module('classroom', [
       resolve: {
         items: function () {
           return $scope.items;
+        },
+        lessons: function() {
+          return Lessons.getClassLessons(1)
         }
       }
     });
@@ -192,12 +195,11 @@ angular.module('classroom', [
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items, lessons) {
 
   $scope.items = items;
-  $scope.selected = {
-    item: $scope.items[0]
-  };
+  $scope.selected = null;
+  $scope.lessons = lessons.data;
 
   $scope.ok = function () {
     $modalInstance.close($scope.selected.item);

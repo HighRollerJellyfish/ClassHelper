@@ -28,18 +28,3 @@
 #gradeTitle {
   display: inline-block;
 }
-
-/***
-MODAL POPUP FIXES
-***/
-html {
-  height: 100%;
-}
-
-body {
-  min-height: 100%;
-}
-
-.modal-backdrop {
-  bottom: 0;
-}
