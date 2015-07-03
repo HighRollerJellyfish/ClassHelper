@@ -23,39 +23,7 @@
       console.dir(window.eventsData.data);
       console.dir(window.assignmentsData.data)
 
-      var assignments = [
-        {
-          title: 'Complete Recursion',             //title
-          start: '2015-07-01',                     //due date
-          description: 'Finish writing the n-queens assignment on page 30. Good luck and have fun!',
-          end: '2015-07-02',                       //not necessary
-          className: 'Computer Science 101'        //class name
-        }
-      ];
-
-      // var events = [
-      //   {
-      //     title: 'Recurse Reduce Right',               //title
-      //     start: '2015-07-08',                         //start date
-      //     end: '2015-07-14',                           //end date
-      //     description: 'Implement underscore reduce right using recursion (do not worry about objects, just deal with arrays)',
-      //     className: 'Computer Science 202',            //class name
-      //     event_id: 
-      //     class_title:
-      //     class_id: 
-      //   },
-      //   {
-      //     className: 'hearthstone',
-      //     title  : 'event3',
-      //     start  : '2015-07-14T12:30:00',
-      //     allDay : false // will make the time show
-      //   }
-      // ];
-      // {
-      //   title  : 'event3',
-      //   start  : '2010-01-09T12:30:00',
-      //   allDay : false // will make the time show
-      // }
+      var allData = window.eventsData.data.concat(window.assignmentsData.data);
 
       $(window).resize(function() {
         $('#calendar').fullCalendar('option', 'height', getCalendarHeight());
@@ -70,9 +38,9 @@
           right: 'month,agendaWeek,agendaDay'
         },
 
-        height: getCalendarHeight(), //dynamically resize the calendar
+        height: getCalendarHeight(), //calendar getCalendarHeight
 
-        width: getCalendarWidth(),
+        width: getCalendarWidth(), //calendar width
 
         fixedWeekCount:false, //disables fixed Week Count
 
@@ -84,7 +52,7 @@
 
         defaultView: 'month', //sets the default view as month
 
-        events: assignments,
+        events: allData,
 
         select: function(start, end){
           var eventName = prompt('Enter the event name');
