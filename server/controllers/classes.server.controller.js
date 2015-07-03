@@ -29,5 +29,10 @@ exports.getClasses = function(req, res, next) {
   } else {
     return res.send("Invalid credentials");
   }
-
 };
+
+exports.addClass = function(req, res, next) {
+  Class.add(req.body, function(model) {
+    res.send(model);
+  });
+}
