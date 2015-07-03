@@ -97,7 +97,8 @@
                       </a>
                       <ul class="sub">
                         <li ng-repeat="class in classes">
-                          <a ui-sref="syllabus">{{class.class_title}}</a>
+                          <!-- <a href="#/syllabus/{{class.class_id}}">{{class.class_title}}</a> -->
+                          <a ui-sref="syllabus({ class_id: class.class_id })">{{class.class_title}}</a>
                         </li>
 
                           <!-- <li><a  href="horizontal_menu.html">CS 134</a></li>

@@ -89,16 +89,19 @@ angular.module('classroom', [
 }])
 
 .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/syllabus');
+  $urlRouterProvider.otherwise('/grades');
   $stateProvider
+
     .state('syllabus', {
-      url: '/syllabus',
+      url: '/syllabus/:class_id',
+      // params: ['class_id'],
       templateUrl: 'app/syllabus/syllabus.html',
       controller: 'SyllabusController',
       data: {
         requireLogin: true
       }
     })
+
     .state('grades', {
       url: '/grades',
       templateUrl: 'app/grades/grades.html',
