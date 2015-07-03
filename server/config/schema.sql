@@ -173,6 +173,12 @@ USE `classroom`;
 INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algorithms', '3');
 INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('American History', '3');
 INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algebra', '3');
+INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algorithms', '2');
+INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('American History', '2');
+INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algebra', '2');
+INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algorithms', '1');
+INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('American History', '1');
+INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algebra', '1');
 
 COMMIT;
 
@@ -225,6 +231,26 @@ INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('91', '2',
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('99', '3', '1');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('42', '3', '2');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('29', '3', '4');
+
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('91', '4', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('65', '4', '2');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('89', '4', '4');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('77', '5', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('40', '5', '2');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('58', '5', '4');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('99', '6', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('42', '6', '2');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('39', '6', '4');
+
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('71', '7', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('95', '7', '2');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('79', '7', '4');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('67', '8', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('90', '8', '2');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('58', '8', '4');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('99', '9', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('42', '9', '2');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('39', '9', '4');
 
 -- COMMIT;
 

@@ -7,7 +7,7 @@
 }
 
 .grades {
-  height: 78vh;
+  height: 75vh;
 }
 
 .login-background {
@@ -17,4 +17,14 @@
 
 .login-form {
   opacity: .8;
+}
+
+.classChoice {
+  display: inline-block;
+  width: 30vw;
+  float: right;
+}
+
+#gradeTitle {
+  display: inline-block;
 }
