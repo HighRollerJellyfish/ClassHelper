@@ -33,5 +33,8 @@ exports.getEvents = function(req, res, next) {
   }
 };
 
-
-
+exports.addEvent = function(req, res, next) {
+  Event.add(req.body, function(model) {
+    res.send(model);
+  });
+};
