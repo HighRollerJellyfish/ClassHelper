@@ -84,7 +84,7 @@ angular.module('classroom.grades', [])
 
   // Create color pallette for student legend
   var createPallete = function (dataObj, key){
-    var possibilities = ["#4541A4", "#DCE845", "#AA52C7", "#D46C1D", "#2B918A", "#D4A81D", "#76C11A", "#CA3C75"];
+    var possibilities = ["#4541A4", "#DCE845", "#AA52C7", "#D46C1D", "#2B918A", "#D4A81D", "#76C11A", "#CA3C75", "#763C75", "#CAC11A"];
     var result = {};
     dataObj.forEach(function(obj){
       if ( !result[obj[key]] ){
@@ -129,7 +129,7 @@ angular.module('classroom.grades', [])
         chart = null;
         var svg = dimple.newSvg(".grades", "100%", "100%");
         var classChart = new dimple.chart(svg, gradesData);
-        classChart.setBounds( "5%", "7%", "93%", "85%");
+        classChart.setBounds( "5%", "7%", "93%", "70%");
 
         // Define x-axis
         var x = classChart.addCategoryAxis("x", "Assignment Title");
@@ -161,10 +161,11 @@ angular.module('classroom.grades', [])
         var gradesData = filterAssignment(newData, AssignmentID);
         return gradesData;
       }).then(function(gradesData){ // Draw chart
+        console.log('lessonChart gradesData', gradesData)
         // Create new svg and chart
         var svg = dimple.newSvg(".grades", "100%", "100%");
         var lessonChart = new dimple.chart(svg, gradesData);
-        lessonChart.setBounds( "5%", "7%", "93%", "85%");
+        lessonChart.setBounds( "5%", "7%", "93%", "72%");
 
         // Define x-axis
         var x = lessonChart.addCategoryAxis("x", "Student Name");
