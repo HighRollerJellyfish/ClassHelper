@@ -206,12 +206,12 @@ angular.module('classroom.grades', [])
       });
     };
 
-    // var chart;
-    // window.onresize = function () {
-    //   chart.draw(0, true);
-    //   d3.selectAll("circle")
-    //     .attr("r", 7);
-    // };
+    var chart;
+    window.onresize = function () {
+      chart.draw(0, true);
+      d3.selectAll("circle")
+        .attr("r", 7);
+    };
 
   } else { // STUDENT: Show grades over time
 
@@ -249,7 +249,7 @@ angular.module('classroom.grades', [])
       });
 
       // Define legend
-      var l = progressChart.addLegend("85%", "5%", "10%", "80%", "right");
+      var l = progressChart.addLegend("90%", "5%", "10%", "80%", "right");
       l.fontSize = "auto";
 
       chart = progressChart;
