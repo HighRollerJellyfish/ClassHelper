@@ -20,10 +20,10 @@
     }
 
     $(document).ready(function() {
-      console.dir(window.eventsData.data);
-      console.dir(window.assignmentsData.data)
+      console.dir(window.eventsData);
+      console.dir(window.assignmentsData)
 
-      var allData = window.eventsData.data.concat(window.assignmentsData.data);
+      var allData = window.eventsData.concat(window.assignmentsData);
       // var classes = {};
       // for (var i = 0; i < allData.length; i++) {
       //   console.log(allData[i].class_title)
@@ -74,16 +74,17 @@
           //     }
           //   }
           // });
-          // //title --> className
-          // //class_title --> assignment
-          // var newEvent = {
-          //   title: $("#className3"),
-          //   start: start.format(),
-          //   end: end.format()
-          // }
-          // if(newEvent.title !== '' && newEvent.title !== null){
-          //   $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
-          // }
+          var title = prompt('Enter the class name');
+          //title --> className
+          //class_title --> assignment
+          var newEvent = {
+            title: title,
+            start: start.format(),
+            end: end.format()
+          }
+          if(newEvent.title !== '' && newEvent.title !== null){
+            $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
+          }
         },
 
         eventRender: function (event, element) {
@@ -150,7 +151,7 @@
   }
 
   #className2, #assignmentName2 {
-    
+
   }
 
   .className, .startTime, .endTime {

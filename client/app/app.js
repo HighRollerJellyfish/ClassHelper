@@ -4,11 +4,11 @@ This module controls the states that are rendered on the main page.
 */
 
 angular.module('classroom', [
+  'classroom.calendar',
   'classroom.attendance',
   'classroom.login',
   'classroom.signup',
   'classroom.grades',
-  'classroom.calendar',
   'classroom.AuthFactory',
   'classroom.LessonService',
   'classroom.GradeService',
@@ -26,7 +26,7 @@ angular.module('classroom', [
 //   $scope.classes = Classes.getUserClasses(1);
 // }])
 
-.controller('MenuCtrl', ['$scope', '$rootScope', 'Classes', function($scope, $rootScope, Classes) {
+.controller('MenuCtrl', ['$scope', '$rootScope', 'Classes', 'Events', 'Assignments', function($scope, $rootScope, Classes, Events, Assignments) {
   $scope.classes={};
 
   $rootScope.$watch('currentUser', function() {
@@ -39,6 +39,24 @@ angular.module('classroom', [
       })
       .error(function(data) {
         console.error("Error getting data:", data);
+      });
+
+      var events = Events.getUserEvents($rootScope.currentUser.id);
+      events.success(function(data) {
+        console.log("List of returned user events:", data);
+        window.eventsData = data;
+      })
+      .error(function(data) {
+        console.error("Error getting data:", data);
+      });
+
+      var assignments = Assignments.getUserAssignments($rootScope.currentUser.id);
+      assignments.success(function(data){
+        console.log("List of returned user assignments", data);
+        window.assignmentsData = data;
+      })
+      .error(function(data){
+        console.error("Error getting data:", data)
       });
     }
 
