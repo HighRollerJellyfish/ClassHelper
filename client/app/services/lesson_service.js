@@ -12,7 +12,7 @@ angular.module('classroom.LessonService', [])
   @method getAll
   @return {Function} Returns a $http() Get promise.
   */
- 
+
 
   this.getClassLessons = function(class_id) {
     return $http({
@@ -22,6 +22,17 @@ angular.module('classroom.LessonService', [])
         'Authorization': window.localStorage.jwtToken
       }
     });
+  };
+
+  this.saveClassLesson = function(lesson) {
+    // return $http({
+    //   url: '/lessons',
+    //   method: 'POST',
+    //   headers: {
+    //     'Authorization': window.localStorage.jwtToken
+    //   }
+    // });
+    return $http.post('/lessons', lesson);
   };
 
   /**

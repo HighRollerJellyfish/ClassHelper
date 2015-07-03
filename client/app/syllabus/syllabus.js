@@ -11,6 +11,7 @@ angular.module('classroom.syllabus', ['textAngular'])
   $scope.isCollapsed = false;
 
   var class_id = $stateParams.class_id;
+  $scope.class_id = class_id;
 
   /**
   This function sets the current user as a teacher.
@@ -18,7 +19,7 @@ angular.module('classroom.syllabus', ['textAngular'])
   */
   $scope.isTeacher = function () {
    return $rootScope.currentUser && $rootScope.currentUser.role === 'teacher';
-  }
+ };
 
   /**
   This function removes quotes from the entered content.
@@ -29,12 +30,7 @@ angular.module('classroom.syllabus', ['textAngular'])
   $scope.removeQuotes = function (content) {
     content = content.replace(/^"(.*)"$/, '$1');
     return content;
-  }
-
-  $scope.addLesson = function(lessonData) {
-    console.log(lessonData);
-    AddLesson.add(lessonData);
-  }
+  };
 
   Lessons.getClassLessons(class_id)
     .success(function(data) {
@@ -59,7 +55,19 @@ angular.module('classroom.syllabus', ['textAngular'])
   @param {String} lessonData Entered content from user.
   */
 
-  $scope.addLesson = function(lessonData) {
-    Lessons.add(lessonData);
-  }
+  $scope.addLesson = function(lessonData, class_id) {
+    lessonData.class_id = class_id;
+
+    console.log("addLesson data:", lessonData);
+    console.log("class_id:", class_id);
+
+    Lessons.saveClassLesson(JSON.stringify(lessonData))
+      .success(function(data) {
+        console.log("Success:", data);
+      })
+      .error(function(data) {
+        console.error("Error with:", data);
+      })
+  };
+
 });
