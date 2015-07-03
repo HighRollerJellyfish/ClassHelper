@@ -31,26 +31,6 @@ Grade.addOrEdit = function(gradeData, callback) {
   });
 };
 
-
-  // grade = new Grade(gradeData)
-  // .save()
-  // .then(function(model) {
-  //   callback(model);
-  // })
-  // .catch(function(err) {
-  //   callback(err);
-  // });
-
-
-  
-
-
-
-
-
-
-
-
 Grade.studentGrades = function(student_id, callback) {
   // bookshelf.knex('grades')
   // .join('assignments', 'grades.assignment_id', '=', 'assignments.id')

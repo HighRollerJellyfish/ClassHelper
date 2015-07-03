@@ -3,6 +3,12 @@
   <li ng-repeat="class in classes" ng-click="getClassGrades(class.class_id)">{{class.class_title}}</li>
 </ul>
 
+<h1>Assignments</h1>
+<ul>
+  <li ng-repeat="(assignment_title, assignment_id) in assignments">{{assignment_title}}</li>
+</ul>
+
 <h1>Class Grades</h1>
-<p>{{classGrades}}</p>
+
+<p>{{assignments}}</p>
 	
