@@ -43,9 +43,34 @@
           </td>
         </tr>
         <tr ng-repeat="lesson in lessons">
-          <td><a href="#lesson{{lesson.id}}" target="_self">{{lesson.title}}</a></td>
+          <td><a href="#lesson{{lesson.lesson_id}}" target="_self">{{lesson.lesson_title}}</a></td>
         </tr>
       </table>
+
+          <table class="table table-bordered table-hover" style="width:100%;background-color:white;">
+            <tr>
+              <th class="warning" style="font-size:133%;" colspan=2>
+                <center>Class Assignments</center>
+              </th>
+            </tr>
+            <tr style="font-size:80%;">
+              <td class="info" width="70%">
+                <b>Assignment</b>
+              </td>
+              <td class="info" width="30%">
+                <b>Due Date</b>
+              </td>
+            </tr>
+            <tr style="font-size:80%;">
+              <td class="" width="70%">
+                <a href="#">Homework #1</a>
+              </td>
+              <td class="" width="30%">
+                <a href="#">2015-07-21</a>
+              </td>
+            </tr>
+
+          </table>
 
 
     </div>
@@ -64,7 +89,7 @@
             <textarea style="width:100%" type="textarea" ng-model="fields.description" placeholder="Description"></textarea>
             <p></p>
             <div text-angular="text-angular" ng-model="fields.content"></div>
-            <center><button type="button" class="btn btn-lg btn-primary" ng-click="addLesson(fields)" style="margin-top:5px;margin-bottom:3px;">Add Lesson</button></center>
+            <center><button type="button" class="btn btn-lg btn-primary" ng-click="addLesson(fields, class_id)" style="margin-top:5px;margin-bottom:3px;">Add Lesson</button></center>
         </div>
 
 
@@ -73,21 +98,21 @@
         <!-- <div class="container-fluid"> -->
         <div>
           <div ng-repeat="lesson in lessons">
-            <div id="lesson{{lesson.id}}" class="panel panel-default">
+            <div id="lesson{{lesson.lesson_id}}" class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title">
                   <a href="#" ng-click="isCollapsed = !isCollapsed;">
-                    {{lesson.title}}
+                    {{lesson.lesson_title}}
                   </a>
                 </h4>
                 <h5>
                   <p>
-                    Description: {{lesson.description}}
+                    Description: {{lesson.lesson_description}}
                   </p>
                 </h5>
               <div ng-show="isCollapsed">
                 <div class="panel-body">
-                  <p ng-bind-html="lesson.content"></p>
+                  <p ng-bind-html="lesson.lesson_content"></p>
                 </div>
               </div>
             </div>

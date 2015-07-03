@@ -77,7 +77,6 @@ angular.module('classroom.AuthFactory', [])
     })
     .then(function (res) {
       //set rootscope userdata
-      console.log(res.data);
       $rootScope.currentUser = {name: res.data.name, role: res.data.role, id: res.data.id};
       cb();
     })

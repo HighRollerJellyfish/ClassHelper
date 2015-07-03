@@ -21,12 +21,12 @@ CREATE TABLE IF NOT EXISTS users (
   email VARCHAR(30) NOT NULL,
   password VARCHAR(100) NOT NULL,
   role VARCHAR(20) NOT NULL DEFAULT 'student',
-  -- DELETE BELOW -- 
+  -- DELETE BELOW --
   -- name VARCHAR(45) NOT NULL,
   -- username VARCHAR(20) NOT NULL,
   -- created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
   -- updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  -- DELETE ABOVE -- 
+  -- DELETE ABOVE --
   PRIMARY KEY (id)
 );
 
@@ -69,10 +69,9 @@ CREATE TABLE IF NOT EXISTS lessons (
   content TEXT NOT NULL,
   class_id INT NOT NULL DEFAULT '1',
   start_date DATETIME,
-  -- DELETE BELOW -- 
   created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  -- DELETE ABOVE -- 
+  -- DELETE ABOVE --
   PRIMARY KEY (id),
   FOREIGN KEY (class_id) REFERENCES classes(id)
 );
@@ -87,12 +86,12 @@ CREATE TABLE IF NOT EXISTS grades (
   score INT NOT NULL,
   assignment_id INT NOT NULL,
   student_id INT NOT NULL,
-  -- DELETE BELOW -- 
+  -- DELETE BELOW --
   -- student VARCHAR(20) NOT NULL,
   -- lesson_title VARCHAR(45) NOT NULL,
   -- created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   -- updated_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  -- DELETE ABOVE -- 
+  -- DELETE ABOVE --
   PRIMARY KEY (id)
   -- FOREIGN KEY (assignment_id) REFERENCES assignments(id),
   -- FOREIGN KEY (student_id) REFERENCES users(id)
@@ -108,13 +107,13 @@ CREATE TABLE IF NOT EXISTS grades (
 --   -- student_id INT NOT NULL,
 --   -- lesson_id INT NOT NULL,
 --   -- date DATETIME NOT NULL,
---   -- DELETE BELOW -- 
+--   -- DELETE BELOW --
 --   date VARCHAR(20) NOT NULL,
 --   student VARCHAR(20) NOT NULL,
 --   presence TINYINT(1) NOT NULL,
 --   created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
 --   updated_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
---   -- DELETE ABOVE -- 
+--   -- DELETE ABOVE --
 --   PRIMARY KEY (id)
 --   -- FOREIGN KEY (student_id) REFERENCES users(id),
 --   -- FOREIGN KEY (lesson_id) REFERENCES lessons(id)
@@ -133,7 +132,7 @@ CREATE TABLE IF NOT EXISTS events (
   class_id INT NOT NULL,
   start_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   end_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  
+
   PRIMARY KEY (id),
   FOREIGN KEY (class_id) REFERENCES classes(id)
 );
@@ -173,6 +172,12 @@ USE `classroom`;
 INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algorithms', '3');
 INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('American History', '3');
 INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algebra', '3');
+INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algorithms', '2');
+INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('American History', '2');
+INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algebra', '2');
+INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algorithms', '1');
+INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('American History', '1');
+INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algebra', '1');
 
 COMMIT;
 
@@ -225,6 +230,26 @@ INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('91', '2',
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('99', '3', '1');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('42', '3', '2');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('29', '3', '4');
+
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('91', '4', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('65', '4', '2');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('89', '4', '4');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('77', '5', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('40', '5', '2');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('58', '5', '4');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('99', '6', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('42', '6', '2');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('39', '6', '4');
+
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('71', '7', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('95', '7', '2');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('79', '7', '4');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('67', '8', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('90', '8', '2');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('58', '8', '4');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('99', '9', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('42', '9', '2');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('39', '9', '4');
 
 -- COMMIT;
 

@@ -8,6 +8,7 @@ angular.module('classroom', [
   'classroom.login',
   'classroom.signup',
   'classroom.grades',
+  'classroom.calendar',
   'classroom.AuthFactory',
   'classroom.LessonService',
   'classroom.GradeService',
@@ -20,6 +21,60 @@ angular.module('classroom', [
   'ui.bootstrap',
   'textAngular'
 ])
+
+// .controller('MenuCtrl', ['$scope', '$rootScope', 'ClassService', function($scope, $rootScope, ClassService) {
+//   $scope.classes = Classes.getUserClasses(1);
+// }])
+
+.controller('MenuCtrl', ['$scope', '$rootScope', 'Classes', function($scope, $rootScope, Classes) {
+  $scope.classes={};
+
+  $rootScope.$watch('currentUser', function() {
+
+    if($rootScope.currentUser) {
+      var classes = Classes.getUserClasses($rootScope.currentUser.id);
+      classes.success(function(data) {
+        console.log("List of returned user classes:", data);
+        $scope.classes = data;
+      })
+      .error(function(data) {
+        console.error("Error getting data:", data);
+      });
+    }
+
+  });
+
+  // if($rootScope.currentUser) {
+    // setTimeout(function() {
+      // console.log("Current User defined, running classes query");
+      // var classes = Classes.getUserClasses($rootScope.currentUser.id);
+      // classes.success(function(data) {
+      //   console.log("List of returned user classes:", data);
+      //   $scope.classes = data;
+      // })
+      // .error(function(data) {
+      //   console.error("Error getting data:", data);
+      // });
+    // }.bind($scope), 500);
+
+    // console.log("Current User defined, running classes query");
+    // var classes = Classes.getUserClasses($rootScope.currentUser.id);
+    // classes.success(function(data) {
+    //   console.log("List of returned user classes:", data);
+    //   $scope.classes = data;
+    // })
+    // .error(function(data) {
+    //   console.error("Error getting data:", data);
+    // });
+
+
+  // }
+  // else {
+  //   console.log("Current User not defined, not running classes query");
+  // }
+
+}])
+
 .controller('LogoutController', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
 
   /**
@@ -36,16 +91,19 @@ angular.module('classroom', [
 }])
 
 .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/syllabus');
+  $urlRouterProvider.otherwise('/grades');
   $stateProvider
+
     .state('syllabus', {
-      url: '/syllabus',
+      url: '/syllabus/:class_id',
+      // params: ['class_id'],
       templateUrl: 'app/syllabus/syllabus.html',
       controller: 'SyllabusController',
       data: {
         requireLogin: true
       }
     })
+
     .state('grades', {
       url: '/grades',
       templateUrl: 'app/grades/grades.html',
@@ -76,6 +134,14 @@ angular.module('classroom', [
       controller: 'SignupController',
       data: {
         requireLogin: false
+      }
+    })
+    .state('calendar', {
+      url: '/calendar',
+      templateUrl: 'app/calendar/calendar.html',
+      controller: 'CalendarController',
+      data: {
+        requireLogin: true
       }
     })
 }])

@@ -31,6 +31,3 @@ exports.getClasses = function(req, res, next) {
   }
 
 };
-
-
-
