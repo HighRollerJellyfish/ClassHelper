@@ -27,9 +27,14 @@ exports.getAssignments = function(req, res, next) {
       
     }
   } else {
-    
-  return res.send("Invalid credentials");
+    return res.send("Invalid credentials");
   }
+};
+
+exports.addAssignment = function(req, res, next) {
+  Assignment.add(req.body, function(model) {
+    res.send(model);
+  });
 };
 
 
