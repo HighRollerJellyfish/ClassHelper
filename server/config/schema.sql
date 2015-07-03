@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS assignments (
   title VARCHAR(60) NOT NULL,
   description VARCHAR(300),
   class_id INT NOT NULL,
+  lesson_id INT,
   due_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   FOREIGN KEY (class_id) REFERENCES classes(id)
