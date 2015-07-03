@@ -1,9 +1,16 @@
 <h3 id="gradeTitle">Grades</h3>
 <div class="classChoice">
-  <select class="form-control input-lg" ng-model="selection" ng-change="clear(); makeChart(selection.class_id)"
+  <select class="form-control input-lg" ng-model="selection" ng-change="clear(); makeChart(selection.class_id);"
   ng-options="class.class_title for class in classList track by class.class_id">
   </select>
 </div>
+
+<div class="lessonChoice">
+  <select class="form-control input-lg" ng-model="lessonSelection" ng-change="clear(); lessonChart(classList[selection.class_id])"
+  ng-options="lesson.assignment_title for lesson in lessonList track by lesson.assignment_id">
+  </select>
+</div>
+<button ng-click="clear(); lessonChart(classList[selection.class_id])"></button>
 <div class="grades"></div>
 
 <!-- This div will only show if the user is a teacher -->
