@@ -6,7 +6,6 @@ This controller module is associated with the grades view and deals with grades 
 angular.module('classroom.grades', [])
 .controller('GradesController', ['$rootScope', '$scope', 'Grades', 'Classes', function ($rootScope, $scope, Grades, Classes) {
 
-
   /**
   This method tests if the user has the role 'teacher'.
   @method isTeacher
@@ -34,32 +33,26 @@ angular.module('classroom.grades', [])
 
   // Averages student grade by assignment
   var averageData = function (dataObj){
-    console.log('DATAOBJ')
-    console.dir(dataObj)
     var result = {};
     var solution = [];
     // Assign all student scores to assignment by ID
     dataObj.forEach(function(data){
-      console.log('DATA: ')
-      console.dir( data);
-      result[data.assignment_id] = result[data.assignment_id] || [data.title];
+      result[data.assignment_id] = result[data.assignment_id] || [data.assignment_title];
       result[data.assignment_id].push( data.grade );
     });
-    console.log('RESULT:    !!!!')
-    console.dir(result);
     // Average all student scores at ID
     Object.keys(result).forEach(function(key){
-      var assignment = result[key].shift();
+      var title = result[key].shift();
       var total = result[key].reduce(function(memo, score){
         return memo += score;
       });
-      result[key] = [assignment, Math.round( total / result[key].length )];
+      result[key] = [title, Math.round( total / result[key].length )];
     });  
     // Convert result from object with array properties to solution array with object properties
     Object.keys(result).forEach(function(key){
       var obj = {};
       obj.assignment_id = parseInt(key, 10);
-      obj.title = result[key][0];
+      obj.assignment_title = result[key][0];
       obj.grade = result[key][1];
       solution.push(obj);
     })
@@ -106,7 +99,7 @@ angular.module('classroom.grades', [])
         classChart.setBounds( "5%", "7%", "93%", "85%");
 
         // Define x-axis
-        var x = classChart.addCategoryAxis("x", "title");
+        var x = classChart.addCategoryAxis("x", "assignment_title");
         x.fontSize = "auto";
 
         // Define y-axis
