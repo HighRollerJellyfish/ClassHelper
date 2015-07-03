@@ -1,5 +1,6 @@
 var Class = require('../models/class.server.model');
 var User = require('../models/user.server.model');
+var Enrollment = require('../models/enrollment.server.model');
 var jwt = require('jwt-simple');
 var jwtSecret = require('../config/config.js').jwtSecret;
 
@@ -29,5 +30,16 @@ exports.getClasses = function(req, res, next) {
   } else {
     return res.send("Invalid credentials");
   }
+};
 
+exports.addClass = function(req, res, next) {
+  Class.add(req.body, function(model) {
+    res.send(model);
+  });
+}
+
+exports.addEnrollment = function(req, res, next) {
+  Enrollment.add(req.body, function(model) {
+    res.send(model);
+  });
 };

@@ -62,15 +62,28 @@
         events: allData,
 
         select: function(start, end){
-          var eventName = prompt('Enter the event name');
-          var newEvent = {
-            title: eventName,
-            start: start.format(),
-            end: end.format()
-          }
-          if(newEvent.title !== '' && newEvent.title !== null){
-            $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
-          }
+          // $("#addContent").dialog({
+          //   bgiframe: true,
+          //   title: 'New Event',
+          //   modal: true,
+          //   width: 300,
+          //   height: 300,
+          //   buttons: {
+          //     Ok: function(){
+          //       $(this).dialog('close');
+          //     }
+          //   }
+          // });
+          // //title --> className
+          // //class_title --> assignment
+          // var newEvent = {
+          //   title: $("#className3"),
+          //   start: start.format(),
+          //   end: end.format()
+          // }
+          // if(newEvent.title !== '' && newEvent.title !== null){
+          //   $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
+          // }
         },
 
         eventRender: function (event, element) {
@@ -89,7 +102,10 @@
                   $("#editContent").dialog('open');
                 },
                 Delete: function() {
-                  $(this).dialog('close')
+                  //needs to remove event from database
+                  console.dir(event);
+                  $('#calendar').fullCalendar('removeEvents', event._id);
+                  $(this).dialog('close');
                 }
               }
             });
@@ -133,14 +149,12 @@
     color: blue;
   }
 
-  .className, .startTime, .endTime {
-    float: left;
+  #className2, #assignmentName2 {
+    
   }
 
-  .className2, .startTime2, .endTime2 {
-    display: block;
+  .className, .startTime, .endTime {
     float: left;
-    margin-bottom: 1em;
   }
 
   .wrapper {
@@ -150,13 +164,17 @@
     margin-bottom: 50px;
   }
 
-  input{
+  .fc-day-grid-container .fc-time{
+    display: none;
+  }
+
+  input {
     display: block;
     float: right;
     margin-bottom: 1em;
   }
 
-  .ui-dialog{
+  .ui-dialog {
     text-align: center;
     width: 100%;
   }
@@ -166,7 +184,7 @@
   }
 
   .ui-dialog > .ui-widget-header { 
-    background: blue; 
+    background: #3a87ad; 
     border-top-left-radius: 10px !important;
     border-top-right-radius: 10px !important;
   }
@@ -182,11 +200,14 @@
       <p id="eventInfo"></p>
     </div>
     <div id="editContent" style="display:none;">
-      <span class="className2">Class:</span> <input id="className2"></input><br><br>
-      <span class="startTime2">Start Date:</span> <input type="date" id="startTime2"></input><br>
-      <span class="endTime2">End Date:</span> <input type="date" id="endTime2"></input><br>
+      <input id="className2" placeholder="Class"></input>
+      <input id="assignmentName2" placeholder="Assignment"></input>
     </div>
-    <div id="addContent">
+    <!-- <div id="addContent" style="display:none;">
+      <span class="className3">Class:</span> <input id="className3"></input><br><br>
+      <span class="startTime3">Start Date:</span> <input type="date" id="startTime3"></input><br>
+      <span class="endTime3">End Date:</span> <input type="date" id="endTime3"></input><br>
+    </div> -->
 
 </body>
 </html>
