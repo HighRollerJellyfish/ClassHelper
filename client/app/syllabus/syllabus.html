@@ -43,7 +43,7 @@
           </td>
         </tr>
         <tr ng-repeat="lesson in lessons">
-          <td><a href="#lesson{{lesson.id}}" target="_self">{{lesson.title}}</a></td>
+          <td><a href="#lesson{{lesson.lesson_id}}" target="_self">{{lesson.lesson_title}}</a></td>
         </tr>
       </table>
 
@@ -73,21 +73,21 @@
         <!-- <div class="container-fluid"> -->
         <div>
           <div ng-repeat="lesson in lessons">
-            <div id="lesson{{lesson.id}}" class="panel panel-default">
+            <div id="lesson{{lesson.lesson_id}}" class="panel panel-default">
               <div class="panel-heading">
                 <h4 class="panel-title">
                   <a href="#" ng-click="isCollapsed = !isCollapsed;">
-                    {{lesson.title}}
+                    {{lesson.lesson_title}}
                   </a>
                 </h4>
                 <h5>
                   <p>
-                    Description: {{lesson.description}}
+                    Description: {{lesson.lesson_description}}
                   </p>
                 </h5>
               <div ng-show="isCollapsed">
                 <div class="panel-body">
-                  <p ng-bind-html="lesson.content"></p>
+                  <p ng-bind-html="lesson.lesson_content"></p>
                 </div>
               </div>
             </div>

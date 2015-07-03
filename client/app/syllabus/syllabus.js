@@ -13,7 +13,7 @@ angular.module('classroom.syllabus', ['textAngular'])
   @method isTeacher
   */
   $scope.isTeacher = function () {
-   return $rootScope.currentUser && $rootScope.currentUser.role === 'teacher'; 
+   return $rootScope.currentUser && $rootScope.currentUser.role === 'teacher';
   }
 
   /**
@@ -32,12 +32,21 @@ angular.module('classroom.syllabus', ['textAngular'])
     AddLesson.add(lessonData);
   }
 
+  Lessons.getClassLessons(1)
+    .success(function(data) {
+      console.log("Lessons.getClassLessons(1):", data);
+      $scope.lessons = data;
+    })
+    .error(function(data) {
+      $scope.lessons = "ERROR:" + data;
+    });
+
   // Lessons.getAll().then(function(data) {
   //   $scope.lessons = angular.fromJson(data.data);
   // });
 }])
 
-.controller('textController', function($rootScope, $scope, $state, Lessons) { 
+.controller('textController', function($rootScope, $scope, $state, Lessons) {
   $scope.html = '<h3> Add and Edit Lessons here !</h3>';
   $scope.htmlcontent = $scope.orightml;
   /**

@@ -23,11 +23,10 @@ exports.getClasses = function(req, res, next) {
           });
         }
       });
+    } else {
+      return res.send("Invalid credentials");
     }
   } else {
     return res.send("Invalid credentials");
   }
 };
-
-
-

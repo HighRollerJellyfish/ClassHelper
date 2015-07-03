@@ -19,6 +19,60 @@ angular.module('classroom', [
   'ui.bootstrap',
   'textAngular'
 ])
+
+// .controller('MenuCtrl', ['$scope', '$rootScope', 'ClassService', function($scope, $rootScope, ClassService) {
+//   $scope.classes = Classes.getUserClasses(1);
+// }])
+
+.controller('MenuCtrl', ['$scope', '$rootScope', 'Classes', function($scope, $rootScope, Classes) {
+  $scope.classes={};
+
+  $rootScope.$watch('currentUser', function() {
+
+    if($rootScope.currentUser) {
+      var classes = Classes.getUserClasses($rootScope.currentUser.id);
+      classes.success(function(data) {
+        console.log("List of returned user classes:", data);
+        $scope.classes = data;
+      })
+      .error(function(data) {
+        console.error("Error getting data:", data);
+      });
+    }
+
+  });
+
+  // if($rootScope.currentUser) {
+    // setTimeout(function() {
+      // console.log("Current User defined, running classes query");
+      // var classes = Classes.getUserClasses($rootScope.currentUser.id);
+      // classes.success(function(data) {
+      //   console.log("List of returned user classes:", data);
+      //   $scope.classes = data;
+      // })
+      // .error(function(data) {
+      //   console.error("Error getting data:", data);
+      // });
+    // }.bind($scope), 500);
+
+    // console.log("Current User defined, running classes query");
+    // var classes = Classes.getUserClasses($rootScope.currentUser.id);
+    // classes.success(function(data) {
+    //   console.log("List of returned user classes:", data);
+    //   $scope.classes = data;
+    // })
+    // .error(function(data) {
+    //   console.error("Error getting data:", data);
+    // });
+
+
+  // }
+  // else {
+  //   console.log("Current User not defined, not running classes query");
+  // }
+
+}])
+
 .controller('LogoutController', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
 
   /**
