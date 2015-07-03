@@ -71,18 +71,17 @@ angular.module('classroom.grades', [])
     return result;
   };
 
-  console.log('currentUser', $rootScope.currentUser.id);
+  var gradesInformation;
 
   if ($scope.isTeacher()) { //TEACHER: Show class average on assignments
-    var class_id = 1;// Alter based on drop down
-    // Create dropdown
-    // Gather teacher class_titles and ids by using teacher id
+
     Classes.getUserClasses($rootScope.currentUser.id).then(function(data) {
-      console.log("User classes:");
       $scope.classList = data.data;
-    }).then(function(){
+    })
+    .then(function(){
       // Auto-draw the first class on list
       $scope.makeChart($scope.classList[0].class_id);
+      $scope.selection = $scope.classList[0];
     });
       
     $scope.makeChart = function(classID){
@@ -97,7 +96,7 @@ angular.module('classroom.grades', [])
         chart = null;
         var svg = dimple.newSvg(".grades", "100%", "100%");
         var classChart = new dimple.chart(svg, gradesData);
-        classChart.setBounds( "5%", "5%", "80%", "80%");
+        classChart.setBounds( "5%", "7%", "93%", "85%");
 
         // Define x-axis
         var x = classChart.addCategoryAxis("x", "assignment_title");
@@ -124,7 +123,6 @@ angular.module('classroom.grades', [])
     };
 
     var chart;
-
     window.onresize = function () {
       chart.draw(0, true);
       d3.selectAll("circle")
