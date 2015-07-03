@@ -102,8 +102,8 @@ angular.module('classroom.grades', [])
     var possibilities = ["#4541A4", "#DCE845", "#AA52C7", "#D46C1D", "#2B918A", "#D4A81D", "#76C11A", "#CA3C75"];
     var result = {};
     dataObj.forEach(function(obj){
-      if ( !result[obj.class_title] ){
-        result[obj.class_title] = [obj.class_title, possibilities.shift()];
+      if ( !result[obj.Class] ){
+        result[obj.Class] = [obj.Class, possibilities.shift()];
       }
     });
     return result;
@@ -128,6 +128,12 @@ angular.module('classroom.grades', [])
         var gradesData = data.data;
         gradesInformation = data.data;
         gradesData = averageData(gradesData);
+        gradesData.forEach(function(dataObj){
+          dataObj.Grade = dataObj.grade;
+          delete dataObj.grade;
+          dataObj["Assignment Title"] = dataObj.assignment_title
+          delete dataObj.assignment_title;
+        });
         console.log('gradesData: ', gradesData);
         return gradesData;
       }).then(function(gradesData){
@@ -138,11 +144,11 @@ angular.module('classroom.grades', [])
         classChart.setBounds( "5%", "7%", "93%", "85%");
 
         // Define x-axis
-        var x = classChart.addCategoryAxis("x", "assignment_title");
+        var x = classChart.addCategoryAxis("x", "Assignment Title");
         x.fontSize = "auto";
 
         // Define y-axis
-        var y = classChart.addMeasureAxis("y", "grade");
+        var y = classChart.addMeasureAxis("y", "Grade");
         y.fontSize = "auto";
 
         // Define z-axis
