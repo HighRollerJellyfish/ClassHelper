@@ -9,6 +9,7 @@
   <script src="../../js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
   <script src="../../lib/moment/min/moment.min.js"></script>
   <script src="../../lib/fullcalendar/dist/fullcalendar.js"></script>
+  <script src="../../js/jquery.scrollTo.min.js"></script>
   <script>
 
     function getCalendarHeight() {
@@ -20,10 +21,9 @@
     }
 
     $(document).ready(function() {
-      console.dir(window.eventsData.data);
-      console.dir(window.assignmentsData.data)
-
-      var allData = window.eventsData.data.concat(window.assignmentsData.data);
+      var events = JSON.parse(sessionStorage.getItem("eventsData"));
+      var assignments = JSON.parse(sessionStorage.getItem("assignmentsData"));
+      var allData = events.concat(assignments);
       // var classes = {};
       // for (var i = 0; i < allData.length; i++) {
       //   console.log(allData[i].class_title)
@@ -62,28 +62,25 @@
         events: allData,
 
         select: function(start, end){
-          // $("#addContent").dialog({
-          //   bgiframe: true,
-          //   title: 'New Event',
-          //   modal: true,
-          //   width: 300,
-          //   height: 300,
-          //   buttons: {
-          //     Ok: function(){
-          //       $(this).dialog('close');
-          //     }
-          //   }
-          // });
-          // //title --> className
-          // //class_title --> assignment
-          // var newEvent = {
-          //   title: $("#className3"),
-          //   start: start.format(),
-          //   end: end.format()
-          // }
-          // if(newEvent.title !== '' && newEvent.title !== null){
-          //   $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
-          // }
+          $("#addContent").dialog({
+            bgiframe: true,
+            title: 'New Event',
+            modal: true,
+            width: 300,
+            height: 300,
+            buttons: {
+              Ok: function(){
+                var newEvent = {
+                  title: $("#assignmentName3").val(),
+                  class_title: $("#className3").val(),
+                  start: start.format(),
+                  end: end.format()
+                }
+                $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
+                $(this).dialog('close');
+              }
+            }
+          });
         },
 
         eventRender: function (event, element) {
@@ -102,8 +99,6 @@
                   $("#editContent").dialog('open');
                 },
                 Delete: function() {
-                  //needs to remove event from database
-                  console.dir(event);
                   $('#calendar').fullCalendar('removeEvents', event._id);
                   $(this).dialog('close');
                 }
@@ -124,7 +119,6 @@
           });
         }
       });
-
     });
 
 </script>
@@ -147,10 +141,6 @@
 
   #eventLink {
     color: blue;
-  }
-
-  #className2, #assignmentName2 {
-    
   }
 
   .className, .startTime, .endTime {
@@ -189,6 +179,10 @@
     border-top-right-radius: 10px !important;
   }
 
+  #addContent {
+    float: left;
+  }
+
 </style>
 </head>
 <body>
@@ -203,11 +197,10 @@
       <input id="className2" placeholder="Class"></input>
       <input id="assignmentName2" placeholder="Assignment"></input>
     </div>
-    <!-- <div id="addContent" style="display:none;">
-      <span class="className3">Class:</span> <input id="className3"></input><br><br>
-      <span class="startTime3">Start Date:</span> <input type="date" id="startTime3"></input><br>
-      <span class="endTime3">End Date:</span> <input type="date" id="endTime3"></input><br>
-    </div> -->
+    <div id="addContent" style="display:none;">
+      <input id="className3" placeholder="Class Name"></input><br><br>
+      <input id="assignmentName3" placeholder="Assignment Name"></input>
+    </div>
 
 </body>
 </html>

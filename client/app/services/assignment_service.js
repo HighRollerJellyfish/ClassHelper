@@ -13,4 +13,8 @@ angular.module('classroom.AssignmentService', [])
     });
   };
 
+  this.saveAssignment = function(assignment) {
+    return $http.post('/lessons', lesson);
+  };
+
 });

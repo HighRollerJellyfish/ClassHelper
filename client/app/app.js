@@ -4,10 +4,12 @@ This module controls the states that are rendered on the main page.
 */
 
 angular.module('classroom', [
+  'classroom.calendar',
   'classroom.attendance',
   'classroom.login',
   'classroom.signup',
   'classroom.grades',
+  'classroom.gradebook',
   'classroom.calendar',
   'classroom.AuthFactory',
   'classroom.LessonService',
@@ -26,7 +28,7 @@ angular.module('classroom', [
 //   $scope.classes = Classes.getUserClasses(1);
 // }])
 
-.controller('MenuCtrl', ['$scope', '$rootScope', 'Classes', function($scope, $rootScope, Classes) {
+.controller('MenuCtrl', ['$scope', '$rootScope', 'Classes', 'Events', 'Assignments', function($scope, $rootScope, Classes, Events, Assignments) {
   $scope.classes={};
 
   $rootScope.$watch('currentUser', function() {
@@ -39,6 +41,22 @@ angular.module('classroom', [
       })
       .error(function(data) {
         console.error("Error getting data:", data);
+      });
+
+      var events = Events.getUserEvents($rootScope.currentUser.id);
+      events.success(function(data) {
+        sessionStorage.setItem("eventsData", JSON.stringify(data));
+      })
+      .error(function(data) {
+        console.error("Error getting data:", data);
+      });
+
+      var assignments = Assignments.getUserAssignments($rootScope.currentUser.id);
+      assignments.success(function(data){
+        sessionStorage.setItem("assignmentsData", JSON.stringify(data));
+      })
+      .error(function(data){
+        console.error("Error getting data:", data)
       });
     }
 
@@ -144,16 +162,14 @@ angular.module('classroom', [
         requireLogin: true
       }
     })
-    .state('test', {
-      url: '/test',
-      template: "asdfsakfd",
-      controller: function() {
-        alert('loading test');
-      },
+    .state('gradebook', {
+      url: '/gradebook',
+      templateUrl: 'app/gradebook/gradebook.html',
+      controller: 'GradebookController',
       data: {
-        requireLogin: false
+        requireLogin: true
       }
-    });
+    })
 }])
 
 .controller('ModalDemoCtrl', function ($scope, $modal, $log, Lessons) {
