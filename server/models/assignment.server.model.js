@@ -50,4 +50,21 @@ Assignment.teacherAssignments = function(teacher_id, callback) {
   });
 };
 
+Assignment.classAssignments = function(class_id, callback) {
+  bookshelf.knex.raw(' \
+    SELECT \
+      assignments.title AS title, \
+      assignments.description AS description, \
+      assignments.id AS assignment_id, \
+      assignments.due_date AS start, \
+      classes.title AS class_title, \
+      classes.id AS class_id \
+    FROM assignments, classes \
+    WHERE assignments.class_id = classes.id \
+      AND classes.id = ' + class_id
+  ).then(function(data) {
+    callback(data[0]);
+  });
+};
+
 module.exports = Assignment;

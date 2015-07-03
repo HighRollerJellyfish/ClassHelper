@@ -31,26 +31,6 @@ Grade.addOrEdit = function(gradeData, callback) {
   });
 };
 
-
-  // grade = new Grade(gradeData)
-  // .save()
-  // .then(function(model) {
-  //   callback(model);
-  // })
-  // .catch(function(err) {
-  //   callback(err);
-  // });
-
-
-  
-
-
-
-
-
-
-
-
 Grade.studentGrades = function(student_id, callback) {
   // bookshelf.knex('grades')
   // .join('assignments', 'grades.assignment_id', '=', 'assignments.id')
@@ -85,6 +65,7 @@ Grade.classGrades = function(class_id, callback) {
     SELECT \
       CONCAT(users.first_name, \' \', users.last_name) AS student_name, \
       grades.score AS grade, \
+      grades.id AS grade_id, \
       assignments.title AS assignment_title, \
       assignments.id AS assignment_id, \
       assignments.due_date AS assignment_date \
