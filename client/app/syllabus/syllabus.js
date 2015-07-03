@@ -5,7 +5,7 @@ This controller module is associated with the data to deal with the syllabus vie
 
 angular.module('classroom.syllabus', ['textAngular'])
 
-.controller('SyllabusController', function ($rootScope, $scope, $state, Lessons, $stateParams) {
+.controller('SyllabusController', function ($rootScope, $scope, $state, Lessons, $stateParams, $modal) {
 
   console.log("$stateParams", $stateParams);
   $scope.isCollapsed = false;
