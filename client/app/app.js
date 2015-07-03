@@ -8,6 +8,7 @@ angular.module('classroom', [
   'classroom.login',
   'classroom.signup',
   'classroom.grades',
+  'classroom.gradebook',
   'classroom.calendar',
   'classroom.AuthFactory',
   'classroom.LessonService',
@@ -140,6 +141,14 @@ angular.module('classroom', [
       url: '/calendar',
       templateUrl: 'app/calendar/calendar.html',
       controller: 'CalendarController',
+      data: {
+        requireLogin: true
+      }
+    })
+    .state('gradebook', {
+      url: '/gradebook',
+      templateUrl: 'app/gradebook/gradebook.html',
+      controller: 'GradebookController',
       data: {
         requireLogin: true
       }
