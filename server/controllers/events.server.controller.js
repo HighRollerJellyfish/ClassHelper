@@ -1,10 +1,10 @@
-var Class = require('../models/class.server.model');
+var Event = require('../models/event.server.model');
 var User = require('../models/user.server.model');
 var jwt = require('jwt-simple');
 var jwtSecret = require('../config/config.js').jwtSecret;
 
-// Returns an array of all of a users classes
-exports.getClasses = function(req, res, next) {
+// Returns all lessons belonging to a class (the id of which is provided in params)
+exports.getEvents = function(req, res, next) {
   var user_id = req.param('user_id');
   var token = req.headers.authorization;
   if (token) {
@@ -14,11 +14,13 @@ exports.getClasses = function(req, res, next) {
       .fetch()
       .then(function(user) {
         if (user.get('role') == 'student') {
-          new User.findStudentClasses(user_id, function(data) {
+          new Event.studentEvents(user_id, function(data) {
+            console.log(data);
             return res.json(data);
           });
         } else if (user.get('role') == 'teacher') {
-          new User.findTeacherClasses(user_id, function(data) {
+          new Event.teacherEvents(user_id, function(data) {
+            console.log(data);
             return res.json(data);
           });
         }
@@ -29,7 +31,6 @@ exports.getClasses = function(req, res, next) {
   } else {
     return res.send("Invalid credentials");
   }
-
 };
 
 

@@ -1,10 +1,10 @@
-var Class = require('../models/class.server.model');
+var Assignment = require('../models/assignment.server.model');
 var User = require('../models/user.server.model');
 var jwt = require('jwt-simple');
 var jwtSecret = require('../config/config.js').jwtSecret;
 
-// Returns an array of all of a users classes
-exports.getClasses = function(req, res, next) {
+// Returns all lessons belonging to a class (the id of which is provided in params)
+exports.getAssignments = function(req, res, next) {
   var user_id = req.param('user_id');
   var token = req.headers.authorization;
   if (token) {
@@ -14,22 +14,22 @@ exports.getClasses = function(req, res, next) {
       .fetch()
       .then(function(user) {
         if (user.get('role') == 'student') {
-          new User.findStudentClasses(user_id, function(data) {
+          new Assignment.studentAssignments(user_id, function(data) {
             return res.json(data);
           });
         } else if (user.get('role') == 'teacher') {
-          new User.findTeacherClasses(user_id, function(data) {
+          new Assignment.teacherAssignments(user_id, function(data) {
             return res.json(data);
           });
         }
       });
     } else {
-      return res.send("Invalid credentials");
+      
     }
   } else {
-    return res.send("Invalid credentials");
+    
+  return res.send("Invalid credentials");
   }
-
 };
 
 

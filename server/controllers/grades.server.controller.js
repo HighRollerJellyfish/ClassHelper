@@ -15,7 +15,9 @@ exports.studentGrades = function(req, res, next) {
         Grade.studentGrades(student_id, function(data) {
           return res.json(data);
         });
-      } 
+      } else {
+        return res.send("Invalid credentials");
+      }
     } else {
       return res.send("Invalid credentials");
     }
@@ -34,9 +36,10 @@ exports.classGrades = function(req, res, next) {
         Grade.classGrades(class_id, function(data) {
           res.json(data);
         });
+      } else {
+        return res.send("Invalid credentials");
       }
     });
-
   } else {
     return res.send("Invalid credentials");
   }
@@ -49,5 +52,16 @@ exports.create = function(req, res, next) {
     console.log(model);
     res.send(model);
   });
+};
+
+
+exports.addGrade = function(req, res, next) {
+
+  Grade.add(req.body, function(model) {
+    console.log(model);
+    res.send(model);
+  });
+
+  
 };
 

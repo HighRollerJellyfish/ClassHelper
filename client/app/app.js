@@ -12,6 +12,8 @@ angular.module('classroom', [
   'classroom.LessonService',
   'classroom.GradeService',
   'classroom.ClassService',
+  'classroom.AssignmentService',
+  'classroom.EventService',
   'classroom.AttendanceService',
   'classroom.syllabus',
   'ui.router',
