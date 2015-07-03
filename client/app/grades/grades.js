@@ -6,7 +6,6 @@ This controller module is associated with the grades view and deals with grades 
 angular.module('classroom.grades', [])
 .controller('GradesController', ['$rootScope', '$scope', 'Grades', 'Classes', function ($rootScope, $scope, Grades, Classes) {
 
-
   /**
   This method tests if the user has the role 'teacher'.
   @method isTeacher
@@ -27,7 +26,6 @@ angular.module('classroom.grades', [])
   // Clear the grades div
   var gradesDiv = document.getElementsByClassName('grades')[0];
   $scope.clear = function (){
-    console.log(gradesDiv)
     while (gradesDiv.hasChildNodes()) {
       gradesDiv.removeChild(gradesDiv.lastChild);
     };
@@ -82,12 +80,13 @@ angular.module('classroom.grades', [])
     Classes.getUserClasses($rootScope.currentUser.id).then(function(data) {
       console.log("User classes:");
       $scope.classList = data.data;
-      console.log('scope.classList', $scope.classList[0], $scope.classList[0].class_id);
     }).then(function(){
-      $scope.makeChart($scope.classList[1].class_id);
+      // Auto-draw the first class on list
+      $scope.makeChart($scope.classList[0].class_id);
     });
       
     $scope.makeChart = function(classID){
+      console.log(classID)
       Grades.getClassGrades(classID).then(function(data) {
         var gradesData = data.data;
         gradesData = averageData(gradesData);

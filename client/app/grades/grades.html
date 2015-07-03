@@ -2,10 +2,10 @@
 
 <div class="grades"></div>
 
-<select class="form-control input-lg" ng-model="selection" ng-change="clear(document.getElementsByClassName('grades')); makeChart(selection.class_id)"
-ng-options="class.class_id for class in classList">
-  <!-- <option ng-repeat="class in classList" name="{{class.class_id}}">{{class.class_title}}</option> -->
+<select class="form-control input-lg" ng-model="selection" ng-change="clear(); makeChart(selection.class_id)"
+ng-options="class.class_title for class in classList track by class.class_id"> <!-- selected="classList[1]" -->
 </select>
+<!-- <div data-bind="with: {{classList}}"> -->
 <!-- This div will only show if the user is a teacher -->
 <!-- <div ng-show="isTeacher()">
   Add Grades:
