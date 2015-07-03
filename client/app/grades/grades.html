@@ -1,6 +1,10 @@
-<h3>Grades</h3>
-
-<div class = "grades"></div>
+<h3 id="gradeTitle">Grades</h3>
+<div class="classChoice">
+  <select class="form-control input-lg" ng-model="selection" ng-change="clear(); makeChart(selection.class_id)"
+  ng-options="class.class_title for class in classList track by class.class_id">
+  </select>
+</div>
+<div class="grades"></div>
 
 <!-- This div will only show if the user is a teacher -->
 <!-- <div ng-show="isTeacher()">
