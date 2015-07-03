@@ -6,6 +6,9 @@ This controller module is associated with the grades view and deals with grades 
 angular.module('classroom.grades', [])
 .controller('GradesController', ['$rootScope', '$scope', 'Grades', 'Classes', function ($rootScope, $scope, Grades, Classes) {
 
+
+  
+
   // Check if user is a teacher
   $scope.isTeacher = function () {
     return $rootScope.currentUser.role === 'teacher';

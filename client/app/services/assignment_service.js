@@ -13,4 +13,14 @@ angular.module('classroom.AssignmentService', [])
     });
   };
 
+  this.getClassAssignments = function (class_id) {
+    return $http({
+      url: '/assignments/class/?class_id=' + class_id,
+      method: 'GET',
+      headers: {
+        'Authorization': window.localStorage.jwtToken
+      }
+    });
+  }
+
 });

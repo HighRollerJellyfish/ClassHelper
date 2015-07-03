@@ -37,5 +37,18 @@ exports.addAssignment = function(req, res, next) {
   });
 };
 
-
+exports.getClassAssignments = function(req, res, next) {
+  console.log("Get class assignments")
+  var class_id = req.param('class_id');
+  var token = req.headers.authorization;
+  if (token) {
+    
+    new Assignment.classAssignments(class_id, function(data) {
+      return res.json(data);
+    });
+       
+  } else {
+    return res.send("Invalid credentials");
+  }
+};
 

@@ -1,19 +1,34 @@
 angular.module('classroom.gradebook', [])
-.controller('GradebookController', function ($rootScope, $scope, $state, Classes, Grades) {
+.controller('GradebookController', function ($rootScope, $scope, $state, Classes, Grades, Assignments) {
   $rootScope.$watch('currentUser', function(){    
-    // console.log($rootScope.currentUser);
-    // console.log($rootScope.currentUser.id);
+    $scope.assignments = [];
+
 
     Classes.getUserClasses($rootScope.currentUser.id)
     .then(function(data) {
-      $rootScope.classes = data.data;
+      $scope.classes = data.data;
     });
 
   });
 
-  $scope.getClassGrades = function(class_id) {
-    alert(class_id);
-  };
+  Assignments.getClassAssignments(1)
+  .then(function(data) {
+    console.log("AAAAAAAAAAA");
+    console.log(data.data);
+  });
+
+ 
+
+  Grades.getClassGrades(1)
+  .then(function(data) {
+    $scope.classGradesData = data.data
+
+    for(var i = 0; i < $scope.classGradesData.length; i++) {
+      console.log("CCC")
+      $scope.assignments[$scope.classGradesData[i].assignment_title] = $scope.classGradesData[i].assignment_id;
+    }
+    console.log($scope.assignments);
+  })
 
 
 });
