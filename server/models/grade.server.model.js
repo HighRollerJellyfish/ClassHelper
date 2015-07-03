@@ -5,38 +5,30 @@ var Grade = bookshelf.Model.extend({
   tableName: 'grades'
 });
 
-Grade.add = function(gradeData, callback) {
-  console.log('Grade Data: ', gradeData);
-  // new Grade({student_id: gradeData.student_id, assignment_id: gradeData.assignment_id})
-  // .fetch()
-  // .then(function(grade) {
-  //   console.log(grade);
-  //   if (!grade) {
-  //     // new Grade(gradeData).save()
-  //     // .then(function(model) {
-  //     //   callback(model);
-  //     // });
-  //     console.log("DOESNT EXIST")
-  //   } else {
-  //     console.log("EXIST")
-  //     // grade.set('score', gradeData.score);
-  //   }
-  // });
-  // bookshelf.knex.raw(' \
-  //   SELECT * FROM grades \
-  //   WHERE student_id = ' + gradeData.student_id + ' \
-  //   AND assignment_id = 1 \
-  //   ')
-  // .then(function(data) {
-  //   console.log(data[0]);
-  // });
-
-
-  // new Grade().query({where: {student_id: gradeData.student_id, assignment_id: gradeData.assignment_id}})
-  // .fetch()
-  // .then(function(grade){
-  //   if (!grade)
-  // });
+//
+Grade.addOrEdit = function(gradeData, callback) {
+  new Grade().query({where: {student_id: gradeData.student_id, assignment_id: gradeData.assignment_id}})
+  .fetch()
+  .then(function(grade){
+    if (!grade) {
+      console.log("GRADE DOESNT EXIST")
+      newGrade = new Grade(gradeData)
+      .save()
+      .then(function(model) {
+        callback(model);
+      })
+      .catch(function(err) {
+        callback(err);
+      });
+    } else {
+      grade.set('score', gradeData.score);
+      grade.save()
+      .then(function(model) {
+         callback(model);
+      });
+     
+    }
+  });
 };
 
 

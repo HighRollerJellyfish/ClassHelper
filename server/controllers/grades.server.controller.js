@@ -46,22 +46,11 @@ exports.classGrades = function(req, res, next) {
 
 };
 
-// Greates a new grade
-exports.create = function(req, res, next) {
-  Grade.add(req.body, function(model) {
-    console.log(model);
+
+// Adds a grade or edits an existing grade
+exports.addOrEditGrade = function(req, res, next) {
+  Grade.addOrEdit(req.body, function(model) {
     res.send(model);
   });
-};
-
-
-exports.addGrade = function(req, res, next) {
-
-  Grade.add(req.body, function(model) {
-    console.log(model);
-    res.send(model);
-  });
-
-  
 };
 

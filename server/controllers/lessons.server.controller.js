@@ -16,5 +16,12 @@ exports.classLessons = function(req, res, next) {
   } 
 };
 
+// Adds a lesson to a given class
+// TODO: validate that user has access to class
+exports.addLesson = function(req, res, next) {
+  Lesson.add(req.body, function(model) {
+    res.send(model);
+  });
+};
 
 
