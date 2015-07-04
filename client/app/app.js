@@ -216,7 +216,7 @@ angular.module('classroom', [
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items, lessons, Assignments) {
+.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items, lessons, Assignments, Lessons) {
 
   $scope.items = items;
   $scope.selected = null;
@@ -228,7 +228,8 @@ angular.module('classroom', [
     //$modalInstance.close($scope.selected.item);
     var assignment = $scope.assignment;
     console.dir(assignment);
-    assignment.class_id = 1;
+    assignment.class_id = Lessons.getCurrentClassID();
+    console.log("Assignment class ID:", assignment.class_id);
     assignment.due_date = moment($scope.form.due_date_input).format("YYYY-MM-DD HH:mm:ss");
     console.log(assignment.due_date);
     Assignments.saveAssignment(assignment)

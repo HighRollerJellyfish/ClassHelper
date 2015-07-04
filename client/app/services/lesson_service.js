@@ -13,6 +13,17 @@ angular.module('classroom.LessonService', [])
   @return {Function} Returns a $http() Get promise.
   */
 
+  this.currentClassID = null;
+
+  this.setCurrentClassID = function(class_id) {
+    console.log("setCurrentClassID Called", class_id);
+    this.currentClassID = class_id;
+  };
+
+  this.getCurrentClassID = function() {
+    console.log("getCurrentClassID Called", this.currentClassID);
+    return this.currentClassID;
+  };
 
   this.getClassLessons = function(class_id) {
     return $http({
@@ -25,13 +36,6 @@ angular.module('classroom.LessonService', [])
   };
 
   this.saveClassLesson = function(lesson) {
-    // return $http({
-    //   url: '/lessons',
-    //   method: 'POST',
-    //   headers: {
-    //     'Authorization': window.localStorage.jwtToken
-    //   }
-    // });
     return $http.post('/lessons', lesson);
   };
 

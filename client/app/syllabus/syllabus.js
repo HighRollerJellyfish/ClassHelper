@@ -5,7 +5,7 @@ This controller module is associated with the data to deal with the syllabus vie
 
 angular.module('classroom.syllabus', ['textAngular'])
 
-.controller('SyllabusController', function ($rootScope, $scope, $state, Lessons, $stateParams, $modal, Assignments) {
+.controller('SyllabusController', function ($rootScope, $scope, $state, Lessons, $stateParams, $modal, Assignments, Lessons) {
 
   console.log("$stateParams", $stateParams);
   $scope.isCollapsed = false;
@@ -16,6 +16,14 @@ angular.module('classroom.syllabus', ['textAngular'])
   Assignments.getClassAssignments(class_id).then(function(data){
     $scope.assignments = data.data;
   });
+
+  setInterval(function() {
+    Assignments.getClassAssignments(class_id).then(function(data){
+      $scope.assignments = data.data;
+    });
+  }, 1000);
+
+  Lessons.setCurrentClassID(class_id);
 
   //Filter function to convert a string into a date
   $scope.sortByAssignment = function(assignment) {
@@ -51,7 +59,7 @@ angular.module('classroom.syllabus', ['textAngular'])
     return content;
   };
 
-  Lessons.getClassLessons(class_id)
+  Lessons.getClassLessons($stateParams.class_id)
     .success(function(data) {
       console.log("Lessons.getClassLessons(1):", data);
       $scope.lessons = data;
@@ -59,6 +67,18 @@ angular.module('classroom.syllabus', ['textAngular'])
     .error(function(data) {
       $scope.lessons = "ERROR:" + data;
     });
+
+  setInterval(function() {
+    Lessons.getClassLessons($stateParams.class_id)
+      .success(function(data) {
+        console.log("Lessons.getClassLessons(1):", data);
+        $scope.lessons = data;
+      })
+      .error(function(data) {
+        $scope.lessons = "ERROR:" + data;
+      });
+  },1000);
+
 
   // Lessons.getAll().then(function(data) {
   //   $scope.lessons = angular.fromJson(data.data);
