@@ -233,7 +233,7 @@ COMMIT;
 START TRANSACTION;
 USE `classroom`;
 
-INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('95', '1', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('75', '1', '1');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('55', '1', '2');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('85', '1', '4');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('99', '1', '5');
@@ -242,7 +242,7 @@ INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('89', '1',
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('99', '1', '8');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('94', '1', '9');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('89', '1', '10');
-INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('75', '2', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('73', '2', '1');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('83', '2', '2');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('91', '2', '4');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('98', '2', '5');
@@ -251,7 +251,7 @@ INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('87', '2',
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('67', '2', '8');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('98', '2', '9');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('34', '2', '10');
-INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('99', '3', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('80', '3', '1');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('42', '3', '2');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('29', '3', '4');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('77', '3', '5');
@@ -270,7 +270,7 @@ INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('96', '4',
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('48', '4', '8');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('90', '4', '9');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('98', '4', '10');
-INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('77', '5', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('87', '5', '1');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('40', '5', '2');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('58', '5', '4');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('77', '5', '5');
@@ -279,7 +279,7 @@ INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('99', '5',
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('43', '5', '8');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('93', '5', '9');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('98', '5', '10');
-INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('99', '6', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('94', '6', '1');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('42', '6', '2');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('39', '6', '4');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('79', '6', '5');
@@ -289,7 +289,7 @@ INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('45', '6',
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('99', '6', '9');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('92', '6', '10');
 
-INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('71', '7', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('75', '7', '1');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('95', '7', '2');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('79', '7', '4');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('89', '7', '5');
@@ -298,7 +298,7 @@ INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('85', '7',
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('85', '7', '8');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('89', '7', '9');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('82', '7', '10');
-INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('67', '8', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('80', '8', '1');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('90', '8', '2');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('58', '8', '4');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('79', '8', '5');
@@ -335,7 +335,7 @@ INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('95', '11'
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('45', '11', '8');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('99', '11', '9');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('92', '11', '10');
-INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('90', '12', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('88', '12', '1');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('45', '12', '2');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('90', '12', '4');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('79', '12', '5');
@@ -345,7 +345,7 @@ INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('45', '12'
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('99', '12', '9');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('92', '12', '10');
 
-INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('89', '13', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('98', '13', '1');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('83', '13', '2');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('83', '13', '4');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('75', '13', '5');
@@ -354,7 +354,7 @@ INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('45', '13'
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('97', '13', '8');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('59', '13', '9');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('78', '13', '10');
-INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('73', '14', '1');
+INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('84', '14', '1');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('76', '14', '2');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('76', '14', '4');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('97', '14', '5');
