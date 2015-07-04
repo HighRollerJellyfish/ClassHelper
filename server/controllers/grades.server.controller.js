@@ -9,7 +9,6 @@ exports.studentGrades = function(req, res, next) {
     var student_id = req.param('student_id');
     var token = req.headers.authorization;
     if (token) {
-
       var decoded = jwt.decode(token, jwtSecret);
       if (student_id == decoded.id) {
         Grade.studentGrades(student_id, function(data) {

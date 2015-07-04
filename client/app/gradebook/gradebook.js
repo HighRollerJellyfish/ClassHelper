@@ -28,7 +28,9 @@ angular.module('classroom.gradebook', [])
         $scope.assignments[$scope.classGradesData[i].assignment_id].grades.push({
           student_name: $scope.classGradesData[i].student_name,
           grade: $scope.classGradesData[i].grade,
-          grade_id: $scope.classGradesData[i].grade_id
+          grade_id: $scope.classGradesData[i].grade_id,
+          student_id: $scope.classGradesData[i].student_id,
+          assignment_id: $scope.classGradesData[i].assignment_id
         })
       }
     })
@@ -38,6 +40,16 @@ angular.module('classroom.gradebook', [])
     $scope.activeAssignment = $scope.assignments[assignment_id].title;
     $scope.activeAssignmentGrades = [];
     $scope.activeAssignmentGrades = $scope.assignments[assignment_id].grades;
+  }
+
+  $scope.updateGrade = function(student_id, assignment_id, score) {
+    gradeData = {
+      student_id: student_id,
+      assignment_id: assignment_id,
+      score: score
+    }
+
+    Grades.add(gradeData);
   }
 
 

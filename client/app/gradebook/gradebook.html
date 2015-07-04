@@ -15,10 +15,10 @@
     <td>Student</td>
     <td>Grade</td>
   </tr>
-  <div id="active-assignment-grades" ng-show="!!activeAssignment">
+  <div id="active-assignment-grades">
     <tr ng-repeat="grade in activeAssignmentGrades">
       <td>{{grade.student_name}}</td>
-      <td><input type="text" value="{{grade.grade}}"/></td>
+      <td><input ng-model="grade.grade" ng-keyup="updateGrade(grade.student_id, grade.assignment_id, grade.grade)" type="text" value="{{grade.grade}}"/></td>
     </tr>
   </div>
 </table>

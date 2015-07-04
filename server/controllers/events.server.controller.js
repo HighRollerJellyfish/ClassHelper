@@ -15,12 +15,10 @@ exports.getEvents = function(req, res, next) {
       .then(function(user) {
         if (user.get('role') == 'student') {
           new Event.studentEvents(user_id, function(data) {
-            console.log(data);
             return res.json(data);
           });
         } else if (user.get('role') == 'teacher') {
           new Event.teacherEvents(user_id, function(data) {
-            console.log(data);
             return res.json(data);
           });
         }
