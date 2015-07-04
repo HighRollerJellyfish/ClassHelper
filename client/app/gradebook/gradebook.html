@@ -5,18 +5,21 @@
 
 <h1>Assignments</h1>
 <ul>
-  <li ng-repeat="(assignment_title, assignment_id) in assignments" ng-click="setA">{{assignment_title}}</li>
+  <li ng-repeat="(assignment_id, assignment_data) in assignments" ng-click="setActiveAssignment(assignment_id)">{{assignment_data.title}}</li>
 </ul>
 
-<h1>Class Grades</h1>
 
-<p>{{assignments}}</p>
 <table>
-  <th>Grades for assigment</th>
+  <th>Grades for {{activeAssignment}}</th>
   <tr>
     <td>Student</td>
     <td>Grade</td>
   </tr>
-
+  <div id="active-assignment-grades" ng-show="!!activeAssignment">
+    <tr ng-repeat="grade in activeAssignmentGrades">
+      <td>{{grade.student_name}}</td>
+      <td><input type="text" value="{{grade.grade}}"/></td>
+    </tr>
+  </div>
 </table>
 	
