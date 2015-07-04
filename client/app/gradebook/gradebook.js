@@ -11,11 +11,11 @@ angular.module('classroom.gradebook', [])
 
   });
 
-
+  $scope.activeClass = false;
   $scope.setActiveClass = function(class_id) {
-    console.log("Active class: ", class_id);
     $scope.assignments = {};
-    $scope.activeAssignemnt = false;
+    $scope.activeClass = true;
+    $scope.activeAssignment = false;
     $scope.activeAssignmentGrades = [];
 
     Grades.getClassGrades(class_id)
