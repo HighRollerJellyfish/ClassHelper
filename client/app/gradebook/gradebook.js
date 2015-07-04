@@ -52,5 +52,4 @@ angular.module('classroom.gradebook', [])
     Grades.add(gradeData);
   }
 
-
 });
