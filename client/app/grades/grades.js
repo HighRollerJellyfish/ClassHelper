@@ -55,6 +55,10 @@ angular.module('classroom.grades', [])
     targetID = parseInt(targetID, 10)
     for (var i=0; i<dataObj.length; i++){
       var obj = dataObj[i];
+      obj['Student Name'] = obj.student_name;
+      delete obj.student_name;
+      obj.Grade = obj.grade;
+      delete obj.grade;
       if (obj.assignment_id !== targetID){
         dataObj = dataObj.slice(0, i).concat( dataObj.slice(i+1, dataObj.length));
         i--;
@@ -82,12 +86,12 @@ angular.module('classroom.grades', [])
   };
 
   // Create color pallette for student legend
-  var createPallete = function (dataObj){
-    var possibilities = ["#4541A4", "#DCE845", "#AA52C7", "#D46C1D", "#2B918A", "#D4A81D", "#76C11A", "#CA3C75"];
+  var createPallete = function (dataObj, key){
+    var possibilities = ["#4541A4", "#DCE845", "#AA52C7", "#D46C1D", "#2B918A", "#D4A81D", "#76C11A", "#CA3C75", "#763C75", "#CAC11A"];
     var result = {};
     dataObj.forEach(function(obj){
-      if ( !result[obj.Class] ){
-        result[obj.Class] = [obj.Class, possibilities.shift()];
+      if ( !result[obj[key]] ){
+        result[obj[key]] = [obj[key], possibilities.shift()];
       }
     });
     return result;
@@ -128,7 +132,7 @@ angular.module('classroom.grades', [])
         chart = null;
         var svg = dimple.newSvg(".grades", "100%", "100%");
         var classChart = new dimple.chart(svg, gradesData);
-        classChart.setBounds( "5%", "7%", "93%", "85%");
+        classChart.setBounds( "5%", "7%", "93%", "70%");
 
         // Define x-axis
         var x = classChart.addCategoryAxis("x", "Assignment Title");
@@ -160,21 +164,27 @@ angular.module('classroom.grades', [])
         var gradesData = filterAssignment(newData, AssignmentID);
         return gradesData;
       }).then(function(gradesData){ // Draw chart
+        console.log('lessonChart gradesData', gradesData)
         // Create new svg and chart
         var svg = dimple.newSvg(".grades", "100%", "100%");
         var lessonChart = new dimple.chart(svg, gradesData);
-        lessonChart.setBounds( "5%", "7%", "93%", "85%");
+        lessonChart.setBounds( "5%", "7%", "93%", "72%");
 
         // Define x-axis
-        var x = lessonChart.addCategoryAxis("x", "student_name");
+        var x = lessonChart.addCategoryAxis("x", "Student Name");
         x.fontSize = "auto";
 
         // Define y-axis
-        var y = lessonChart.addMeasureAxis("y", "grade");
+        var y = lessonChart.addMeasureAxis("y", "Grade");
         y.fontSize = "auto";
         y.overrideMax = 100;
 
-        lessonChart.addSeries(null, dimple.plot.bubble);
+        var pallette = createPallete(gradesData, "Student Name");
+        Object.keys(pallette).forEach( function(key){
+          lessonChart.assignColor(pallette[key][0], pallette[key][1]);
+        });
+
+        z = lessonChart.addSeries(["Student Name", "Grade"], dimple.plot.bubble);
         chart = lessonChart;
       }).then( function(){
         // Create the chart
@@ -195,10 +205,10 @@ angular.module('classroom.grades', [])
   } else { // STUDENT: Show grades over time
 
     Grades.getStudentGrades($rootScope.currentUser.id).then(function(data) {
+      console.log($rootScope.currentUser.id)
       var gradesData = angular.fromJson(data.data);
-
       gradesData.forEach(function(obj){
-        obj["Assignment Date"] = moment(obj.createdAt).format('L');
+        obj["Assignment Date"] = moment(obj.assignment_date).format('L');
         delete obj.assignment_date;
         obj.Grade = obj.grade;
         delete obj.grade;
@@ -227,7 +237,7 @@ angular.module('classroom.grades', [])
       var z = progressChart.addSeries(["Assignment Date", "Grade", "Class"], dimple.plot.bubble);
 
       // For each class type, assign a color
-      var pallette = createPallete(gradesData);
+      var pallette = createPallete(gradesData, "Class");
       Object.keys(pallette).forEach( function(key){
         progressChart.assignColor(pallette[key][0], pallette[key][1]);
       });
@@ -257,6 +267,7 @@ angular.module('classroom.grades', [])
   
   }
 
+}]);
   /**************************************************************************/
 
   /******* SHOW ALL STUDENTS AVG GRADES (LINE CHART) ***********************/
@@ -308,4 +319,3 @@ angular.module('classroom.grades', [])
   //     myChart.draw();
   //   });
   // });
-}]);
