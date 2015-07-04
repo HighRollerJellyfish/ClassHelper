@@ -74,9 +74,13 @@
                   title: $("#assignmentName3").val(),
                   class_title: $("#className3").val(),
                   start: start.format(),
-                  end: end.format()
+                  end: end.format(),
+                  description: $("#description3").val()
                 }
-                $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
+                $("#calendar").fullCalendar('renderEvent', newEvent, 'stick');
+                $("#assignmentName3").val('');
+                $("#className3").val('');
+                $("#description3").val('');
                 $(this).dialog('close');
               }
             }
@@ -106,12 +110,25 @@
             });
             $("#editContent").dialog({
               bgiframe: true,
+              title: 'Editing Event',
               modal: true,
               width: 300,
               height: 300,
               autoOpen: false,
               buttons: {
                 Apply: function(){
+                  var newEvent = {
+                    title: $("#assignmentName2").val(),
+                    class_title: $("#className2").val(),
+                    description: $("#description2").val(),
+                    start: event.start.format()
+                  }
+                  if (event.end) { newEvent.end = event.end.format(); }
+                  if (newEvent.title === '') { newEvent.title = event.title };
+                  if (newEvent.class_title === '') { newEvent.class_title = event.class_title; }
+                  if (newEvent.description === '') { newEvent.description = event.description; }
+                  $('#calendar').fullCalendar('removeEvents', event._id);
+                  $('#calendar').fullCalendar('renderEvent', newEvent, 'stick');
                   $(this).dialog('close');
                 }
               }
@@ -179,8 +196,12 @@
     border-top-right-radius: 10px !important;
   }
 
-  #addContent {
-    float: left;
+  #className3, #assignmentName3, #description3, #className2, #assignmentName2, #description2 {
+    padding-right: 100px;
+  }
+
+  .ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix {
+    padding-right: 100px;
   }
 
 </style>
@@ -196,10 +217,12 @@
     <div id="editContent" style="display:none;">
       <input id="className2" placeholder="Class"></input>
       <input id="assignmentName2" placeholder="Assignment"></input>
+      <input id="description2" placeholder="Description"></input>
     </div>
     <div id="addContent" style="display:none;">
       <input id="className3" placeholder="Class Name"></input><br><br>
       <input id="assignmentName3" placeholder="Assignment Name"></input>
+      <input id="description3" placeholder="Description"></input>
     </div>
 
 </body>

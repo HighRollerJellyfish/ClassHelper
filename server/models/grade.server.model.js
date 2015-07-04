@@ -64,6 +64,7 @@ Grade.classGrades = function(class_id, callback) {
   bookshelf.knex.raw(' \
     SELECT \
       CONCAT(users.first_name, \' \', users.last_name) AS student_name, \
+      users.id AS student_id, \
       grades.score AS grade, \
       grades.id AS grade_id, \
       assignments.title AS assignment_title, \

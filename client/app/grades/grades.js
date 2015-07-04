@@ -205,10 +205,10 @@ angular.module('classroom.grades', [])
   } else { // STUDENT: Show grades over time
 
     Grades.getStudentGrades($rootScope.currentUser.id).then(function(data) {
+      console.log($rootScope.currentUser.id)
       var gradesData = angular.fromJson(data.data);
-
       gradesData.forEach(function(obj){
-        obj["Assignment Date"] = moment(obj.createdAt).format('L');
+        obj["Assignment Date"] = moment(obj.assignment_date).format('L');
         delete obj.assignment_date;
         obj.Grade = obj.grade;
         delete obj.grade;
