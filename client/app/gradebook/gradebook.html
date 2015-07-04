@@ -1,25 +1,24 @@
-<h1>Classes</h1>
-<ul>
-  <li ng-repeat="class in classes" ng-click="setActiveClass(class.class_id)">{{class.class_title}}</li>
-</ul>
+<h3 class="gradebook-title">Classes</h3>
+<div class="gradebook-class-name" ng-repeat="class in classes" ng-click="setActiveClass(class.class_id)">{{class.class_title}}</div>
 
-<h1>Assignments</h1>
-<ul>
-  <li ng-repeat="(assignment_id, assignment_data) in assignments" ng-click="setActiveAssignment(assignment_id)">{{assignment_data.title}}</li>
-</ul>
+<div id="class-assignments-container" ng-show="!!activeClass">
+<h3 class="gradebook-title">Assignments</h3>
+  <div class="gradebook-assignment-name" ng-repeat="(assignment_id, assignment_data) in assignments" ng-click="setActiveAssignment(assignment_id)">{{assignment_data.title}}</div>
+</div>
 
-
-<table>
-  <th>Grades for {{activeAssignment}}</th>
-  <tr>
-    <td>Student</td>
-    <td>Grade</td>
-  </tr>
-  <div id="active-assignment-grades">
-    <tr ng-repeat="grade in activeAssignmentGrades">
-      <td>{{grade.student_name}}</td>
-      <td><input ng-model="grade.grade" ng-keyup="updateGrade(grade.student_id, grade.assignment_id, grade.grade)" type="text" value="{{grade.grade}}"/></td>
+<div id="active-assignment-grades" ng-show="!!activeAssignment">
+  <h2>Grades for {{activeAssignment}}</h2>
+  <table class="gradebook"> 
+    <tr>
+      <td class="table-header gradebook">Student</td>
+      <td class="table-header gradebook">Grade</td>
     </tr>
-  </div>
-</table>
+    <div id="active-assignment-grades">
+      <tr ng-repeat="grade in activeAssignmentGrades">
+        <td class="name-column gradebook">{{grade.student_name}}</td>
+        <td class="grade-column gradebook"><input class="grade-input" ng-model="grade.grade" ng-keyup="updateGrade(grade.student_id, grade.assignment_id, grade.grade)" type="text" value="{{grade.grade}}"/></td>
+      </tr>
+    </div>
+  </table>
+</div>
 	
