@@ -46,8 +46,5 @@ angular.module('classroom.gradebook', [])
       }
     })
   }
-
-  $scope.setActiveAssignment = function(assignment_id)
-
-
+  
 });
