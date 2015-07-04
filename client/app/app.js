@@ -222,14 +222,19 @@ angular.module('classroom', [
   $scope.selected = null;
   $scope.lessons = lessons.data;
   $scope.assignment = {};
+  $scope.form = {};
 
   $scope.ok = function () {
     //$modalInstance.close($scope.selected.item);
-    console.dir($scope.assignment);
-    $scope.assignment.class_id = 1;
-    Assignments.saveAssignment($scope.assignment)
+    var assignment = $scope.assignment;
+    console.dir(assignment);
+    assignment.class_id = 1;
+    assignment.due_date = moment($scope.form.due_date_input).format("YYYY-MM-DD HH:mm:ss");
+    console.log(assignment.due_date);
+    Assignments.saveAssignment(assignment)
       .success(function(data) {
         console.log("Success saving assignment:", data);
+        $modalInstance.close(data);
       })
       .error(function(data) {
         console.error("ERROR SAVING ASIGNMENT!");

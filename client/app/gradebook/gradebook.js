@@ -1,7 +1,7 @@
 angular.module('classroom.gradebook', [])
 .controller('GradebookController', function ($rootScope, $scope, $state, Classes, Grades, Assignments) {
-  $rootScope.$watch('currentUser', function(){    
-    
+  $rootScope.$watch('currentUser', function(){
+
 
 
     Classes.getUserClasses($rootScope.currentUser.id)
@@ -11,7 +11,7 @@ angular.module('classroom.gradebook', [])
 
   });
 
- 
+
 
   // Grades.getClassGrades(1)
   // .then(function(data) {
@@ -47,7 +47,9 @@ angular.module('classroom.gradebook', [])
     })
   }
 
-  $scope.setActiveAssignment = function(assignment_id)
+  $scope.setActiveAssignment = function(assignment_id) {
+    
+  }
 
 
 });

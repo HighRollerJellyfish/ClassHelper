@@ -24,7 +24,7 @@ exports.getAssignments = function(req, res, next) {
         }
       });
     } else {
-      
+
     }
   } else {
     return res.send("Invalid credentials");
@@ -32,6 +32,8 @@ exports.getAssignments = function(req, res, next) {
 };
 
 exports.addAssignment = function(req, res, next) {
+  console.log("addAssignment called");
+  console.log("req.body:", req.body);
   Assignment.add(req.body, function(model) {
     res.send(model);
   });
@@ -42,13 +44,12 @@ exports.getClassAssignments = function(req, res, next) {
   var class_id = req.param('class_id');
   var token = req.headers.authorization;
   if (token) {
-    
+
     new Assignment.classAssignments(class_id, function(data) {
       return res.json(data);
     });
-       
+
   } else {
     return res.send("Invalid credentials");
   }
 };
-

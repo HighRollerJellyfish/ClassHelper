@@ -14,7 +14,7 @@ angular.module('classroom.AssignmentService', [])
   };
 
   this.saveAssignment = function(assignment) {
-    return $http.post('/lessons', lesson);
+    return $http.post('/assignments', assignment);
   };
 
   this.getClassAssignments = function (class_id) {

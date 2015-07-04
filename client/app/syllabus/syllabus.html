@@ -64,8 +64,8 @@
                   </div>
 
                   <div class="form-group">
-                   <label for="due_date"><b>Due Date</b></label>
-                   <input type="date" class="form-control" id="due_date" ng-model="assignment.due_date">
+                   <label for="due_date_input"><b>Due Date</b></label>
+                   <input type="date" class="form-control" id="due_date_input" ng-model="form.due_date_input">
                  </div>
 
                  <div class="form-group">
@@ -103,14 +103,16 @@
             <b>Due Date</b>
           </td>
         </tr>
-        <tr style="font-size:80%;">
+        <tr style="font-size:80%;" ng-repeat="assignment in assignments | orderBy: sortByAssignment">
           <td class="" width="70%">
-            <a href="#">Homework #1</a>
+            <a href="#">{{assignment.title}}</a>
           </td>
           <td class="" width="30%">
-            <a href="#">2015-07-21</a>
+            <!-- <a href="#">{{assignment.start | date:'shortDate'}}</a> -->
+            <a href="#">{{assignment.start | date:'shortDate'}}</a>
           </td>
         </tr>
+
       </table>
 
     </div>
