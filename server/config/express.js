@@ -16,8 +16,10 @@ module.exports = function() {
   // Require our routes
   require('../routes/lessons.server.routes.js')(app);
   require('../routes/grades.server.routes.js')(app);
-  require('../routes/attendance.server.routes.js')(app);
   require('../routes/users.server.routes.js')(app);
+  require('../routes/classes.server.routes.js')(app);
+  require('../routes/assignments.server.routes.js')(app);
+  require('../routes/events.server.routes.js')(app);
 
   return app;
 };

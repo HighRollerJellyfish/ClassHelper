@@ -1,9 +1,23 @@
-<h3>Grades</h3>
+<h3 id="gradeTitle">Grades</h3>
+<p ng-show="isTeacher()" class="ng-hide dropTitle">Student grades on assignment:</p>
+<p ng-show="isTeacher()" class="ng-hide dropTitle" id="classAvg">Class Averages:</p>
+<br>
+<div ng-show="isTeacher()" class="ng-hide lessonChoice">
+  <select ng-show="isTeacher()" class="ng-hide form-control input-md" ng-model="lessonSelection" ng-change="clear(); lessonChart(selection.class_id, lessonSelection.assignment_id)"
+  ng-options="lesson.assignment_title for lesson in lessonList track by lesson.assignment_id">
+  </select>
+</div>
 
-<div class = "grades"></div>
+<div ng-show="isTeacher()" class="ng-hide classChoice">
+  <select ng-show="isTeacher()" class="ng-hide form-control input-md" ng-model="selection" ng-change="lessonSelection=null; clear(); makeChart(selection.class_id);"
+  ng-options="class.class_title for class in classList track by class.class_id">
+  </select>
+</div>
+
+<div class="grades"></div>
 
 <!-- This div will only show if the user is a teacher -->
-<div ng-show="isTeacher()">
+<!-- <div ng-show="isTeacher()">
   Add Grades:
     <form>
     <input type="text" ng-model="fields.student" placeholder="Student" />
@@ -11,4 +25,4 @@
     <input type="text" ng-model="fields.score" placeholder="Grade" />
     <button ng-click="addGrade(fields)">Add Grade</button>
   </form>
-</div>
+</div> -->

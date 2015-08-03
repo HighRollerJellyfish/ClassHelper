@@ -6,21 +6,38 @@ This service module has functions to deal with lesson data.
 
 angular.module('classroom.LessonService', [])
 
-.service('Lessons', ['$http', '$rootScope', function ($http, $rootScope) {
+.service('Lessons', function ($http, $rootScope) {
   /**
   This service function gets the lessons from the server.
   @method getAll
   @return {Function} Returns a $http() Get promise.
   */
-  this.getAll = function() {
+
+  this.currentClassID = null;
+
+  this.setCurrentClassID = function(class_id) {
+    console.log("setCurrentClassID Called", class_id);
+    this.currentClassID = class_id;
+  };
+
+  this.getCurrentClassID = function() {
+    console.log("getCurrentClassID Called", this.currentClassID);
+    return this.currentClassID;
+  };
+
+  this.getClassLessons = function(class_id) {
     return $http({
-      url: '/lessons',
+      url: '/lessons/?class_id=' + class_id,
       method: 'GET',
       headers: {
         'Authorization': window.localStorage.jwtToken
       }
     });
-  }
+  };
+
+  this.saveClassLesson = function(lesson) {
+    return $http.post('/lessons', lesson);
+  };
 
   /**
   This service function gets the lessons from the server.
@@ -28,14 +45,17 @@ angular.module('classroom.LessonService', [])
   @param {Object} lessonData Lesson data to be posted to server database.
   @return {Function} Returns a $http() Post promise.
   */
-  this.add = function (lessonData) {
-    return $http({
-      method: 'POST',
-      url: '/lessons',
-      data: lessonData,
-      headers: {
-        'Authorization': window.localStorage.jwtToken
-      }
-    });
-  }
-}]);
+  // this.add = function (lessonData) {
+  //   return $http({
+  //     method: 'POST',
+  //     url: '/lessons',
+  //     data: lessonData,
+  //     headers: {
+  //       'Authorization': window.localStorage.jwtToken
+  //     }
+  //   });
+  // };
+
+
+
+});

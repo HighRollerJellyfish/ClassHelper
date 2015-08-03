@@ -6,26 +6,109 @@
   font-size: 100%;
 }
 
+.grades {
+  height: 75vh;
+}
+
+.login-background {
+  background-image: url('http://orig15.deviantart.net/b927/f/2014/279/1/8/school_classroom__late_afternoon__by_enigma_xiii-d801u9q.png');
+  background-size: cover;
+}
+
+.login-form {
+  opacity: .8;
+}
+
+.classChoice {
+  display: inline-block;
+  width: 30vw;
+  float: right;
+}
+
+.lessonChoice {
+  display: inline-block;
+  width: 30vw;
+  float: right;
+}
+
+.dropTitle {
+  display: inline-block;
+  float: right;
+  font-size: 1.4em;
+  margin-right: 8vw;
+}
+
+#classAvg {
+  margin-right: 20vw;
+}
+
+#gradeTitle {
+  display: inline-block;
+}
+
+.gradebook-class-name {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  cursor: pointer;
+  background-color: #FF6C60;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.gradebook-assignment-name {
+  display: inline;
+  float: left;
+  margin-right: 10px;
+  cursor: pointer;
+  background-color: #71CBBA;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
 
 
+.gradebook-title {
+  clear: both;
+  display: block;
+  margin: 0px;
+  margin-bottom: 10px;
+}
 
+#active-assignment-grades {
+  clear: both;
+  display: block;
+}
 
+#class-assignments-container {
+  min-height: 120px;
+}
 
+.grade-input {
+  background-color: #F1F2F7;
+  border: none;
+}
 
+.name-column {
+  width: 300px;
+  padding-left: 5px;
+}
 
+.grade-column {
+  width: 30px;
+  padding-left: 5px;
+}
 
+.table-header{
+  font-size: 14px;
+  padding-left: 5px;
+  font-weight: bold;
+}
 
+.gradebook {
+  border: 1px solid #CECED2;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

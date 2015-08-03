@@ -6,7 +6,7 @@ a service to allow for easier client side integration.
 
 angular.module('classroom.AuthFactory', [])
 
-.factory('Auth', ['$http', '$rootScope', function ($http, $rootScope) {
+.factory('Auth', function ($http, $rootScope) {
 
   /**
   This service function posts a username and password, setting the $rootScope.currentUser and then executes the callback.
@@ -20,16 +20,17 @@ angular.module('classroom.AuthFactory', [])
       method: 'POST',
       url: '/users/login',
       data: {
-        username: username,
+        email: username,
         password: password
       }
     }).then(function(res) {
       window.localStorage['jwtToken'] = res.data.token;
       $rootScope.currentUser = {
-        username: res.data.username,
+        name: res.data.name,
         role: res.data.role,
-        name: res.data.name
-      }
+        id: res.data.id
+      };
+
       // The res sent to callback is what is returned by our /users/login api
       // It is an object which contains a token, username,
       // and role (for now. we'll update this later).
@@ -76,7 +77,7 @@ angular.module('classroom.AuthFactory', [])
     })
     .then(function (res) {
       //set rootscope userdata
-      $rootScope.currentUser = {username: res.data.username, name: res.data.name, role: res.data.role};
+      $rootScope.currentUser = {name: res.data.name, role: res.data.role, id: res.data.id};
       cb();
     })
     .catch(function (err) {
@@ -89,4 +90,4 @@ angular.module('classroom.AuthFactory', [])
     signup: signup,
     refreshUser: refreshUser
   };
-}]);
+});

@@ -2,6 +2,7 @@ var User = require('../models/user.server.model');
 var jwt = require('jwt-simple');
 var jwtSecret = 'abc'; // CHANGE THIS BEFORE PRODUCTION! It should be an ENV var.
 
+// Returns an array of all users
 exports.list = function(req, res, next) {
   var data = [];
   new User().fetchAll().then(function(collection) {
@@ -12,7 +13,8 @@ exports.list = function(req, res, next) {
   });
 };
 
-exports.create = function(req, res, next) {
+// Creates a new user
+exports.signup = function(req, res, next) {
   var userData = req.body;
   User.add(userData, function(err, user) {
     if (err) {
@@ -25,12 +27,13 @@ exports.create = function(req, res, next) {
   });
 };
 
+// Refresh token
 exports.refresh = function (req, res, next) {
   var token = req.headers.authorization;
   var decoded = jwt.decode(token, 'abc');
-  var userInfo = {username: decoded.username, name: decoded.name, role: decoded.role};
+  var userInfo = {name: decoded.first_name + ' ' + decoded.last_name, role: decoded.role, id: decoded.id, token: token};
   res.json(userInfo);
-}
+};
 
 // Respond with a json object that contains the token
 // and whatever user data we need to send to the client.
@@ -40,7 +43,6 @@ exports.refresh = function (req, res, next) {
 // object by storing it in $rootScope.
 exports.authenticate = function(req, res, next) {
   var userData = req.body;
-  console.log(userData);
   User.authenticate(userData, function(err, user) {
     if (err) {
       console.log(err);
@@ -49,9 +51,9 @@ exports.authenticate = function(req, res, next) {
       var token = jwt.encode(user, jwtSecret);
       res.json({
         token: token,
-        username: user.get('username'),
-        name: user.get('name'),
-        role: user.get('role')
+        name: user.get('first_name') + ' ' + user.get('last_name'),
+        role: user.get('role'),
+        id: user.get('id')
       });
     }
   });

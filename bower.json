@@ -5,7 +5,11 @@
     "Devon Harvey",
     "Eric Ihli",
     "Jake Lee",
-    "Richard Stanley"
+    "Richard Stanley",
+    "Jason Martin",
+    "Dianna Faulk",
+    "Josh Tepei",
+    "Ben Steinberg"
   ],
   "license": "MIT",
   "ignore": [
@@ -19,7 +23,9 @@
     "angular-ui-router": "~0.2.15",
     "angular-bootstrap": "~0.13.0",
     "d3": "~3.5.5",
-    "dimple": "~2.1.2"
+    "dimple": "~2.1.2",
+    "moment": "~2.10.3",
+    "fullcalendar": "~2.3.2"
   },
   "devDependencies": {
     "jasmine": "~2.3.4"
