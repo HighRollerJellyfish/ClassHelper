@@ -22,7 +22,6 @@ exports.studentGrades = function(req, res, next) {
     }
 };
 
-
 // Returns a list of every student's grades in all assignments
 // for a given class
 exports.classGrades = function(req, res, next) {
@@ -44,7 +43,6 @@ exports.classGrades = function(req, res, next) {
   }
 
 };
-
 
 // Adds a grade or edits an existing grade
 exports.addOrEditGrade = function(req, res, next) {

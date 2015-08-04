@@ -6,9 +6,6 @@ This controller module is associated with the grades view and deals with grades 
 angular.module('classroom.grades', [])
 .controller('GradesController', ['$rootScope', '$scope', 'Grades', 'Classes', function ($rootScope, $scope, Grades, Classes) {
 
-
-  
-
   // Check if user is a teacher
   $scope.isTeacher = function () {
     return $rootScope.currentUser.role === 'teacher';
@@ -268,54 +265,4 @@ angular.module('classroom.grades', [])
   }
 
 }]);
-  /**************************************************************************/
-
-  /******* SHOW ALL STUDENTS AVG GRADES (LINE CHART) ***********************/
-
-  /**************************************************************************/
-
-  // Grades.getForUser($rootScope.currentUser.username).then(function(user){
-  //   var student = user.data[0].student;
-
-  //   Grades.getAll().then(function(data) {
-  //     var gradesData = angular.fromJson(data.data);
-  //     console.log(gradesData)
-  //     gradesData = averageData(gradesData);
-  //     console.log('averaged: ', gradesData)
-
-  //     // Data to be edited for chart creation
-  //     var numAtScore = [
-  //       {rank: 10, num: 0}, {rank: 20, num: 0}, {rank: 30, num: 0}, {rank: 40, num: 0}, {rank: 50, num: 0},
-  //       {rank: 60, num: 0}, {rank: 70, num: 0}, {rank: 80, num: 0}, {rank: 90, num: 0}, {rank: 100, num: 0}
-  //     ];
-
-  //     // Modify info from gradesData and input into numAtScore for chart creation
-  //     var max = 0; // used for y axis
-  //     gradesData.forEach(function(record){
-  //       var range = 10;
-  //       while (record.avg > range){
-  //         range += 10;
-  //       }
-
-  //       var index = range > 99 ? range.toString().slice(0,2)-1 : range.toString().slice(0,1)-1;
-
-  //       if (record.student === student){
-  //         numAtScore[index].student = student;
-  //       }
-  //       numAtScore[index].num += 1;
-  //       // store max number of students in a range to determine y axis
-  //       if (numAtScore[index].num > max) { max = numAtScore[index].num; }
-  //       console.log(range, index, numAtScore[index], record.student)
-  //     });
-
-  //     // Create chart
-  //     var svg = dimple.newSvg(".grades", 700, 500);
-  //     var myChart = new dimple.chart(svg, numAtScore);
-  //     var x = myChart.addCategoryAxis("x", "rank");
-  //     var y1 = myChart.addMeasureAxis("y", "num");
-  //     y1.overrideMax = max + 1;
-  //     var s1 = myChart.addSeries(null, dimple.plot.line, [x, y1]);
-  //     s1.interpolation = "cardinal";
-  //     myChart.draw();
-  //   });
-  // });
+ 

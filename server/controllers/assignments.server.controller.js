@@ -23,9 +23,7 @@ exports.getAssignments = function(req, res, next) {
           });
         }
       });
-    } else {
-
-    }
+    } 
   } else {
     return res.send("Invalid credentials");
   }
@@ -44,7 +42,6 @@ exports.getClassAssignments = function(req, res, next) {
   var class_id = req.param('class_id');
   var token = req.headers.authorization;
   if (token) {
-
     new Assignment.classAssignments(class_id, function(data) {
       return res.json(data);
     });

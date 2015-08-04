@@ -5,16 +5,15 @@ This is the controller module associated with the login page.
 
 angular.module('classroom.login', [])
 .controller('LoginController', ['$scope', '$rootScope', '$state', 'Auth', function ($scope, $rootScope, $state, Auth) {
+  $scope.email = "";
+  $scope.password = "";
+
   /**
   This method uses the services function of Auth.log to allow a user to login to the classroom sylabus.
   @method submit
   @param {String} username Username to be entered into the database.
   @param {String} password Password associated with the Username to be added into the database.
   */
-
-  $scope.email = "";
-  $scope.password = "";
-
   $scope.submit = function (email, password) {
 
     // Use the Auth factory to login a user.

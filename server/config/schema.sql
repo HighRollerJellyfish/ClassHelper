@@ -21,12 +21,6 @@ CREATE TABLE IF NOT EXISTS users (
   email VARCHAR(30) NOT NULL,
   password VARCHAR(100) NOT NULL,
   role VARCHAR(20) NOT NULL DEFAULT 'student',
-  -- DELETE BELOW --
-  -- name VARCHAR(45) NOT NULL,
-  -- username VARCHAR(20) NOT NULL,
-  -- created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  -- updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  -- DELETE ABOVE --
   PRIMARY KEY (id)
 );
 
@@ -87,40 +81,8 @@ CREATE TABLE IF NOT EXISTS grades (
   score INT NOT NULL,
   assignment_id INT NOT NULL,
   student_id INT NOT NULL,
-  -- DELETE BELOW --
-  -- student VARCHAR(20) NOT NULL,
-  -- lesson_title VARCHAR(45) NOT NULL,
-  -- created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  -- updated_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  -- DELETE ABOVE --
   PRIMARY KEY (id)
-  -- FOREIGN KEY (assignment_id) REFERENCES assignments(id),
-  -- FOREIGN KEY (student_id) REFERENCES users(id)
 );
-
-
--- ------------------------------------------------------
--- Table attendance
--- ------------------------------------------------------
-
--- CREATE TABLE IF NOT EXISTS attendance (
---   id INT NOT NULL AUTO_INCREMENT,
---   -- student_id INT NOT NULL,
---   -- lesson_id INT NOT NULL,
---   -- date DATETIME NOT NULL,
---   -- DELETE BELOW --
---   date VARCHAR(20) NOT NULL,
---   student VARCHAR(20) NOT NULL,
---   presence TINYINT(1) NOT NULL,
---   created_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
---   updated_at DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
---   -- DELETE ABOVE --
---   PRIMARY KEY (id)
---   -- FOREIGN KEY (student_id) REFERENCES users(id),
---   -- FOREIGN KEY (lesson_id) REFERENCES lessons(id)
--- );
-
-
 
 -- ------------------------------------------------------
 -- Table events
@@ -179,12 +141,6 @@ USE `classroom`;
 INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algorithms', '3');
 INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('American History', '3');
 INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algebra', '3');
--- INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algorithms', '2');
--- INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('American History', '2');
--- INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algebra', '2');
--- INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algorithms', '1');
--- INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('American History', '1');
--- INSERT INTO `classes` (`title`, `teacher_id`) VALUES ('Algebra', '1');
 
 COMMIT;
 
@@ -216,8 +172,8 @@ COMMIT;
 -- -----------------------------------------------------
 -- Data for table `assignments`
 -- -----------------------------------------------------
--- START TRANSACTION;
--- USE `classroom`;
+START TRANSACTION;
+USE `classroom`;
 INSERT INTO `events` (`title`, `description`, `class_id`, `start_date`, `end_date`) VALUES ('Field Trip to Zoo', 'First field trip.  Don\'t forget permission slips!', '1', '2015-07-06 08:30:15', '2014-07-06 14:30:15');
 INSERT INTO `events` (`title`, `description`, `class_id`, `start_date`, `end_date`) VALUES ('Review Session', 'We\'ll cover content that will be in the exam', '1', '2015-07-07 15:30:15', '2014-07-07 16:30:15');
 INSERT INTO `events` (`title`, `description`, `class_id`, `start_date`, `end_date`) VALUES ('After Hours', 'Cover any questions you have on the homework assignment', '1', '2015-07-08 15:30:15', '2014-07-08 16:30:15');
@@ -233,7 +189,6 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `classroom`;
-
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('75', '1', '1');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('55', '1', '2');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('85', '1', '4');
@@ -374,29 +329,8 @@ INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('89', '15'
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('76', '15', '9');
 INSERT INTO `grades` (`score`, `assignment_id`, `student_id`) VALUES ('92', '15', '10');
 
--- COMMIT;
+COMMIT;
 
-
--- -- -----------------------------------------------------
--- -- Data for table `attendance`
--- -- -----------------------------------------------------
--- START TRANSACTION;
--- USE `classroom`;
--- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-01', 'devon', '1');
--- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-02', 'devon', '0');
--- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-03', 'devon', '1');
--- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'devon', '1');
--- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-01', 'richard', '1');
--- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-02', 'richard', '1');
--- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-03', 'richard', '0');
--- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'richard', '1');
--- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
--- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
--- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
--- INSERT INTO `attendance` (`date`, `student`, `presence`) VALUES ('2015-07-04', 'eric', '1');
-
-
--- COMMIT;
 
 -- -----------------------------------------------------
 -- Data for table `enrollment`
@@ -412,8 +346,6 @@ INSERT INTO `enrollment` (`class_id`, `student_id`) VALUES ('2', '4');
 INSERT INTO `enrollment` (`class_id`, `student_id`) VALUES ('3', '1');
 INSERT INTO `enrollment` (`class_id`, `student_id`) VALUES ('3', '2');
 INSERT INTO `enrollment` (`class_id`, `student_id`) VALUES ('3', '4');
-
-
 
 COMMIT;
 

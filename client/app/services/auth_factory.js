@@ -33,9 +33,7 @@ angular.module('classroom.AuthFactory', [])
 
       // The res sent to callback is what is returned by our /users/login api
       // It is an object which contains a token, username,
-      // and role (for now. we'll update this later).
-      // Right now, the callback is storing the user info in localStorage
-      // but perhaps that logic would be better placed here.
+      // and role.
       cb(res);
     });
   };

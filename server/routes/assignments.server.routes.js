@@ -5,6 +5,4 @@ module.exports = function(app) {
   app.get('/assignments/class', assignments.getClassAssignments)
 
   app.post('/assignments/', assignments.addAssignment);
-
-
 };

@@ -1,7 +1,7 @@
 {
-  "name": "Classroom",
+  "name": "ClassHelper",
   "version": "0.0.1",
-  "description": "Team Product Owner: Richard Stanley Scrum Lord: Eric Ihli Product Team: Jake Lee, Devon Harvey",
+  "description": "Organize all your classroom data with ClassHelper",
   "main": "index.js",
   "scripts": {
     "start": "./start.sh",
@@ -10,14 +10,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/HighRollerJellyfish/HighRollerJellyfish.git"
+    "url": "https://github.com/HighRollerJellyfish/ClassHelper.git"
   },
-  "author": "HighRollerJellyFish",
+  "authors": [
+    "Devon Harvey",
+    "Eric Ihli",
+    "Jake Lee",
+    "Richard Stanley",
+    "Jason Martin",
+    "Dianna Faulk",
+    "Josh Tepei",
+    "Ben Steinberg"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/HighRollerJellyfish/HighRollerJellyfish/issues"
+    "url": "https://github.com/HighRollerJellyfish/ClassHelper/issues"
   },
-  "homepage": "https://github.com/HighRollerJellyfish/HighRollerJellyfish",
+  "homepage": "https://github.com/HighRollerJellyfish/ClassHelper",
   "dependencies": {
     "bcrypt": "^0.8.3",
     "body-parser": "^1.13.1",

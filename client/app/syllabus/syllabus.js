@@ -31,15 +31,6 @@ angular.module('classroom.syllabus', ['textAngular'])
     return date;
   };
 
-//   function(item) {
-//     var parts = item.dateString.split('-');
-//     var date = new Date(parseInt(parts[2],
-//                         parseInt(parts[1]),
-//                         parseInt(parts[0]));
-//
-//     return date;
-// };
-
   /**
   This function sets the current user as a teacher.
   @method isTeacher
@@ -78,11 +69,6 @@ angular.module('classroom.syllabus', ['textAngular'])
         $scope.lessons = "ERROR:" + data;
       });
   },1000);
-
-
-  // Lessons.getAll().then(function(data) {
-  //   $scope.lessons = angular.fromJson(data.data);
-  // });
 })
 
 .controller('textController', function($rootScope, $scope, $state, Lessons) {
@@ -108,5 +94,4 @@ angular.module('classroom.syllabus', ['textAngular'])
         console.error("Error with:", data);
       })
   };
-
 });

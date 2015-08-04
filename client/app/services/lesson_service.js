@@ -38,24 +38,4 @@ angular.module('classroom.LessonService', [])
   this.saveClassLesson = function(lesson) {
     return $http.post('/lessons', lesson);
   };
-
-  /**
-  This service function gets the lessons from the server.
-  @method add
-  @param {Object} lessonData Lesson data to be posted to server database.
-  @return {Function} Returns a $http() Post promise.
-  */
-  // this.add = function (lessonData) {
-  //   return $http({
-  //     method: 'POST',
-  //     url: '/lessons',
-  //     data: lessonData,
-  //     headers: {
-  //       'Authorization': window.localStorage.jwtToken
-  //     }
-  //   });
-  // };
-
-
-
 });
