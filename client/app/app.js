@@ -24,10 +24,6 @@ angular.module('classroom', [
   'textAngular'
 ])
 
-// .controller('MenuCtrl', ['$scope', '$rootScope', 'ClassService', function($scope, $rootScope, ClassService) {
-//   $scope.classes = Classes.getUserClasses(1);
-// }])
-
 .controller('MenuCtrl', ['$scope', '$rootScope', 'Classes', 'Events', 'Assignments', function($scope, $rootScope, Classes, Events, Assignments) {
   $scope.classes={};
 
@@ -61,36 +57,6 @@ angular.module('classroom', [
     }
 
   });
-
-  // if($rootScope.currentUser) {
-    // setTimeout(function() {
-      // console.log("Current User defined, running classes query");
-      // var classes = Classes.getUserClasses($rootScope.currentUser.id);
-      // classes.success(function(data) {
-      //   console.log("List of returned user classes:", data);
-      //   $scope.classes = data;
-      // })
-      // .error(function(data) {
-      //   console.error("Error getting data:", data);
-      // });
-    // }.bind($scope), 500);
-
-    // console.log("Current User defined, running classes query");
-    // var classes = Classes.getUserClasses($rootScope.currentUser.id);
-    // classes.success(function(data) {
-    //   console.log("List of returned user classes:", data);
-    //   $scope.classes = data;
-    // })
-    // .error(function(data) {
-    //   console.error("Error getting data:", data);
-    // });
-
-
-  // }
-  // else {
-  //   console.log("Current User not defined, not running classes query");
-  // }
-
 }])
 
 .controller('LogoutController', ['$scope', '$rootScope', '$state', function ($scope, $rootScope, $state) {
@@ -103,7 +69,6 @@ angular.module('classroom', [
   $scope.logout = function () {
     delete $rootScope.currentUser;
     delete localStorage.jwtToken;
-    //$state.go('login');
     window.location.reload('#/login');
   };
 }])
@@ -114,7 +79,6 @@ angular.module('classroom', [
 
     .state('syllabus', {
       url: '/syllabus/:class_id',
-      // params: ['class_id'],
       templateUrl: 'app/syllabus/syllabus.html',
       controller: 'SyllabusController',
       data: {
@@ -225,7 +189,6 @@ angular.module('classroom', [
   $scope.form = {};
 
   $scope.ok = function () {
-    //$modalInstance.close($scope.selected.item);
     var assignment = $scope.assignment;
     console.dir(assignment);
     assignment.class_id = Lessons.getCurrentClassID();
@@ -240,7 +203,6 @@ angular.module('classroom', [
       .error(function(data) {
         console.error("ERROR SAVING ASIGNMENT!");
       });
-    //Assignments.saveAssignment()
   };
 
   $scope.cancel = function () {
@@ -274,7 +236,6 @@ angular.module('classroom', [
         // the user is not logged in, so send them to the login page
         event.preventDefault();
         console.log("User must be logged in to view this page");
-        //$state.go('login');
         window.location.replace('#/login');
         location.reload();
       }

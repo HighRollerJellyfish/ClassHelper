@@ -4,7 +4,5 @@ module.exports = function(app) {
   app.get('/classes', classes.getClasses);
 
   app.post('/classes', classes.addClass);
-
   app.post('/enrollment', classes.addEnrollment);
-
 };

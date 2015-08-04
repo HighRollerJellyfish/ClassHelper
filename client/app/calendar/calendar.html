@@ -24,13 +24,6 @@
       var events = JSON.parse(sessionStorage.getItem("eventsData"));
       var assignments = JSON.parse(sessionStorage.getItem("assignmentsData"));
       var allData = events.concat(assignments);
-      // var classes = {};
-      // for (var i = 0; i < allData.length; i++) {
-      //   console.log(allData[i].class_title)
-      //   if(!classes.allData[i].class_title) {
-      //     classes.allData[i].class_title = 0;
-      //   }
-      // }
 
       $(window).resize(function() {
         $('#calendar').fullCalendar('option', 'height', getCalendarHeight());

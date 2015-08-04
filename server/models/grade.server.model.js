@@ -1,11 +1,9 @@
 var bookshelf = require('../config/db');
-// var knex = require('knex');
 
 var Grade = bookshelf.Model.extend({
   tableName: 'grades'
 });
 
-//
 Grade.addOrEdit = function(gradeData, callback) {
   new Grade().query({where: {student_id: gradeData.student_id, assignment_id: gradeData.assignment_id}})
   .fetch()
@@ -32,15 +30,6 @@ Grade.addOrEdit = function(gradeData, callback) {
 };
 
 Grade.studentGrades = function(student_id, callback) {
-  // bookshelf.knex('grades')
-  // .join('assignments', 'grades.assignment_id', '=', 'assignments.id')
-  // .join('classes', 'assignments.class_id', '=', 'classes.id')
-  // .select('grades.id', 'assignments.title', 'grades.score', 'grades.student_id', 'grades.assignment_id', 'assignments.class_id', 'classes.title')
-  // .where('grades.student_id', '=', student_id)
-  // .then(function(data) {
-  //   callback(data);
-  // });
-
   bookshelf.knex.raw(' \
     SELECT \
       grades.score AS grade, \
